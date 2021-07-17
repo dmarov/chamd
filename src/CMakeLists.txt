@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18.0)
-project(winkmemdx64 VERSION 1.0.0)
+project(chamd VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
@@ -17,16 +17,14 @@ string(REPLACE "/GR" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W4 /WX")
 
-wdk_add_driver(winkmemdx64 KMDF 1.15 "main.cpp" ${modules_src})
+wdk_add_driver(chamd KMDF 1.15 "dbkdrvr.c" ${modules_src})
 
-target_include_directories(winkmemdx64 PUBLIC "../../../src" PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
+target_include_directories(chamd PUBLIC "./src" PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 
-set_property(TARGET winkmemdx64 PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+set_property(TARGET chamd PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 configure_file(
-    "${CMAKE_SOURCE_DIR}/winkmemdx64.inf"
+    "${CMAKE_SOURCE_DIR}/chamd.inf"
     "${CMAKE_CURRENT_BINARY_DIR}"
     COPYONLY
 )
-
-add_library(winkmemdx64-api STATIC winkmemdx64-api.cpp)
