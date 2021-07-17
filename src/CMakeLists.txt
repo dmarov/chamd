@@ -1,21 +1,16 @@
 cmake_minimum_required(VERSION 3.18.0)
 project(chamd VERSION 1.0.0)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 file(GLOB modules_src
-    "./modules/*.cpp"
+    "./*.c"
 )
-
-if (MSVC)
-    add_compile_options(/std:c++17)
-endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/../wdk")
 find_package(WDK REQUIRED)
 string(REPLACE "/GR" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W4 /WX")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W1 /WX")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W1 /WX")
+add_definitions(-DTESTCOMPILE=1)
 
 wdk_add_driver(chamd KMDF 1.15 "dbkdrvr.c" ${modules_src})
 
