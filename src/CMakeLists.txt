@@ -43,7 +43,7 @@ set_target_properties(chamd
 )
 
 configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/chamd.inf"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../templates/chamd.inf"
     "${CMAKE_CURRENT_BINARY_DIR}"
     COPYONLY
 )
