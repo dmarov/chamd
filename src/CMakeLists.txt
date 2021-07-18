@@ -26,8 +26,6 @@ wdk_add_driver(chamd KMDF 1.15
     "${CMAKE_CURRENT_SOURCE_DIR}/vmxhelper.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/vmxoffload.c"
 
-    "${CMAKE_CURRENT_SOURCE_DIR}/constants.h" # put all constants here so it's easier to change
-
     "${CMAKE_CURRENT_SOURCE_DIR}/amd64/dbkfunca.asm"
     "${CMAKE_CURRENT_SOURCE_DIR}/amd64/debuggera.asm"
     "${CMAKE_CURRENT_SOURCE_DIR}/amd64/noexceptionsa.asm"

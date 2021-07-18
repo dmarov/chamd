@@ -1,6 +1,7 @@
 #pragma warning( disable: 4100 4101 4103)
 
 
+#include "constants.h"
 #include "IOPLDispatcher.h"
 #include "DBKFunc.h"
 #include "DBKDrvr.h"
