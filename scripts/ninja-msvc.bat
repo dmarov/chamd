@@ -27,7 +27,7 @@ if exist %vcvars_community% (
 
 call %vcvars% %vars_arch%
 
-cmake -G "Ninja" "%~dp0/../src"^
+cmake -G "Ninja" "%~dp0/../src/"^
  "-DCMAKE_EXPORT_COMPILE_COMMANDS=1"^
  "-DCMAKE_BUILD_TYPE=%build_type%"
 

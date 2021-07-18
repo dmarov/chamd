@@ -1,0 +1,56 @@
+﻿  Building 'DBKKernel' with toolset 'WindowsKernelModeDriver10.0' and the 'Desktop' target platform.
+  Stamping x64\Release\DBK64.inf
+  Stamping [Version] section with DriverVer=04/24/2021,18.19.43.209
+C:\Users\mds3d\repos\cheat-engine\DBKKernel\DBK64.inf(5-5): warning 1324: [Version] section should specify PnpLockdown=1.
+  Assembling amd64\dbkfunca.asm...
+  Assembling amd64\debuggera.asm...
+  Assembling amd64\noexceptionsa.asm...
+  Assembling amd64\ultimapa.asm...
+  Assembling amd64\vmxhelpera.asm...
+  Assembling amd64\vmxoffloada.asm...
+  DBKDrvr.c
+  DBKFunc.c
+  debugger.c
+  deepkernel.c
+  interruptHook.c
+  IOPLDispatcher.c
+  memscan.c
+  noexceptions.c
+  processlist.c
+  threads.c
+  ultimap.c
+  ultimap2.c
+  apic.c
+  vmxhelper.c
+  vmxoffload.c
+  Generating Code...
+  sigcheck.c
+  DBKKernel.vcxproj -> C:\Users\mds3d\repos\cheat-engine\Cheat Engine\bin\DBK64.sys
+  Done Adding Additional Store
+  Successfully signed: C:\Users\mds3d\repos\cheat-engine\Cheat Engine\bin\DBK64.sys
+  
+  .........................
+  Signability test complete.
+  
+  Errors:
+  None
+  
+  Warnings:
+  None
+  
+  Catalog generation complete.
+  C:\Users\mds3d\repos\cheat-engine\Cheat Engine\bin\DBKKernel\dbk64.cat
+  Done Adding Additional Store
+  Successfully signed: ..\Cheat Engine\bin\DBKKernel\dbk64.cat
+  
+  Generate and sign CAB
+          1 file(s) copied.
+  Cabinet Maker - Lossless Data Compression Tool
+  
+EXEC : error : Could not find file: C:\Users\mds3d\repos\cheat-engine\DBKKernel\\dbk64.ddf
+EXEC : SignTool error : No certificates were found that met all the given criteria.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(155,5): error MSB3073: The command "cd C:\Users\mds3d\repos\cheat-engine\DBKKernel\..\Cheat Engine\bin\DBKKernel\
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(155,5): error MSB3073: copy ..\dbk64.pdb .
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(155,5): error MSB3073: makecab /f "C:\Users\mds3d\repos\cheat-engine\DBKKernel\\dbk64.ddf"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(155,5): error MSB3073: "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86\signtool.exe" sign /v /ac "..\..\release\sig\GlobalSign Root CA.crt" /n "Cheat Engine" /t http://timestamp.globalsign.com/scripts/timstamp.dll disk1\dbk64.cab
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(155,5): error MSB3073: :VCEnd" exited with code 1.

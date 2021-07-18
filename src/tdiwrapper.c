@@ -15,56 +15,56 @@ KSPIN_LOCK SendLock;
 
 NTSTATUS TdiFuncs_OpenTransportAddress(PHANDLE pTdiHandle, PFILE_OBJECT *pFileObject)
 {
-        NTSTATUS ntStatus = STATUS_INSUFFICIENT_RESOURCES;  
-        UNICODE_STRING usTdiDriverNameString;
-        OBJECT_ATTRIBUTES oaTdiDriverNameAttributes;
-        char DataBlob[sizeof(FILE_FULL_EA_INFORMATION) + TDI_TRANSPORT_ADDRESS_LENGTH + 300] = {0};
-        PFILE_FULL_EA_INFORMATION pExtendedAttributesInformation = (PFILE_FULL_EA_INFORMATION)&DataBlob;
-        PTRANSPORT_ADDRESS pTransportAddress = NULL;
-        PTDI_ADDRESS_IP pTdiAddressIp = NULL;
-        UINT dwEASize = 0;
-        IO_STATUS_BLOCK IoStatusBlock;
+		NTSTATUS ntStatus = STATUS_INSUFFICIENT_RESOURCES;	
+		UNICODE_STRING usTdiDriverNameString;
+		OBJECT_ATTRIBUTES oaTdiDriverNameAttributes;
+		char DataBlob[sizeof(FILE_FULL_EA_INFORMATION) + TDI_TRANSPORT_ADDRESS_LENGTH + 300] = {0};
+		PFILE_FULL_EA_INFORMATION pExtendedAttributesInformation = (PFILE_FULL_EA_INFORMATION)&DataBlob;
+		PTRANSPORT_ADDRESS pTransportAddress = NULL;
+		PTDI_ADDRESS_IP pTdiAddressIp = NULL;
+		UINT dwEASize = 0;
+		IO_STATUS_BLOCK IoStatusBlock;
 
 
-        RtlInitUnicodeString(&usTdiDriverNameString, L"\\Device\\TCP");
-        InitializeObjectAttributes(&oaTdiDriverNameAttributes,&usTdiDriverNameString,
-            OBJ_CASE_INSENSITIVE | OBJ_KERNEL_HANDLE, 
-            NULL,NULL);
+		RtlInitUnicodeString(&usTdiDriverNameString, L"\\Device\\TCP");
+		InitializeObjectAttributes(&oaTdiDriverNameAttributes,&usTdiDriverNameString,
+			OBJ_CASE_INSENSITIVE | OBJ_KERNEL_HANDLE, 
+			NULL,NULL);
 
-        RtlCopyMemory(&pExtendedAttributesInformation->EaName,TdiTransportAddress,TDI_TRANSPORT_ADDRESS_LENGTH);
-        pExtendedAttributesInformation->EaNameLength = TDI_TRANSPORT_ADDRESS_LENGTH;
-        pExtendedAttributesInformation->EaValueLength= TDI_TRANSPORT_ADDRESS_LENGTH+sizeof(TRANSPORT_ADDRESS)+sizeof(TDI_ADDRESS_IP);
+		RtlCopyMemory(&pExtendedAttributesInformation->EaName,TdiTransportAddress,TDI_TRANSPORT_ADDRESS_LENGTH);
+		pExtendedAttributesInformation->EaNameLength = TDI_TRANSPORT_ADDRESS_LENGTH;
+		pExtendedAttributesInformation->EaValueLength= TDI_TRANSPORT_ADDRESS_LENGTH+sizeof(TRANSPORT_ADDRESS)+sizeof(TDI_ADDRESS_IP);
 
-        pTransportAddress =(PTRANSPORT_ADDRESS)(&pExtendedAttributesInformation->EaName+TDI_TRANSPORT_ADDRESS_LENGTH + 1);
-        pTransportAddress->TAAddressCount = 1;
+		pTransportAddress =(PTRANSPORT_ADDRESS)(&pExtendedAttributesInformation->EaName+TDI_TRANSPORT_ADDRESS_LENGTH + 1);
+		pTransportAddress->TAAddressCount = 1;
 
-        pTransportAddress->Address[0].AddressType    = TDI_ADDRESS_TYPE_IP;
-        pTransportAddress->Address[0].AddressLength  = sizeof(TDI_ADDRESS_IP);
-        pTdiAddressIp = (TDI_ADDRESS_IP *)&pTransportAddress->Address[0].Address;
+		pTransportAddress->Address[0].AddressType    = TDI_ADDRESS_TYPE_IP;
+		pTransportAddress->Address[0].AddressLength  = sizeof(TDI_ADDRESS_IP);
+		pTdiAddressIp = (TDI_ADDRESS_IP *)&pTransportAddress->Address[0].Address;
 
-        RtlZeroMemory(pTdiAddressIp, sizeof(TDI_ADDRESS_IP));
-        pTdiAddressIp->sin_port=0x4444;
+		RtlZeroMemory(pTdiAddressIp, sizeof(TDI_ADDRESS_IP));
+		pTdiAddressIp->sin_port=0x4444;
 
-        dwEASize = sizeof(DataBlob);
+		dwEASize = sizeof(DataBlob);
 
-        ntStatus = ZwCreateFile(pTdiHandle, FILE_READ_EA | FILE_WRITE_EA | FILE_READ_DATA , 
-                                    &oaTdiDriverNameAttributes, 
-                                    &IoStatusBlock, NULL, FILE_ATTRIBUTE_NORMAL, 0, FILE_OPEN_IF, 0, 
-                                    pExtendedAttributesInformation, dwEASize);
+		ntStatus = ZwCreateFile(pTdiHandle, FILE_READ_EA | FILE_WRITE_EA | FILE_READ_DATA , 
+									&oaTdiDriverNameAttributes, 
+									&IoStatusBlock, NULL, FILE_ATTRIBUTE_NORMAL, 0, FILE_OPEN_IF, 0, 
+									pExtendedAttributesInformation, dwEASize);
 
-        if (NT_SUCCESS(ntStatus))
-        {
+		if (NT_SUCCESS(ntStatus))
+		{
 
-            ntStatus = ObReferenceObjectByHandle(*pTdiHandle,
+			ntStatus = ObReferenceObjectByHandle(*pTdiHandle,
                         GENERIC_READ | GENERIC_WRITE, 
                         NULL, 
                         KernelMode, 
                         (PVOID *)pFileObject, NULL);  
-            if (!NT_SUCCESS(ntStatus))
-                ZwClose(*pTdiHandle);
-        }
+			if (!NT_SUCCESS(ntStatus))
+				ZwClose(*pTdiHandle);
+		}
 
-        return ntStatus;
+		return ntStatus;
 
 }
 
@@ -80,13 +80,13 @@ NTSTATUS TdiFuncs_OpenConnection(PHANDLE pTdiHandle, PFILE_OBJECT *pFileObject)
                     (PFILE_FULL_EA_INFORMATION)&DataBlob;
     UINT dwEASize = 0;
         
-    RtlInitUnicodeString(&usTdiDriverNameString, L"\\Device\\TCP");
+	RtlInitUnicodeString(&usTdiDriverNameString, L"\\Device\\TCP");
     InitializeObjectAttributes(&oaTdiDriverNameAttributes, 
             &usTdiDriverNameString, 
             OBJ_CASE_INSENSITIVE | OBJ_KERNEL_HANDLE, 
             NULL, NULL);
 
-    
+	
     RtlCopyMemory(&pExtendedAttributesInformation->EaName, 
                         TdiConnectionContext, TDI_CONNECTION_CONTEXT_LENGTH);
 
@@ -97,13 +97,13 @@ NTSTATUS TdiFuncs_OpenConnection(PHANDLE pTdiHandle, PFILE_OBJECT *pFileObject)
  
     dwEASize = sizeof(DataBlob);
 
-    ntStatus = ZwCreateFile(pTdiHandle, 
+	ntStatus = ZwCreateFile(pTdiHandle, 
         FILE_READ_DATA | FILE_READ_EA | FILE_WRITE_EA, &oaTdiDriverNameAttributes,
          &IoStatusBlock, NULL, 
          FILE_ATTRIBUTE_NORMAL, 0, FILE_OPEN_IF, 0, 
          pExtendedAttributesInformation, dwEASize);
 
-    DbgPrint("status= %x\n",ntStatus);
+	DbgPrint("status= %x\n",ntStatus);
 
 
      if(NT_SUCCESS(ntStatus))
@@ -113,14 +113,14 @@ NTSTATUS TdiFuncs_OpenConnection(PHANDLE pTdiHandle, PFILE_OBJECT *pFileObject)
                           NULL, KernelMode, 
                          (PVOID *)pFileObject, NULL);      
 
-          
+		  
          if(!NT_SUCCESS(ntStatus))
          {
              DbgPrint("ObReferenceObjectByHandle failed\n");
              ZwClose(*pTdiHandle);
          }
      }
-     
+	 
      return ntStatus;
 }
 
@@ -130,12 +130,12 @@ NTSTATUS TdiFuncs_AssociateTransportAndConnection(HANDLE hTransportAddress, PFIL
     PIRP pIrp;
     IO_STATUS_BLOCK IoStatusBlock = {0};
     PDEVICE_OBJECT pTdiDevice;
-    KEVENT TdiCompleteEvent;
+	KEVENT TdiCompleteEvent;
 
     KeInitializeEvent(&TdiCompleteEvent,  NotificationEvent, FALSE);
 
     pTdiDevice = IoGetRelatedDeviceObject(pfoConnection);
-    pIrp = TdiBuildInternalDeviceControlIrp(TDI_ASSOCIATE_ADDRESS, pTdiDevice, pfoConnection, &TdiCompleteEvent, &IoStatusBlock);
+	pIrp = TdiBuildInternalDeviceControlIrp(TDI_ASSOCIATE_ADDRESS, pTdiDevice, pfoConnection, &TdiCompleteEvent, &IoStatusBlock);
 
     if(pIrp)
     {
@@ -157,12 +157,12 @@ NTSTATUS TdiFuncs_DisAssociateTransportAndConnection(PFILE_OBJECT pfoConnection)
     PIRP pIrp;
     IO_STATUS_BLOCK IoStatusBlock = {0};
     PDEVICE_OBJECT pTdiDevice;
-    KEVENT TdiCompleteEvent;
+	KEVENT TdiCompleteEvent;
 
     KeInitializeEvent(&TdiCompleteEvent,  NotificationEvent, FALSE);
 
     pTdiDevice = IoGetRelatedDeviceObject(pfoConnection);
-    pIrp = TdiBuildInternalDeviceControlIrp(TDI_DISASSOCIATE_ADDRESS, pTdiDevice, pfoConnection, &TdiCompleteEvent, &IoStatusBlock);
+	pIrp = TdiBuildInternalDeviceControlIrp(TDI_DISASSOCIATE_ADDRESS, pTdiDevice, pfoConnection, &TdiCompleteEvent, &IoStatusBlock);
 
     if(pIrp)
     {
@@ -187,18 +187,18 @@ NTSTATUS TdiFuncs_SetEventHandler(PFILE_OBJECT pfoTdiFileObject, LONG InEventTyp
     PDEVICE_OBJECT pTdiDevice;
     KEVENT TdiCompletionContext;
 
-    DbgPrint("SetEventHandler:\n");
+	DbgPrint("SetEventHandler:\n");
     KeInitializeEvent(&TdiCompletionContext, NotificationEvent, FALSE);
 
     pTdiDevice = IoGetRelatedDeviceObject(pfoTdiFileObject);    
-    DbgPrint("pTdiDevice=%p\n",pTdiDevice);
+	DbgPrint("pTdiDevice=%p\n",pTdiDevice);
     pIrp = TdiBuildInternalDeviceControlIrp(TDI_SET_EVENT_HANDLER, pTdiDevice, pfoConnection, &TdiCompletionContext, &IoStatusBlock);
 
     if(pIrp)
     {        
         TdiBuildSetEventHandler(pIrp, pTdiDevice, pfoTdiFileObject, NULL, NULL, InEventType, InEventHandler, InEventContext);
 
-        DbgPrint("Calling IoCallDriver\n");
+		DbgPrint("Calling IoCallDriver\n");
         ntStatus = IoCallDriver(pTdiDevice, pIrp);
 
         if(ntStatus == STATUS_PENDING)
@@ -207,12 +207,12 @@ NTSTATUS TdiFuncs_SetEventHandler(PFILE_OBJECT pfoTdiFileObject, LONG InEventTyp
             ntStatus = IoStatusBlock.Status;
         }
 
-        DbgPrint("Set event handler finished\n");
+		DbgPrint("Set event handler finished\n");
 
     }
-    else DbgPrint("TdiBuildInternalDeviceControlIrp failed\n");
+	else DbgPrint("TdiBuildInternalDeviceControlIrp failed\n");
 
-    DbgPrint("Status=%x\n",ntStatus);
+	DbgPrint("Status=%x\n",ntStatus);
 
     return ntStatus;
 }
@@ -223,20 +223,20 @@ NTSTATUS TdiFuncs_Disconnect(PFILE_OBJECT pfoConnection)
     PIRP pIrp;
     IO_STATUS_BLOCK IoStatusBlock = {0};
     PDEVICE_OBJECT pTdiDevice;
-    KEVENT TdiCompleteEvent;
-    TDI_CONNECTION_INFORMATION remotenoderequest;
+	KEVENT TdiCompleteEvent;
+	TDI_CONNECTION_INFORMATION remotenoderequest;
 
     KeInitializeEvent(&TdiCompleteEvent,  NotificationEvent, FALSE);
 
     pTdiDevice = IoGetRelatedDeviceObject(pfoConnection);
-    pIrp = TdiBuildInternalDeviceControlIrp(TDI_Disconnect, pTdiDevice, pfoConnection, &TdiCompleteEvent, &IoStatusBlock);
+	pIrp = TdiBuildInternalDeviceControlIrp(TDI_Disconnect, pTdiDevice, pfoConnection, &TdiCompleteEvent, &IoStatusBlock);
 
     if(pIrp)
     {
-        RtlZeroMemory(&remotenoderequest,sizeof(TDI_CONNECTION_INFORMATION));
-        remotenoderequest.Options=0;
-        remotenoderequest.OptionsLength=sizeof(ULONG);
-    
+		RtlZeroMemory(&remotenoderequest,sizeof(TDI_CONNECTION_INFORMATION));
+		remotenoderequest.Options=0;
+		remotenoderequest.OptionsLength=sizeof(ULONG);
+	
         TdiBuildDisconnect(pIrp, pTdiDevice,pfoConnection, NULL,NULL,NULL,TDI_DISCONNECT_ABORT,NULL,NULL);
 
         ntStatus = IoCallDriver(pTdiDevice, pIrp);
@@ -257,20 +257,20 @@ NTSTATUS TdiFuncs_Listen(PFILE_OBJECT pfoConnection)
     PIRP pIrp;
     IO_STATUS_BLOCK IoStatusBlock = {0};
     PDEVICE_OBJECT pTdiDevice;
-    KEVENT TdiCompleteEvent;
-    TDI_CONNECTION_INFORMATION remotenoderequest;
+	KEVENT TdiCompleteEvent;
+	TDI_CONNECTION_INFORMATION remotenoderequest;
 
     KeInitializeEvent(&TdiCompleteEvent,  NotificationEvent, FALSE);
 
     pTdiDevice = IoGetRelatedDeviceObject(pfoConnection);
-    pIrp = TdiBuildInternalDeviceControlIrp(TDI_LISTEN, pTdiDevice, pfoConnection, &TdiCompleteEvent, &IoStatusBlock);
+	pIrp = TdiBuildInternalDeviceControlIrp(TDI_LISTEN, pTdiDevice, pfoConnection, &TdiCompleteEvent, &IoStatusBlock);
 
     if(pIrp)
     {
-        RtlZeroMemory(&remotenoderequest,sizeof(TDI_CONNECTION_INFORMATION));
-        remotenoderequest.Options=0;
-        remotenoderequest.OptionsLength=sizeof(ULONG);
-    
+		RtlZeroMemory(&remotenoderequest,sizeof(TDI_CONNECTION_INFORMATION));
+		remotenoderequest.Options=0;
+		remotenoderequest.OptionsLength=sizeof(ULONG);
+	
         TdiBuildListen(pIrp, pTdiDevice,pfoConnection, NULL, NULL,0,&remotenoderequest,NULL);
 
         ntStatus = IoCallDriver(pTdiDevice, pIrp);
@@ -280,7 +280,7 @@ NTSTATUS TdiFuncs_Listen(PFILE_OBJECT pfoConnection)
             ntStatus = IoStatusBlock.Status;
         }
 
-        DbgPrint("Done waiting:%x\n",ntStatus);     
+		DbgPrint("Done waiting:%x\n",ntStatus);		
     }
 
     return ntStatus;
@@ -294,11 +294,11 @@ NTSTATUS TdiFuncs_Receive(PFILE_OBJECT pfoConnection, PVOID pBuffer, UINT uiRece
     IO_STATUS_BLOCK IoStatusBlock = {0};
     PDEVICE_OBJECT pTdiDevice;
     PMDL pReceiveMdl;
-    
+	
     KeInitializeEvent(&TdiListenCompleteEvent, NotificationEvent, FALSE);
 
     pTdiDevice = IoGetRelatedDeviceObject(pfoConnection);
-    *pDataReceived = 0;
+	*pDataReceived = 0;
 
     pReceiveMdl = IoAllocateMdl((PCHAR)pBuffer, uiReceiveLength, FALSE, FALSE, NULL);
     if(pReceiveMdl)
@@ -340,30 +340,30 @@ NTSTATUS TdiFuncs_Send(PFILE_OBJECT pfoConnection, PVOID pData, UINT uiSendLengt
     IO_STATUS_BLOCK IoStatusBlock = {0};
     PDEVICE_OBJECT pTdiDevice;
     PMDL pSendMdl;
-    KEVENT TdiCompleteEvent;
+	KEVENT TdiCompleteEvent;
 
     KeInitializeEvent(&TdiCompleteEvent, NotificationEvent, FALSE);
 
     pTdiDevice = IoGetRelatedDeviceObject(pfoConnection);
-    *pDataSent = 0;
+	*pDataSent = 0;
 
     pSendMdl = IoAllocateMdl((PCHAR )pData, uiSendLength, FALSE, FALSE, NULL);
 
     if(pSendMdl)
-    {       
+    {		
         __try 
-        {
+		{
             MmProbeAndLockPages(pSendMdl, KernelMode, IoModifyAccess);
         }
-        __except (EXCEPTION_EXECUTE_HANDLER) 
-        {
+		__except (EXCEPTION_EXECUTE_HANDLER) 
+		{
                 IoFreeMdl(pSendMdl);
                 pSendMdl = NULL;
         };
 
         if(pSendMdl)
         {    
-            pIrp = TdiBuildInternalDeviceControlIrp(TDI_SEND, pTdiDevice, pfoConnection,  &TdiCompleteEvent, &IoStatusBlock);
+			pIrp = TdiBuildInternalDeviceControlIrp(TDI_SEND, pTdiDevice, pfoConnection,  &TdiCompleteEvent, &IoStatusBlock);
         
             if(pIrp)
             {
@@ -373,7 +373,7 @@ NTSTATUS TdiFuncs_Send(PFILE_OBJECT pfoConnection, PVOID pData, UINT uiSendLengt
                 if(ntStatus == STATUS_PENDING)
                     KeWaitForSingleObject(&TdiCompleteEvent, Executive, KernelMode, FALSE, NULL);
 
-                ntStatus   = IoStatusBlock.Status;
+				ntStatus   = IoStatusBlock.Status;
                 *pDataSent = (UINT)IoStatusBlock.Information;
             }
         }
@@ -384,133 +384,131 @@ NTSTATUS TdiFuncs_Send(PFILE_OBJECT pfoConnection, PVOID pData, UINT uiSendLengt
 
 NTSTATUS ClientEventDisconnect(PVOID TdiEventContext, CONNECTION_CONTEXT ConnectionContext, IN LONG DisconnectDataLength, IN PVOID DisconnectData, IN LONG DisconnectInformationLength, IN PVOID DisconnectInformation, IN ULONG  DisconnectFlags)
 {
-    DbgPrint("Disconnect\n");
-    connected=FALSE;
-    KeSetEvent(&TdiListenCompleteEvent,0,FALSE);
-    return STATUS_SUCCESS;
+	DbgPrint("Disconnect\n");
+	connected=FALSE;
+	KeSetEvent(&TdiListenCompleteEvent,0,FALSE);
+	return STATUS_SUCCESS;
 }
 
 void InitServer(void)
 {
-    NTSTATUS    ntStatus;
+	NTSTATUS	ntStatus;
     TdiHandleTransport=NULL;
     FileObjectTransport=NULL;
 
-    KeInitializeSpinLock(&SendLock);
+	KeInitializeSpinLock(&SendLock);
 
-    ntStatus=TdiFuncs_OpenTransportAddress(&TdiHandleTransport,&FileObjectTransport);
+	ntStatus=TdiFuncs_OpenTransportAddress(&TdiHandleTransport,&FileObjectTransport);
 
-    if (NT_SUCCESS(ntStatus))
-    {
-        TdiHandleConnection=NULL;
-        FileObjectConnection=NULL;
+	if (NT_SUCCESS(ntStatus))
+	{
+	    TdiHandleConnection=NULL;
+	    FileObjectConnection=NULL;
 
-        ntStatus=TdiFuncs_OpenConnection(&TdiHandleConnection,&FileObjectConnection);
-        if (NT_SUCCESS(ntStatus))
-        {
-            DbgPrint("OpenConnection successful\n");
+		ntStatus=TdiFuncs_OpenConnection(&TdiHandleConnection,&FileObjectConnection);
+		if (NT_SUCCESS(ntStatus))
+		{
+			DbgPrint("OpenConnection successful\n");
 
-            ntStatus=TdiFuncs_AssociateTransportAndConnection(TdiHandleTransport,FileObjectConnection);
-            if (NT_SUCCESS(ntStatus))
-            {
-                
-                DbgPrint("AssociateTransportAndConnection successfull:%d\n",KeGetCurrentIrql());
-                ntStatus=TdiFuncs_SetEventHandler(FileObjectTransport,TDI_EVENT_DISCONNECT,ClientEventDisconnect,NULL);
-                if (NT_SUCCESS(ntStatus))
-                    DbgPrint("Registered Disconnect Event\n");              
-            }
-            else
-                DbgPrint("AssociateTransportAndConnection failed!\n");
-
-
-        }
-        else
-            DbgPrint("OpenConnection Failed\n");            
+			ntStatus=TdiFuncs_AssociateTransportAndConnection(TdiHandleTransport,FileObjectConnection);
+			if (NT_SUCCESS(ntStatus))
+			{
+				
+				DbgPrint("AssociateTransportAndConnection successfull:%d\n",KeGetCurrentIrql());
+				ntStatus=TdiFuncs_SetEventHandler(FileObjectTransport,TDI_EVENT_DISCONNECT,ClientEventDisconnect,NULL);
+				if (NT_SUCCESS(ntStatus))
+					DbgPrint("Registered Disconnect Event\n");				
+			}
+			else
+				DbgPrint("AssociateTransportAndConnection failed!\n");
 
 
-    }
-    DbgPrint("Exit InitServer\n");
-    return;
+		}
+		else
+			DbgPrint("OpenConnection Failed\n");            
+
+
+	}
+	DbgPrint("Exit InitServer\n");
+	return;
 }
 
 BOOLEAN Listen()
 {
-    connected=NT_SUCCESS(TdiFuncs_Listen(FileObjectConnection));    
-    return connected;
+	connected=NT_SUCCESS(TdiFuncs_Listen(FileObjectConnection)); 	
+	return connected;
 }
 
 
 BOOLEAN Send(PVOID Buffer,ULONG size)
 {
-    //only call with paged memory, do not point directly to a address in the memory of a process
-    ULONG DataSent=0,DataSent2=0;
-    PCHAR b=Buffer;
-    NTSTATUS ntStatus;
+	//only call with paged memory, do not point directly to a address in the memory of a process
+	ULONG DataSent=0,DataSent2=0;
+	PCHAR b=Buffer;
+	NTSTATUS ntStatus;
 
-    if ((LONGLONG)Buffer<0x80000000)
-    {
-        return FALSE;
-    }
+	if ((ULONG)Buffer<0x80000000)
+		return FALSE;
 
-    ntStatus=STATUS_SUCCESS;
+	ntStatus=STATUS_SUCCESS;
 
-    if (!connected) return FALSE;
+	if (!connected) return FALSE;
 
-    ntStatus=ZwWaitForSingleObject(SendEvent,FALSE,NULL);
-    DbgPrint("ZwWaitForSingleObject:ntStatus=%x\n",ntStatus);
+	ntStatus=ZwWaitForSingleObject(SendEvent,FALSE,NULL);
+	DbgPrint("ZwWaitForSingleObject:ntStatus=%x\n",ntStatus);
 
-    if (NT_SUCCESS(ntStatus))
-    {       
-        __try
-        {
-            __try
-            {
-                if (!connected) return FALSE;
+	if (NT_SUCCESS(ntStatus))
+	{		
+		__try
+		{
+			__try
+			{
+				if (!connected) return FALSE;
 
-                while ((connected) && (NT_SUCCESS(ntStatus)) && (DataSent<size))
-                {
-                    ntStatus=TdiFuncs_Send(FileObjectConnection,&b[DataSent],size-DataSent,&DataSent2);
-                    DataSent+=DataSent2;
-                }
-            }
-            __finally
-            {
-                ntStatus=ZwSetEvent(SendEvent,NULL);
-                DbgPrint("ZwSetEvent:ntStatus=%x\n",ntStatus);
+				while ((connected) && (NT_SUCCESS(ntStatus)) && (DataSent<size))
+				{
+					ntStatus=TdiFuncs_Send(FileObjectConnection,&b[DataSent],size-DataSent,&DataSent2);
+					DataSent+=DataSent2;
+				}
+			}
+			__finally
+			{
+				ntStatus=ZwSetEvent(SendEvent,NULL);
+				DbgPrint("ZwSetEvent:ntStatus=%x\n",ntStatus);
 
-                if (!NT_SUCCESS(ntStatus))
-                    DbgPrint("Failed to Set Event\n");
-            }
-        }
-        __except(1)
-        {
-            return FALSE;
-        }
-    }
-    else
-    {
+				if (!NT_SUCCESS(ntStatus))
+					DbgPrint("Failed to Set Event\n");
+			}
+		}
+		__except(1)
+		{
+			return FALSE;
+		}
+	}
+	else
+	{
         DbgPrint("Failed to wait\n");
-        return FALSE;
-    }
+		return FALSE;
+	}
 
 
-    if (!connected) return FALSE;
-    return (NT_SUCCESS(ntStatus) && connected);
+	if (!connected) return FALSE;
+	return (NT_SUCCESS(ntStatus) && connected);
 }
 
 BOOLEAN Receive(PVOID Buffer,ULONG size)
 {
-    ULONG DataReceived=0,DataReceived2=0;
-    NTSTATUS ntStatus;
-    PCHAR b=Buffer;
-    ntStatus=STATUS_SUCCESS;
+	ULONG DataReceived=0,DataReceived2=0;
+	NTSTATUS ntStatus;
+	PCHAR b=Buffer;
+	ntStatus=STATUS_SUCCESS;
 
-    while ((connected) && (NT_SUCCESS(ntStatus)) && (DataReceived<size))
-    {
-        ntStatus=TdiFuncs_Receive(FileObjectConnection,&b[DataReceived],size-DataReceived,&DataReceived2);
-        DataReceived+=DataReceived2;
-    }
-    if (!connected) return FALSE;
+	while ((connected) && (NT_SUCCESS(ntStatus)) && (DataReceived<size))
+	{
+		ntStatus=TdiFuncs_Receive(FileObjectConnection,&b[DataReceived],size-DataReceived,&DataReceived2);
+		DataReceived+=DataReceived2;
+	}
+	if (!connected) return FALSE;
 
     return NT_SUCCESS(ntStatus);
 }
@@ -518,9 +516,9 @@ BOOLEAN Receive(PVOID Buffer,ULONG size)
 BOOLEAN Disconnect()
 {
     NTSTATUS ntStatus;
-    ntStatus=TdiFuncs_Disconnect(FileObjectConnection);
+	ntStatus=TdiFuncs_Disconnect(FileObjectConnection);
 
-    //if NT_SUCCESS(ntStatus)
-        connected=FALSE;
-    return NT_SUCCESS(ntStatus);
+	//if NT_SUCCESS(ntStatus)
+		connected=FALSE;
+	return NT_SUCCESS(ntStatus);
 }
