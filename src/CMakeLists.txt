@@ -19,7 +19,6 @@ wdk_add_driver(chamd KMDF 1.15
     "${CMAKE_CURRENT_SOURCE_DIR}/memscan.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/noexceptions.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/processlist.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/sigcheck.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/threads.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/ultimap.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/ultimap2.c"
@@ -38,7 +37,7 @@ wdk_add_driver(chamd KMDF 1.15
 target_include_directories(chamd PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}" PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 
 configure_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/chamd.inf"
+    "${CMAKE_CURRENT_SOURCE_DIR}/chamd.inf"
     "${CMAKE_CURRENT_BINARY_DIR}"
     COPYONLY
 )
