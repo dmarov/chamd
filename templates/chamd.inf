@@ -1,5 +1,5 @@
 ;
-; chamd.inf
+; {{DRIVER_NAME}}.inf
 ;
 
 [Version]
@@ -7,13 +7,13 @@ Signature="$WINDOWS NT$"
 Class=Sample ; TODO: edit Class
 ClassGuid={78A1C341-4539-11d3-B88D-00C04FAD5171} ; TODO: edit ClassGuid
 Provider=%ManufacturerName%
-CatalogFile=chamd.cat
+CatalogFile={{DRIVER_NAME}}.cat
 DriverVer=
 PnpLockDown=1
 
 [DestinationDirs]
 DefaultDestDir = 12
-chamd_Device_CoInstaller_CopyFiles = 11
+{{DRIVER_NAME}}_Device_CoInstaller_CopyFiles = 11
 
 ; ================= Class section =====================
 
@@ -28,7 +28,7 @@ HKR,,Icon,,-5
 1 = %DiskName%,,,""
 
 [SourceDisksFiles]
-chamd.sys  = 1,,
+{{DRIVER_NAME}}.sys  = 1,,
 ;WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll=1 ; make sure the number matches with SourceDisksNames
 
 ;*****************************************
@@ -39,49 +39,49 @@ chamd.sys  = 1,,
 %ManufacturerName%=Standard,NT$ARCH$
 
 [Standard.NT$ARCH$]
-%chamd.DeviceDesc%=chamd_Device, Root\chamd ; TODO: edit hw-id
+%{{DRIVER_NAME}}.DeviceDesc%={{DRIVER_NAME}}_Device, Root\{{DRIVER_NAME}} ; TODO: edit hw-id
 
-[chamd_Device.NT]
+[{{DRIVER_NAME}}_Device.NT]
 CopyFiles=Drivers_Dir
 
 [Drivers_Dir]
-chamd.sys
+{{DRIVER_NAME}}.sys
 
 ;-------------- Service installation
-[chamd_Device.NT.Services]
-AddService = chamd,%SPSVCINST_ASSOCSERVICE%, chamd_Service_Inst
+[{{DRIVER_NAME}}_Device.NT.Services]
+AddService = {{DRIVER_NAME}},%SPSVCINST_ASSOCSERVICE%, {{DRIVER_NAME}}_Service_Inst
 
-; -------------- chamd driver install sections
-[chamd_Service_Inst]
-DisplayName    = %chamd.SVCDESC%
+; -------------- {{DRIVER_NAME}} driver install sections
+[{{DRIVER_NAME}}_Service_Inst]
+DisplayName    = %{{DRIVER_NAME}}.SVCDESC%
 ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
 StartType      = 3               ; SERVICE_DEMAND_START
 ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
-ServiceBinary  = %12%\chamd.sys
+ServiceBinary  = %12%\{{DRIVER_NAME}}.sys
 
 ;
-;--- chamd_Device Coinstaller installation ------
+;--- {{DRIVER_NAME}}_Device Coinstaller installation ------
 ;
 
-[chamd_Device.NT.CoInstallers]
-AddReg=chamd_Device_CoInstaller_AddReg
-CopyFiles=chamd_Device_CoInstaller_CopyFiles
+[{{DRIVER_NAME}}_Device.NT.CoInstallers]
+AddReg={{DRIVER_NAME}}_Device_CoInstaller_AddReg
+CopyFiles={{DRIVER_NAME}}_Device_CoInstaller_CopyFiles
 
-[chamd_Device_CoInstaller_AddReg]
+[{{DRIVER_NAME}}_Device_CoInstaller_AddReg]
 ;HKR,,CoInstallers32,0x00010000, "WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll,WdfCoInstaller"
 
-[chamd_Device_CoInstaller_CopyFiles]
+[{{DRIVER_NAME}}_Device_CoInstaller_CopyFiles]
 ;WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll
 
-[chamd_Device.NT.Wdf]
-KmdfService =  chamd, chamd_wdfsect
-[chamd_wdfsect]
+[{{DRIVER_NAME}}_Device.NT.Wdf]
+KmdfService =  {{DRIVER_NAME}}, {{DRIVER_NAME}}_wdfsect
+[{{DRIVER_NAME}}_wdfsect]
 KmdfLibraryVersion = $KMDFVERSION$
 
 [Strings]
 SPSVCINST_ASSOCSERVICE= 0x00000002
 ManufacturerName="MDS"
 ClassName="Samples" ; TODO: edit ClassName
-DiskName = "chamd Installation Disk"
-chamd.DeviceDesc = "chamd Device"
-chamd.SVCDESC = "chamd Service"
+DiskName = "{{DRIVER_NAME}} Installation Disk"
+{{DRIVER_NAME}}.DeviceDesc = "{{DRIVER_NAME}} Device"
+{{DRIVER_NAME}}.SVCDESC = "{{DRIVER_NAME}} Service"
