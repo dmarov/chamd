@@ -32,3 +32,4 @@ if exist %vcvars_enterprise% (
 
 call %vcvars% %vars_arch%
 call cmake -G "Visual Studio 16 2019" %bit_flag% "%~dp0/../src"
+
