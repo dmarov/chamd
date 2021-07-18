@@ -1,17 +1,18 @@
-REM examples:
-REM cd build
-REM ..\configure\vs-msvc.bat
-REM or
-REM ..\configure\vs-msvc.bat Debug
-REM or
-REM ..\configure\vs-msvc.bat Debug x86
-REM or
-REM ..\configure\vs-msvc.bat Release
+:: examples:
+:: cd build
+:: ..\configure\vs-msvc.bat
+:: or
+:: ..\configure\vs-msvc.bat Debug
+:: or
+:: ..\configure\vs-msvc.bat Debug x86
+:: or
+:: ..\configure\vs-msvc.bat Release
 
 set arch=x64
 set build_type=Debug
 set vars_arch=amd64
 set bit_flag=""
+set vcvars=""
 
 if [%1]==[Release] set build_type=%1
 if [%2]==[x86] set arch=%2
@@ -23,10 +24,11 @@ set vcvars_enterprise="C:\Program Files (x86)\Microsoft Visual Studio\2019\Enter
 
 if exist %vcvars_community% (
     set vcvars=%vcvars_community%
-) else (
+)
+
+if exist %vcvars_enterprise% (
     set vcvars=%vcvars_enterprise%
 )
 
 call %vcvars% %vars_arch%
-
-cmake -G "Visual Studio 16 2019" %bit_flag% "%~dp0/../src"
+call cmake -G "Visual Studio 16 2019" %bit_flag% "%~dp0/../src"

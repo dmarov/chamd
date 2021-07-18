@@ -1,5 +1,6 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
+
 // used in IOPLDispatcher.c
 #define PROCESS_TERMINATE                  (0x0001)
 #define PROCESS_CREATE_THREAD              (0x0002)
@@ -15,7 +16,7 @@
 #define PROCESS_SUSPEND_RESUME             (0x0800)
 #define PROCESS_QUERY_LIMITED_INFORMATION  (0x1000)
 
-// used in DBKFunc.h
+// used in IOPLDispatcher.h
 #define OP_CODE_READMEMORY                     0x0800
 #define OP_CODE_WRITEMEMORY                    0x0801
 #define OP_CODE_OPENPROCESS                    0x0802
