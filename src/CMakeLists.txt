@@ -37,7 +37,7 @@ wdk_add_driver(chamd KMDF 1.15
 target_include_directories(chamd PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}" PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 
 configure_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/chamd.inf"
+    "${CMAKE_CURRENT_SOURCE_DIR}/chamd.inf"
     "${CMAKE_CURRENT_BINARY_DIR}"
     COPYONLY
 )
