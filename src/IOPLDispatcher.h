@@ -2,6 +2,7 @@
 #define IOPLDISPACTCHER_H
 
 #include "DBKfunc.h"
+#include "constants.h"
 
 #define IOCTL_UNKNOWN_BASE					FILE_DEVICE_UNKNOWN
 
