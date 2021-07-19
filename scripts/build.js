@@ -17,6 +17,8 @@ class Context {
 
     static cmakeTplPath = path.normalize(__dirname + '\\..\\templates\\CMakeLists.txt.tpl');
     static infTplPath = path.normalize(__dirname + '\\..\\templates\\chamd.inf.tpl');
+    static datTplPath = path.normalize(__dirname + '\\..\\templates\\driver64.dat.tpl');
+    static datPath = `${this.buildDir}driver64.dat`;
     static srcDir = path.normalize(__dirname + '\\..\\src\\');
     static cmakeConfigPath = this.srcDir + 'CMakeLists.txt';
     static infPath = `${this.buildDir}${this.driverName}.inf`;
@@ -30,6 +32,8 @@ class Context {
         await this.createInfFile();
         await this.stampInfFile();
         await this.signDriver();
+        await this.createDriverDatFile();
+        console.log(`Success!!!`);
     }
 
     static async purgeBuild() {
@@ -84,13 +88,14 @@ class Context {
     }
 
     static async createInfFile() {
+        console.log(this.infPath);
+        console.log(this.infTplPath);
         await this.templateToFile(
             this.infTplPath,
             this.infPath, {
                 DRIVER_NAME: this.driverName,
             },
         );
-
     }
 
     static async stampInfFile() {
@@ -108,14 +113,13 @@ class Context {
         const signtool = `signtool sign -f "./${this.driverName}.pfx" -t "http://timestamp.digicert.com" -v "./${this.driverName}.cat"`;
         const cmd = `${vc} && ${inf2cat} && ${makecert} && ${cert2spc} && ${pvk2pfx} && ${signtool}`;
 
-        this.execute(cmd, this.buildDir);
+        await this.execute(cmd, this.buildDir);
     }
 
     static async execute(cmd, cwd, params = []) {
 
         console.log(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
         console.log(`Executing: ${cmd}`);
-        console.log(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
 
         return new Promise((res, rej) => {
             const proc = spawn(cmd, params, {
@@ -124,7 +128,7 @@ class Context {
             });
 
             proc.stderr.setEncoding('utf-8');
-            // proc.stdout.pipe(process.stdout);
+            proc.stdout.pipe(process.stdout);
             proc.stderr.pipe(process.stderr);
 
             proc.on('close', (code) => {
@@ -133,6 +137,14 @@ class Context {
         });
     }
 
+    static async createDriverDatFile() {
+        await this.templateToFile(
+            this.datTplPath,
+            this.datPath, {
+                DRIVER_NAME: this.driverName,
+            },
+        );
+    }
 }
 
 Context.build();

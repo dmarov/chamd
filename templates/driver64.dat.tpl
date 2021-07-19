@@ -1,6 +1,6 @@
 fgfgfgfh
 fghcghfhg
 fvfghfbg
-chamd.sys
+{{DRIVER_NAME}}.sys
 76543210
-fedcba98 
+fedcba98

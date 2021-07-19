@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18.0)
-project(chamd VERSION 1.0.0)
+project(mysupercooldrv VERSION 1.0.0)
 
 enable_language(C ASM_MASM)
 
@@ -9,7 +9,7 @@ string(REPLACE "/GR" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W1 /WX")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W1 /WX")
 
-wdk_add_driver(chamd KMDF 1.15
+wdk_add_driver(mysupercooldrv KMDF 1.15
     "${CMAKE_CURRENT_SOURCE_DIR}/DBKDrvr.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/DBKFunc.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/debugger.c"
@@ -34,9 +34,9 @@ wdk_add_driver(chamd KMDF 1.15
     "${CMAKE_CURRENT_SOURCE_DIR}/amd64/vmxoffloada.asm"
 )
 
-target_include_directories(chamd PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}" PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
+target_include_directories(mysupercooldrv PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}" PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
-set_target_properties(chamd
+set_target_properties(mysupercooldrv
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}"
     RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}"
