@@ -25,10 +25,10 @@ class Context {
     static infPath = `${this.buildDir}${this.driverName}.inf`;
     static inf2CatPath = "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\x86\\inf2cat.exe"
 
-    static async build() {
+    static async all() {
         console.log(`Generating ${this.driverName} driver ...`);
         await this.purge();
-        await this.generateInfFile();
+        await this.generateCmakeFile();
         await this.compile();
         await this.createInfFile();
         await this.stampInfFile();
@@ -66,7 +66,7 @@ class Context {
         });
     }
 
-    static async generateInfFile() {
+    static async generateCmakeFile() {
         await this.templateToFile(
             this.cmakeTplPath,
             this.cmakeConfigPath,
@@ -74,7 +74,6 @@ class Context {
                 DRIVER_NAME: this.driverName,
             }
         );
-
     }
 
     static async templateToFile(src, dist, vars) {
@@ -87,17 +86,6 @@ class Context {
 
     static async compile() {
         console.log('Compiling');
-        const communityVs = fs.existsSync(this.vcvarsCommunityPath);
-        const enterpriseVs = fs.existsSync(this.vcvarsEnterprisePath);
-
-        if (communityVs) {
-            this.vcPath = this.vcvarsCommunityPath;
-        }
-
-        if (enterpriseVs) {
-            this.vcPath = this.vcvarsEnterprisePath;
-        }
-
         if (this.vcPath === null) {
             throw new Error('Visual studio not found');
         }
@@ -199,4 +187,43 @@ class Context {
     }
 }
 
-Context.build();
+const communityVs = fs.existsSync(Context.vcvarsCommunityPath);
+const enterpriseVs = fs.existsSync(Context.vcvarsEnterprisePath);
+
+if (communityVs) {
+    Context.vcPath = Context.vcvarsCommunityPath;
+}
+
+if (enterpriseVs) {
+    Context.vcPath = Context.vcvarsEnterprisePath;
+}
+
+
+const args = process.argv.slice(2);
+const command = args[0];
+
+if (command == 'all') {
+    (async () => {
+        await Context.all();
+    })();
+} else if (command === 'purge') {
+    (async () => {
+        await Context.purge();
+    })();
+} else if (command === 'compile') {
+    (async () => {
+        await Context.generateCmakeFile();
+        await Context.compile();
+    })();
+} else if (command === 'geninf') {
+    (async () => {
+        await Context.createInfFile();
+        await Context.stampInfFile();
+    })();
+} else if (command === 'selfsign') {
+    (async () => {
+        await Context.signDriver();
+        await Context.createInfFile();
+    })();
+}
+

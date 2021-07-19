@@ -5,6 +5,10 @@
     "rimraf": "^3.0.2"
   },
   "scripts": {
-    "build": "node ./scripts/build.js"
+    "all": "node ./scripts/cmd.js all",
+    "purge": "node ./scripts/cmd.js purge",
+    "compile": "node ./scripts/cmd.js compile",
+    "geninf": "node ./scripts/cmd.js geninf",
+    "selfsign": "node ./scripts/cmd.js selfsign"
   }
 }
