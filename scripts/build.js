@@ -20,29 +20,47 @@ class Context {
     static datTplPath = path.normalize(__dirname + '\\..\\templates\\driver64.dat.tpl');
     static datPath = `${this.buildDir}driver64.dat`;
     static srcDir = path.normalize(__dirname + '\\..\\src\\');
+    static distDir = path.normalize(__dirname + '\\..\\dist\\');
     static cmakeConfigPath = this.srcDir + 'CMakeLists.txt';
     static infPath = `${this.buildDir}${this.driverName}.inf`;
     static inf2CatPath = "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\x86\\inf2cat.exe"
 
     static async build() {
         console.log(`Generating ${this.driverName} driver ...`);
-        await this.purgeBuild();
+        await this.purge();
         await this.generateInfFile();
         await this.compile();
         await this.createInfFile();
         await this.stampInfFile();
         await this.signDriver();
         await this.createDriverDatFile();
+        await this.install();
+        await this.clearBuildDir();
         console.log(`Success!!!`);
+        console.log(`Now copy all files from ${this.distDir} to directory where cheatengine.exe is located`);
     }
 
-    static async purgeBuild() {
+    static async purge() {
+        await this.clearBuildDir();
+        await this.purgeDir(this.distDir);
 
-        console.log(`Clearing ${this.buildDir}* and other files ...`);
+        if (!fs.existsSync(this.cmakeConfigPath)) {
+            return;
+        }
+
         fs.rmSync(this.cmakeConfigPath);
+    }
+
+    static async purgeDir(dir) {
+
+        if (!fs.existsSync(dir)) {
+            return;
+        }
+
+        console.log(`Clearing ${dir}* and other files ...`);
 
         return new Promise((res, rej) => {
-            rimraf(`${this.buildDir}\\*`, () => {
+            rimraf(`${dir}\\*`, () => {
                 res();
             });
         });
@@ -68,6 +86,7 @@ class Context {
     }
 
     static async compile() {
+        console.log('Compiling');
         const communityVs = fs.existsSync(this.vcvarsCommunityPath);
         const enterpriseVs = fs.existsSync(this.vcvarsEnterprisePath);
 
@@ -88,8 +107,7 @@ class Context {
     }
 
     static async createInfFile() {
-        console.log(this.infPath);
-        console.log(this.infTplPath);
+        console.log('Creating inf file');
         await this.templateToFile(
             this.infTplPath,
             this.infPath, {
@@ -99,12 +117,13 @@ class Context {
     }
 
     static async stampInfFile() {
+        console.log('Stamping inf file');
         const cmd = `"${this.vcPath}" amd64 && stampinf.exe -f .\\${this.driverName}.inf  -a "amd64" -k "1.15" -v "*" -d "*"`
         await this.execute(cmd, this.buildDir);
     }
 
     static async signDriver() {
-
+        console.log('Signing driver');
         const vc = `"${this.vcPath}" amd64`;
         const inf2cat = `"${this.inf2CatPath}" /driver:"./" /os:10_X64 /verbose`;
         const makecert = `makecert -r -sv "./${this.driverName}.pvk" -n CN="whatever" "./${this.driverName}.cer"`;
@@ -138,12 +157,45 @@ class Context {
     }
 
     static async createDriverDatFile() {
+        console.log('Creating dat file');
         await this.templateToFile(
             this.datTplPath,
             this.datPath, {
                 DRIVER_NAME: this.driverName,
             },
         );
+    }
+
+    static async install() {
+        console.log('Installing');
+
+        if (!fs.existsSync(this.distDir)) {
+            fs.mkdirSync(this.distDir);
+        }
+
+        fs.copyFileSync(
+            `${this.buildDir}${this.driverName}.sys`,
+            `${this.distDir}${this.driverName}.sys`
+        );
+
+        fs.copyFileSync(
+            `${this.buildDir}${this.driverName}.inf`,
+            `${this.distDir}${this.driverName}.inf`
+        );
+
+        fs.copyFileSync(
+            `${this.buildDir}${this.driverName}.cat`,
+            `${this.distDir}${this.driverName}.cat`
+        );
+
+        fs.copyFileSync(
+            `${this.buildDir}driver64.dat`,
+            `${this.distDir}driver64.dat`
+        );
+    }
+
+    static async clearBuildDir() {
+        await this.purgeDir(this.buildDir);
     }
 }
 
