@@ -54,18 +54,11 @@ int perfmon_interrupt_centry(void);
 void setup_APIC_BASE(void)
 {
 	PHYSICAL_ADDRESS Physical_APIC_BASE;
-	DbgPrint("Fetching the APIC base\n");
 
 	Physical_APIC_BASE.QuadPart=readMSR(MSR_IA32_APICBASE) & 0xFFFFFFFFFFFFF000ULL;
 	
 
-	DbgPrint("Physical_APIC_BASE=%p\n", Physical_APIC_BASE.QuadPart);
-
 	APIC_BASE = (PAPIC)MmMapIoSpace(Physical_APIC_BASE, sizeof(APIC), MmNonCached);
-
-
-    DbgPrint("APIC_BASE at %p\n", APIC_BASE);
-
 }
 
 void clean_APIC_BASE(void)
@@ -76,7 +69,6 @@ void clean_APIC_BASE(void)
 
 void ultimap_flushBuffers_all(UINT_PTR param)
 {
-	DbgPrint("Calling perfmon_interrupt_centry() manually\n");
 	if (DS_AREA[cpunr()]) //don't call if ultimap has been disabled
 	{
 		perfmon_interrupt_centry();
@@ -90,21 +82,17 @@ void ultimap_flushBuffers(void)
 	int i;
 	int count;
 
-	DbgPrint("ultimap_flushBuffers\n");
-
 	//what it does:
 	//for each cpu emulate a "buffer filled" event.
 	//the handler then copies all the current data to a temporary buffer and signals the worker thread to deal with it. If there is no available worker thread it waits
 	forEachCpuPassive(ultimap_flushBuffers_all,0);
 
-	DbgPrint("ultimap_flushBuffers_all has returned\n");
 	//it returned and all worker thread are currently working on this data (it only returns when it has send a worker to work)
 
 
 	//now wait for all workers to finish
 	//do this by aquiring all semaphore slots and waiting for them to return again
 	//forEachCpuPassive(ultimap_flushBuffers_all,0);
-	//DbgPrint("ultimap_flushBuffers_all has returned a second time\n"); //this means that the previous blocks have been dealt with
 
 
 	//actually... no, this is no guarantee. Now that the buffers are empty handling is so fast that while block 2,3,4,5 and 6 are still being handled block 1 can become available multiple times
@@ -117,7 +105,6 @@ NTSTATUS ultimap_continue(PULTIMAPDATAEVENT data)
 Called from usermode to signal that the data has been handled
 */
 {
-	DbgPrint("ultimap_continue\n");
 	MmUnmapLockedPages((PVOID)(UINT_PTR)data->Address, (PMDL)(UINT_PTR)data->Mdl);
 	IoFreeMdl((PMDL)(UINT_PTR)data->Mdl);
 
@@ -129,7 +116,6 @@ Called from usermode to signal that the data has been handled
 
 
 	KeReleaseSemaphore(&DataBlockSemaphore, 1, 1, FALSE); //Let the next block go through
-	DbgPrint("Released semaphore\n");
 	return STATUS_SUCCESS;	
 }
 
@@ -230,9 +216,6 @@ int perfmon_interrupt_centry(void)
 	int causedbyme=(DS_AREA[cpunr()]->BTS_IndexBaseAddress>=DS_AREA[cpunr()]->BTS_InterruptThresholdAddress);
 	UINT_PTR blocksize;
 	
-	DbgPrint("perfmon_interrupt_centry\n", cpunr());
-
-
 	if (causedbyme)
 		ultimap_cleanstate();	
 
@@ -246,24 +229,15 @@ int perfmon_interrupt_centry(void)
 			old = KeRaiseIrqlToDpcLevel();
 		}
 
-
-		DbgPrint("Entry cpunr=%d\n", cpunr());
-		DbgPrint("Entry threadid=%d\n", PsGetCurrentThreadId());
-		
-
 		temp=ExAllocatePool(NonPagedPool, blocksize);
 		if (temp)
 		{
 			RtlCopyMemory(temp, (PVOID *)(UINT_PTR)DS_AREA[cpunr()]->BTS_BufferBaseAddress, blocksize);
 
-			DbgPrint("temp=%p\n", temp);
-
-
 			DS_AREA[cpunr()]->BTS_IndexBaseAddress=DS_AREA[cpunr()]->BTS_BufferBaseAddress; //don't reset on alloc error	
 		}
 		else
 		{
-			DbgPrint("ExAllocatePool has failed\n");
 			KeLowerIrql(old);
 			disableInterrupts();
 			return causedbyme;
@@ -280,13 +254,10 @@ int perfmon_interrupt_centry(void)
 			NTSTATUS r;
 
 			//Instead of sending the data to a usermode app it was chosen to store the data to a file for later usage
-			DbgPrint("Writing buffer to disk\n");			
 			r=ZwWriteFile(FileHandle, NULL, NULL, NULL, &iosb,  temp, (ULONG)blocksize, NULL, NULL); 
-			DbgPrint("Done Writing. Result=%x\n", r);			
 		}
 		else
 		{
-			DbgPrint("Waiting till there is a block free\n");
 			//When all workers are busy do not continue
 			if ((DataBlock) && (KeWaitForSingleObject(&DataBlockSemaphore, Executive, KernelMode, FALSE, NULL) == STATUS_SUCCESS))
 			{
@@ -294,11 +265,9 @@ int perfmon_interrupt_centry(void)
 				int i;
 
 				//Enter a critical section and choose a block
-				DbgPrint("Acquired semaphore. Now picking a usable datablock\n");
 
 				
 				ExAcquireFastMutex(&DataBlockMutex);
-				DbgPrint("Acquired mutex. Looking for a Datablock that can be used\n");
 
 				if (DataBlock)
 				{
@@ -319,23 +288,16 @@ int perfmon_interrupt_centry(void)
 
 				if (currentblock>=0) 
 				{					
-					DbgPrint("Using datablock %d\n", currentblock);
 					DataBlock[currentblock].Data=temp;
 					DataBlock[currentblock].DataSize=(int)blocksize;
 					DataBlock[currentblock].CpuID=cpunr();
 					
-					DbgPrint("Calling KeSetEvent/KeWaitForSingleObject\n");
 					KeSetEvent(&DataBlock[currentblock].DataReady, 1, FALSE); //Trigger a worker thread to start working					
 				}	
 				ExReleaseFastMutex(&DataBlockMutex);
-				//DbgPrint("Released mutex\n");
-				
-
-
 			}
 			else
 			{
-				DbgPrint("if ((DataBlock) && (KeWaitForSingleObject(&DataBlockSemaphore, Executive, KernelMode, FALSE, NULL) == STATUS_SUCCESS)) failed\n");
 			}
 			
 		}
@@ -432,7 +394,6 @@ void ultimap_resume(void)
 VOID ultimap_disable_dpc(IN struct _KDPC *Dpc, IN PVOID DeferredContext, IN PVOID SystemArgumen1, IN PVOID SystemArgument2)
 {
 	int i;
-	//DbgPrint("ultimap_disable_dpc()\n");
 
 	if (vmxusable)
 	{
@@ -508,12 +469,10 @@ Call this for each processor
 	DS_AREA_SIZE=params->DS_AREA_SIZE;
 	if (DS_AREA_SIZE == 0)
 	{
-		DbgPrint("DS_AREA_SIZE==0\n");
 		return;
 	}
 	
 
-	DbgPrint("ultimap(%I64x, %I64x, %d)", (UINT64)params->cr3, (UINT64)params->dbgctl_msr, params->DS_AREA_SIZE);
 	DS_AREA[cpunr()]=NULL;
 
 	if (params->DS_AREA_SIZE)
@@ -522,13 +481,10 @@ Call this for each processor
 
 		if (DS_AREA[cpunr()] == NULL)
 		{
-			DbgPrint("ExAllocatePool failed\n");
 			return;
 		}
 
 		RtlZeroMemory(DS_AREA[cpunr()],  params->DS_AREA_SIZE);
-
-		DbgPrint("DS_AREA[%d]=%p", cpunr(), DS_AREA[cpunr()]);
 
 		//Initialize the DS_AREA 
 
@@ -552,23 +508,10 @@ Call this for each processor
 
 		int perfmonIVT=(APIC_BASE->LVT_Performance_Monitor.a) & 0xff;
 
-		DbgPrint("APIC_BASE->LVT_Performance_Monitor.a=%x\n", APIC_BASE->LVT_Performance_Monitor.a);
 		if (perfmonIVT==0) //if not setup at all then set it up now
 			perfmonIVT=0xfe; 
 
 		APIC_BASE->LVT_Performance_Monitor.a=perfmonIVT; //clear mask flag if it was set
-
-		DbgPrint("APIC_BASE->LVT_Performance_Monitor.a=%x\n", APIC_BASE->LVT_Performance_Monitor.a);
-
-	
-		/*
-
-		if (inthook_HookInterrupt((unsigned char)perfmonIVT, getCS(), (ULONG_PTR)perfmon_interrupt, &perfmonJumpBackLocation))
-			DbgPrint("Interrupt hooked\n");
-		else
-			DbgPrint("Failed to hook interrupt\n");
-			*/
-
 	}
 
 	//and finally activate the mapping
@@ -578,24 +521,17 @@ Call this for each processor
 	}
 	else
 	{
-		DbgPrint("vmxusable is false. So no ultimap for you!!!\n");
 	}
 }
 
 void ultimapapc(PKAPC Apc, PKNORMAL_ROUTINE NormalRoutine, PVOID NormalContext, PVOID SystemArgument1, PVOID SystemArgument2)
 {
 	EFLAGS e = getEflags();
-	DbgPrint("ultimapapc call for cpu %d ( IF=%d IRQL=%d)\n", KeGetCurrentProcessorNumber(), e.IF, KeGetCurrentIrql());
-	DbgPrint("SystemArgument1=%x\n", *(PULONG)SystemArgument1);
-	DbgPrint("tid=%x\n", PsGetCurrentThreadId());
-	DbgPrint("Apc=%p\n", Apc);
 }
 
 void ultimapapcnormal(PVOID arg1, PVOID arg2, PVOID arg3)
 {
 	EFLAGS e = getEflags();
-	DbgPrint("ultimapapcnormal call for cpu %d ( IF=%d IRQL=%d)\n", KeGetCurrentProcessorNumber(), e.IF, KeGetCurrentIrql());
-	DbgPrint("tid=%x\n", PsGetCurrentThreadId());
 
 	ultimap_flushBuffers();
 
@@ -612,10 +548,6 @@ void perfmon_hook(__in struct _KINTERRUPT *Interrupt, __in PVOID ServiceContext)
 
 	
 	EFLAGS e = getEflags();
-	DbgPrint("permon_hook call for cpu %d ( IF=%d IRQL=%d)\n", KeGetCurrentProcessorNumber(), e.IF, KeGetCurrentIrql());
-
-	DbgPrint("kApc=%p\n", &kApc);
-
 
 	//switch buffer pointers
 
@@ -635,17 +567,8 @@ void perfmon_hook(__in struct _KINTERRUPT *Interrupt, __in PVOID ServiceContext)
 
 	KeInsertQueueApc(&kApc[i], NULL, NULL, 0);
 
-	
-
-	DbgPrint("after KeInsertQueueApc");
-
-
-
-
 	//perfmon_interrupt_centry();
 	ultimap_cleanstate();
-
-	DbgPrint("permon_return");
 }
 
 void *pperfmon_hook = (void*)perfmon_hook;
@@ -678,11 +601,8 @@ NTSTATUS ultimap(UINT64 cr3, UINT64 dbgctl_msr, int _DS_AREA_SIZE, BOOL savetofi
 		RtlInitUnicodeString(&usFile, filename);
 		InitializeObjectAttributes(&oaFile,&usFile, OBJ_CASE_INSENSITIVE | OBJ_KERNEL_HANDLE, NULL,NULL);
 
-		DbgPrint("Creating file %S", usFile.Buffer);
-
 		FileHandle=0;
 		r=ZwCreateFile(&FileHandle,SYNCHRONIZE|FILE_READ_DATA|FILE_APPEND_DATA | GENERIC_ALL,&oaFile,&iosb,0,FILE_ATTRIBUTE_NORMAL,0,FILE_SUPERSEDE, FILE_SEQUENTIAL_ONLY | FILE_SYNCHRONOUS_IO_NONALERT,NULL,0);
-		DbgPrint("ZwCreateFile=%x\n", r);
 
 
 	}
@@ -724,14 +644,11 @@ NTSTATUS ultimap(UINT64 cr3, UINT64 dbgctl_msr, int _DS_AREA_SIZE, BOOL savetofi
 
 		r=HalSetSystemInformation(HalProfileSourceInterruptHandler, sizeof(PVOID*), &pperfmon_hook); //hook the perfmon interrupt
 
-		DbgPrint("HalSetSystemInformation returned %x\n", r);
-
 		forEachCpu(ultimap_setup_dpc, &params, NULL, NULL, NULL);
 		return STATUS_SUCCESS;
 	}
 	else
 	{
-		DbgPrint("Failure allocating DataBlock and DataReadyPointerList\n");
 		return STATUS_MEMORY_NOT_ALLOCATED;
 	}
 
