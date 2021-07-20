@@ -2,9 +2,7 @@
 
 ## Modified Cheat Engine DBK64 kernel driver, which supposed to be undetectable
 
-based on Cheat Engine version 7.2
-
-1. Driver compilation
+Based on Cheat Engine version 7.2
 
 Install git
 
@@ -51,12 +49,13 @@ yarn all
 Copy all 4 files from 'dist' directory to directory where `cheatengine.exe` located
 You'll need to use Cheat Engine version 7.2. Compile it from source (Release x64)
 
-Now you test signed driver.
+Now you have test signed driver.
 To load it you'll need eigther enable test signing
 
 ```
 bcdedit /set testsigning on
 ```
+(this won't work with anticheat, obviously).
 
 or use DSEFix
 ```
@@ -64,8 +63,6 @@ or use DSEFix
 // now run cheatengine (don't forget to check everythjing in Settings -> Extra)
 .\dsefix.exe -e
 ```
-
-This won't work with anticheat (obviously).
 
 Now you have loaded unsigned DBK64 driver.
 Kernel mode anticheat will allow to start game and make operations on game memory
