@@ -32,7 +32,7 @@ Copy `.env.tpl` to `.env`
 
 Fill in variables in `.env`:
 
-set CHAMD_DBK_DRIVER_NAME to whatewer name you wish
+set `CHAMD_DBK_DRIVER_NAME` to whatewer name you wish
 
 Install visual studio (community or enterprise)
 [https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16](Visual Studio).
