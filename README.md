@@ -46,6 +46,8 @@ run build
 yarn all
 ```
 
+Press "None" when asked.
+
 Copy all 4 files from 'dist' directory to directory where `cheatengine.exe` located
 You'll need to use Cheat Engine version 7.2. Compile it from source (Release x64)
 
@@ -67,3 +69,10 @@ or use DSEFix
 Now you have loaded unsigned DBK64 driver.
 Kernel mode anticheat will allow to start game and make operations on game memory
 (last tested on EAC 07/20/2021).
+
+
+TODO:
+
+use [https://www.oreans.com/CodeVirtualizer.php](this) when driver will be detected
+
+figure out if changing driver name even does anything
