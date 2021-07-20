@@ -1,4 +1,4 @@
-# chamd whick stands for "Chameleon DBK64"
+# Chamd (stands for "Chameleon DBK64")
 
 ## Modified Cheat Engine DBK64 kernel driver, which supposed to be undetectable
 
@@ -47,7 +47,7 @@ run build
 yarn all
 ```
 
-copy files from 'dist' directory to directory where cheatengine.exe located
+Copy files from 'dist' directory to directory where cheatengine.exe located
 
 Now you test signed driver.
 To load it you'll need eigther enable test signing
@@ -56,7 +56,7 @@ To load it you'll need eigther enable test signing
 bcdedit /set testsigning on
 ```
 
-of use DSEFix
+or use DSEFix
 ```
 .\dsefix.exe
 // now run cheatengine (don't forget to check everythjing in Settings -> Extra)
