@@ -13,7 +13,7 @@ git clone https://github.com/dmarov/chamd.git
 cd chamd
 ```
 
-Install nodejs via [https://nodejs.org/en/](NodeJS) or via NVM or via `chocolatey`
+Install nodejs via [NodeJS](https://nodejs.org/en/) or via NVM or via `chocolatey`
 package manager.
 
 install yarn from CLI
@@ -33,13 +33,13 @@ Fill in variables in `.env`:
 set `CHAMD_DBK_DRIVER_NAME` to whatewer name you wish
 
 Install visual studio (community or enterprise)
-[https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16](Visual Studio).
+[Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16).
 You need to install MSVC (C/C++ compiler).
 Also you'll need to install WDK (Windows Driver Development Kit)
-[https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk](WDK)
+[WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
 (follow the instructions).
 
-Install cmake from here [https://cmake.org/download/](CMake) or via `chocolatey`.
+Install cmake from here [CMake](https://cmake.org/download/) or via `chocolatey`.
 
 run build
 ```
@@ -73,6 +73,6 @@ Kernel mode anticheat will allow to start game and make operations on game memor
 
 TODO:
 
-use [https://www.oreans.com/CodeVirtualizer.php](this) when driver will be detected
+use [this](https://www.oreans.com/CodeVirtualizer.php) when driver will be detected
 
 figure out if changing driver name even does anything
