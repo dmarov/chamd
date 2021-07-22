@@ -114,7 +114,7 @@ class Context {
         console.log('Signing driver');
         const vc = `"${this.vcPath}" amd64`;
         const inf2cat = `"${this.inf2CatPath}" /driver:"./" /os:10_X64 /verbose`;
-        const makecert = `makecert -r -sv "./${this.driverName}.pvk" -n CN="whatever" "./${this.driverName}.cer"`;
+        const makecert = `makecert -r -sv "./${this.driverName}.pvk" -n CN="${this.driverName} Inc." "./${this.driverName}.cer"`;
         const cert2spc = `cert2spc "./${this.driverName}.cer" "./${this.driverName}.spc"`;
         const pvk2pfx = `pvk2pfx -f -pvk "./${this.driverName}.pvk" -spc "./${this.driverName}.spc" -pfx "./${this.driverName}.pfx"`;
         const signtool = `signtool sign -f "./${this.driverName}.pfx" -t "http://timestamp.digicert.com" -v "./${this.driverName}.cat"`;
