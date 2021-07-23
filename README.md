@@ -50,6 +50,7 @@ Press "None" when asked.
 
 Copy all 4 files from 'dist' directory to directory where `cheatengine.exe` located
 You'll need to use Cheat Engine version 7.2. Compile it from source (Release x64)
+or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/v7.2)
 
 Now you have test signed driver.
 To load it you'll need eigther enable test signing
