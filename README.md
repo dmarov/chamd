@@ -32,14 +32,12 @@ Fill in variables in `.env`:
 
 set `CHAMD_DBK_DRIVER_NAME` to whatewer name you wish
 
-Install visual studio (community or enterprise)
-[Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16).
+Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
+(community or enterprise).
 You need to install MSVC (C/C++ compiler).
-Also you'll need to install WDK (Windows Driver Development Kit)
-[WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
-(follow the instructions).
+Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk) (Windows Driver Development Kit)
 
-Install cmake from here [CMake](https://cmake.org/download/) or via `chocolatey`.
+(follow the instructions).
 
 run build
 ```
@@ -59,7 +57,7 @@ bcdedit /set testsigning on
 ```
 (this won't work with anticheat, obviously).
 
-or use DSEFix
+or use [DSEFix](https://github.com/hfiref0x/DSEFix)
 ```
 .\dsefix.exe
 // now run cheatengine (don't forget to check everythjing in Settings -> Extra)
@@ -73,6 +71,6 @@ Kernel mode anticheat will allow to start game and make operations on game memor
 
 TODO:
 
-use [this](https://www.oreans.com/CodeVirtualizer.php) when driver will be detected
+Try to use [Code Virtualizer](https://www.oreans.com/CodeVirtualizer.php) when driver will be detected by EAC.
 
 figure out if changing driver name even does anything
