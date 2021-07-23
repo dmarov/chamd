@@ -13,7 +13,8 @@ git clone https://github.com/dmarov/chamd.git
 cd chamd
 ```
 
-Install nodejs via [NodeJS](https://nodejs.org/en/) or via NVM or via `chocolatey`
+Install [nodejs](https://nodejs.org/en/) via or via
+[NVM](https://github.com/coreybutler/nvm-windows) or via `chocolatey`
 package manager.
 
 install yarn from CLI
@@ -35,7 +36,8 @@ set `CHAMD_DBK_DRIVER_NAME` to whatewer name you wish
 Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
 (community or enterprise).
 You need to install MSVC (C/C++ compiler).
-Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk) (Windows Driver Development Kit)
+Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
+(Windows Driver Development Kit)
 
 (follow the instructions).
 
