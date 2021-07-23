@@ -13,11 +13,9 @@ git clone https://github.com/dmarov/chamd.git
 cd chamd
 ```
 
-Install [nodejs](https://nodejs.org/en/) via or via
-[NVM](https://github.com/coreybutler/nvm-windows) or via `chocolatey`
-package manager.
+Install [nodejs](https://nodejs.org/en/)
 
-install yarn from CLI
+install yarn
 ```
 npm install yarn
 ```
