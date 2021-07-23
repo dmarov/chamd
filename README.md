@@ -4,8 +4,6 @@
 
 Based on Cheat Engine version 7.2
 
-Install git
-
 clone this repository
 
 ```
