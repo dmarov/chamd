@@ -4,7 +4,9 @@
 
 Based on Cheat Engine version 7.2
 
-clone this repository
+You can download precompiled version [here](https://github.com/dmarov/chamd/releases)
+
+or clone this repository
 
 ```
 git clone https://github.com/dmarov/chamd.git
