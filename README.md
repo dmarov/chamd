@@ -6,47 +6,46 @@ Based on Cheat Engine version 7.2
 
 You can download precompiled version [here](https://github.com/dmarov/chamd/releases)
 
-or clone this repository
+Also you can compile it from source:
+1. clone this repository
 
 ```
 git clone https://github.com/dmarov/chamd.git
 cd chamd
 ```
 
-Install [nodejs](https://nodejs.org/en/)
+2. Install [nodejs](https://nodejs.org/en/)
 
-install yarn
+3. install yarn
 ```
 npm install yarn
 ```
 
-install packages
+4. install packages
 ```
 yarn
 ```
 
-Copy `.env.tpl` to `.env`
+5. Copy `.env.tpl` to `.env`
 
-Fill in variables in `.env`:
-
+6. Fill in variables in `.env`:
 set `CHAMD_DBK_DRIVER_NAME` to whatewer name you wish
 
-Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
+7. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
 (community or enterprise).
 You need to install MSVC (C/C++ compiler).
-Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
-(Windows Driver Development Kit)
 
+8. Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
+(Windows Driver Development Kit)
 (follow the instructions).
 
-run build
+9. run build
 ```
 yarn all
 ```
-
 Press "None" when asked.
 
-Copy all 4 files from 'dist' directory to directory where `cheatengine.exe` located
+10. Copy all 4 files from 'dist' directory to directory where `cheatengine.exe` located
 You'll need to use Cheat Engine version 7.2. Compile it from source (Release x64)
 or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/v7.2)
 
