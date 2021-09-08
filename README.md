@@ -58,16 +58,8 @@ bcdedit /set testsigning on
 ```
 (this won't work with anticheat, obviously).
 
-or use [DSEFix](https://github.com/hfiref0x/DSEFix)
-```
-.\dsefix.exe
-// now run cheatengine (don't forget to check everythjing in Settings -> Extra)
-.\dsefix.exe -e
-```
-which was deprecated and not recommended to use.
-
-Best way is to use
-[EFIGuard](https://github.com/Mattiwatti/EfiGuard).
+or you can use
+[EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers.
 
 Now you have loaded unsigned DBK64 driver.
 Kernel mode anticheat will allow to start game and make operations on game memory
