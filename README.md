@@ -2,7 +2,7 @@
 
 ## Modified Cheat Engine DBK64 kernel driver, which supposed to be undetectable
 
-Based on Cheat Engine version 7.2
+Based on Cheat Engine version 7.3
 
 You can download precompiled version [here](https://github.com/dmarov/chamd/releases)
 
@@ -46,8 +46,8 @@ yarn all
 Press "None" when asked.
 
 10. Copy all 4 files from 'dist' directory to directory where `cheatengine.exe` located
-You'll need to use Cheat Engine version 7.2. Compile it from source (Release x64)
-or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/v7.2)
+You'll need to use Cheat Engine version 7.3. Compile it from source (Release x64)
+or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/v7.3)
 
 Now you have test signed driver.
 To load it you'll need eigther enable test signing
@@ -62,7 +62,7 @@ or you can use
 
 Now you have loaded unsigned DBK64 driver.
 Kernel mode anticheat will allow to start game and make operations on game memory
-(last tested on EAC 07/20/2021).
+(last tested on EAC 01/15/2022).
 
 
 TODO:
