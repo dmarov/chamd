@@ -11,7 +11,7 @@
 #include "threads.h"
 #include "vmxhelper.h"
 #include "debugger.h"
-
+#include "vmxoffload.h"
 
 #include "IOPLDispatcher.h"
 #include "interruptHook.h"
@@ -115,6 +115,16 @@ void hideme(PDRIVER_OBJECT DriverObject)
 }
 
 
+int testfunction(int p1,int p2)
+{
+	DbgPrint("Hello\nParam1=%d\nParam2=%d\n",p1,p2);
+	
+
+
+	return 0x666;
+}
+
+
 void* functionlist[1];
 char  paramsizes[1];
 int registered=0;
@@ -122,12 +132,15 @@ int registered=0;
 #ifdef DEBUG1
 VOID TestPassive(UINT_PTR param)
 {
+	DbgPrint("passive cpu call for cpu %d\n", KeGetCurrentProcessorNumber());
 }
 
 
 VOID TestDPC(IN struct _KDPC *Dpc, IN PVOID  DeferredContext, IN PVOID  SystemArgument1, IN PVOID  SystemArgument2)
 {
 	EFLAGS e=getEflags();
+	
+    DbgPrint("Defered cpu call for cpu %d (Dpc=%p  IF=%d IRQL=%d)\n", KeGetCurrentProcessorNumber(), Dpc, e.IF, KeGetCurrentIrql());
 }
 #endif
 
@@ -151,6 +164,8 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 
 	--*/
 {
+
+
 	NTSTATUS        ntStatus;
 	PVOID           BufDriverString = NULL, BufProcessEventString = NULL, BufThreadEventString = NULL;
 	UNICODE_STRING  uszDriverString;
@@ -172,8 +187,11 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 
 	HANDLE Ultimap2Handle;
 
+
 	KernelCodeStepping = 0;
 	KernelWritesIgnoreWP = 0;
+
+
 
 	this_cs = getCS();
 	this_ss = getSS();
@@ -186,8 +204,11 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 	temp.Length = 0;
 	temp.MaximumLength = 100;
 
+	//DbgPrint("Loading driver\n");
 	if (RegistryPath)
 	{
+		//DbgPrint("Registry path = %S\n", RegistryPath->Buffer);
+
 		InitializeObjectAttributes(&oa, RegistryPath, OBJ_KERNEL_HANDLE, NULL, NULL);
 		ntStatus = ZwOpenKey(&reg, KEY_QUERY_VALUE, &oa);
 		if (ntStatus == STATUS_SUCCESS)
@@ -195,6 +216,8 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 			UNICODE_STRING A, B, C, D;
 			PKEY_VALUE_PARTIAL_INFORMATION bufA, bufB, bufC, bufD;
 			ULONG ActualSize;
+
+			//DbgPrint("Opened the key\n");
 
 			BufDriverString = ExAllocatePool(PagedPool, sizeof(KEY_VALUE_PARTIAL_INFORMATION) + 100);
 			BufDeviceString = ExAllocatePool(PagedPool, sizeof(KEY_VALUE_PARTIAL_INFORMATION) + 100);
@@ -222,10 +245,16 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 
 			if (ntStatus == STATUS_SUCCESS)
 			{
+				//DbgPrint("Read ok\n");
 				RtlInitUnicodeString(&uszDriverString, (PCWSTR)bufA->Data);
 				RtlInitUnicodeString(&uszDeviceString, (PCWSTR)bufB->Data);
 				RtlInitUnicodeString(&uszProcessEventString, (PCWSTR)bufC->Data);
 				RtlInitUnicodeString(&uszThreadEventString, (PCWSTR)bufD->Data);
+
+				//DbgPrint("DriverString=%S\n", uszDriverString.Buffer);
+				//DbgPrint("DeviceString=%S\n", uszDeviceString.Buffer);
+				//DbgPrint("ProcessEventString=%S\n", uszProcessEventString.Buffer);
+				//DbgPrint("ThreadEventString=%S\n", uszThreadEventString.Buffer);
 			}
 			else
 			{
@@ -234,6 +263,7 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 				ExFreePool(bufC);
 				ExFreePool(bufD);
 
+				//DbgPrint("Failed reading the value\n");
 				ZwClose(reg);
 				return STATUS_UNSUCCESSFUL;;
 			}
@@ -241,6 +271,7 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 		}
 		else
 		{
+			//DbgPrint("Failed opening the key\n");
 			return STATUS_UNSUCCESSFUL;;
 		}
 	}
@@ -249,11 +280,16 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 
 	ntStatus = STATUS_SUCCESS;
 
+
+
+
+
 	if (!loadedbydbvm)
 	{
 
 		// Point uszDriverString at the driver name
 #ifndef CETC
+
 
 		// Create and initialize device object
 		ntStatus = IoCreateDevice(DriverObject,
@@ -266,6 +302,7 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 
 		if (ntStatus != STATUS_SUCCESS)
 		{
+			//DbgPrint("IoCreateDevice failed\n");
 			ExFreePool(BufDriverString);
 			ExFreePool(BufDeviceString);
 			ExFreePool(BufProcessEventString);
@@ -285,6 +322,8 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 
 		if (ntStatus != STATUS_SUCCESS)
 		{
+			//DbgPrint("IoCreateSymbolicLink failed: %x\n", ntStatus);
+			// Delete device object if not successful
 			IoDeleteDevice(pDeviceObject);
 
 			ExFreePool(BufDriverString);
@@ -303,6 +342,9 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 	}
 
 	//when loaded by dbvm driver object is 'valid' so store the function addresses
+
+
+	//DbgPrint("DriverObject=%p\n", DriverObject);
 
 	// Load structure to point to IRP handlers...
 	DriverObject->DriverUnload = UnloadDriver;
@@ -339,6 +381,8 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 		PAGE_SIZE_LARGE=0x200000;
 		MAX_PDE_POS=0xC0604000;
 		MAX_PTE_POS=0xC07FFFF8;
+
+
 	}
 	else
 	{
@@ -360,16 +404,19 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 
 
 #ifdef CETC
+	DbgPrint("Going to initialice CETC\n");
 	InitializeCETC();
 #endif
 
 
 	//hideme(DriverObject); //ok, for those that see this, enabling this WILL fuck up try except routines, even in usermode you'll get a blue sreen
 
+	DbgPrint("Initializing debugger\n");
 	debugger_initialize();
 
 
 	// Return success (don't do the devicestring, I need it for unload)
+	DbgPrint("Cleaning up initialization buffers\n");
 	if (BufDriverString)
 	{
 		ExFreePool(BufDriverString);
@@ -402,6 +449,7 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 		DWORD a;
 
 		__cpuid(r, 0);
+		DbgPrint("cpuid.0: r[1]=%x", r[1]);
 		if (r[1] == 0x756e6547) //GenuineIntel
 		{
 
@@ -425,8 +473,10 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 		}
 		else
 		{
+			DbgPrint("Not an intel cpu");
 			if (r[1] == 0x68747541)
 			{
+				DbgPrint("This is an AMD\n");
 				vmx_init_dovmcall(0);
 			}
 
@@ -441,16 +491,24 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 		APIC y;
 
 		DebugStackState x;
+		DbgPrint("offset of LBR_Count=%d\n", (UINT_PTR)&x.LBR_Count - (UINT_PTR)&x);
+
+
+		DbgPrint("Testing forEachCpu(...)\n");
 		forEachCpu(TestDPC, NULL, NULL, NULL, NULL);
 
+		DbgPrint("Testing forEachCpuAsync(...)\n");
 		forEachCpuAsync(TestDPC, NULL, NULL, NULL, NULL);
 
+		DbgPrint("Testing forEachCpuPassive(...)\n");
 		forEachCpuPassive(TestPassive, 0);
 
+		DbgPrint("LVT_Performance_Monitor=%x\n", (UINT_PTR)&y.LVT_Performance_Monitor - (UINT_PTR)&y);
 	}
 #endif
 
 #ifdef DEBUG2
+	DbgPrint("No exceptions test:");
 	if (NoExceptions_Enter())
 	{
 		int o = 45678;
@@ -459,6 +517,10 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 
 		r = NoExceptions_CopyMemory(&x, (PVOID)0, sizeof(x));
 
+		DbgPrint("o=%d x=%d r=%d", o, x, r);
+
+
+		DbgPrint("Leaving NoExceptions mode");
 		NoExceptions_Leave();
 	}
 #endif
@@ -505,6 +567,7 @@ NTSTATUS DispatchCreate(IN PDEVICE_OBJECT DeviceObject,
 	}
 	else
 	{
+		DbgPrint("A process without SeDebugPrivilege tried to open the dbk driver\n");
 		Irp->IoStatus.Status = STATUS_UNSUCCESSFUL;
 	}
 
@@ -531,10 +594,15 @@ NTSTATUS DispatchClose(IN PDEVICE_OBJECT DeviceObject,
 
 void UnloadDriver(PDRIVER_OBJECT DriverObject)
 {
+	cleanupDBVM();
+	
 	if (!debugger_stopDebugging())
 	{
-		return;
+		DbgPrint("Can not unload the driver because of debugger\n");
+		return; //
 	}
+
+	debugger_shutdown();
 
 	ultimap_disable();
 	DisableUltimap2();
@@ -558,16 +626,24 @@ void UnloadDriver(PDRIVER_OBJECT DriverObject)
 		RtlInitUnicodeString(&temp, L"ObOpenObjectByName");
 		x=MmGetSystemRoutineAddress(&temp);
 		
+		DbgPrint("ObOpenObjectByName=%p\n",x);
+			
+
 		if ((PsRemoveCreateThreadNotifyRoutine2) && (PsRemoveLoadImageNotifyRoutine2))
 		{
+			DbgPrint("Stopping processwatch\n");
+
 			if (CreateProcessNotifyRoutineEnabled)
 			{
+				DbgPrint("Removing process watch");
 #if (NTDDI_VERSION >= NTDDI_VISTASP1)
 				PsSetCreateProcessNotifyRoutineEx(CreateProcessNotifyRoutineEx,TRUE);
 #else
 				PsSetCreateProcessNotifyRoutine(CreateProcessNotifyRoutine,TRUE);
 #endif
 
+				
+				DbgPrint("Removing thread watch");
 				PsRemoveCreateThreadNotifyRoutine2(CreateThreadNotifyRoutine);
 			}
 
@@ -576,6 +652,9 @@ void UnloadDriver(PDRIVER_OBJECT DriverObject)
 		}
 		else return;  //leave now!!!!!		
 	}
+
+
+	DbgPrint("Driver unloading\n");
 
     IoDeleteDevice(DriverObject->DeviceObject);
 
@@ -586,8 +665,10 @@ void UnloadDriver(PDRIVER_OBJECT DriverObject)
 #endif
 
 #ifndef CETC_RELEASE
+	DbgPrint("DeviceString=%S\n",uszDeviceString.Buffer);
 	{
 		NTSTATUS r = IoDeleteSymbolicLink(&uszDeviceString);
+		DbgPrint("IoDeleteSymbolicLink: %x\n", r);
 	}
 	ExFreePool(BufDeviceString);
 #endif
@@ -601,6 +682,7 @@ void UnloadDriver(PDRIVER_OBJECT DriverObject)
 #if (NTDDI_VERSION >= NTDDI_VISTA)
 	if (DRMHandle)
 	{
+		DbgPrint("Unregistering DRM handle");
 		ObUnRegisterCallbacks(DRMHandle);
 		DRMHandle = NULL;
 	}

@@ -168,6 +168,8 @@ BOOLEAN IsAddressSafe(UINT_PTR StartAddress)
 		lasterror=vmx_getLastSkippedPageFault();
 		enableInterrupts();
 
+		DbgPrint("IsAddressSafe dbvm-mode: lastError=%p\n", lasterror);
+		
 		if (lasterror) return FALSE;		
 	}
 
@@ -270,8 +272,11 @@ BOOLEAN WriteProcessMemory(DWORD PID,PEPROCESS PEProcess,PVOID Address,DWORD Siz
 		
 	if (selectedprocess==NULL)
 	{
+		//DbgPrint("WriteProcessMemory:Getting PEPROCESS\n");
         if (!NT_SUCCESS(PsLookupProcessByProcessId((PVOID)(UINT_PTR)PID,&selectedprocess)))
 		   return FALSE; //couldn't get the PID
+
+		//DbgPrint("Retrieved peprocess");  
 	}
 
 	//selectedprocess now holds a valid peprocess value
@@ -286,6 +291,8 @@ BOOLEAN WriteProcessMemory(DWORD PID,PEPROCESS PEProcess,PVOID Address,DWORD Siz
 			char* target;
 			char* source;
 			unsigned int i;	
+
+			//DbgPrint("Checking safety of memory\n");
 
 			if ((IsAddressSafe((UINT_PTR)Address)) && (IsAddressSafe((UINT_PTR)Address+Size-1)))
 			{			
@@ -305,6 +312,7 @@ BOOLEAN WriteProcessMemory(DWORD PID,PEPROCESS PEProcess,PVOID Address,DWORD Siz
 
 					if (KernelWritesIgnoreWP)
 					{
+						DbgPrint("Disabling CR0.WP");
 						setCR0(getCR0() & (~(1 << 16))); //disable the WP bit					
 						disabledWP = TRUE;							
 					}
@@ -332,6 +340,7 @@ BOOLEAN WriteProcessMemory(DWORD PID,PEPROCESS PEProcess,PVOID Address,DWORD Siz
 					if (disabledWP)
 					{						
 						setCR0(getCR0() | (1 << 16));
+						DbgPrint("Enabled CR0.WP");
 					}
 
 					if (loadedbydbvm)
@@ -342,6 +351,7 @@ BOOLEAN WriteProcessMemory(DWORD PID,PEPROCESS PEProcess,PVOID Address,DWORD Siz
 
 					enableInterrupts();
 
+					DbgPrint("lastError=%p\n", lastError);
 					if (lastError)
 						ntStatus=STATUS_UNSUCCESSFUL;
 				}
@@ -357,6 +367,7 @@ BOOLEAN WriteProcessMemory(DWORD PID,PEPROCESS PEProcess,PVOID Address,DWORD Siz
 	}			
 	__except(1)
 	{
+		//DbgPrint("Error while writing\n");
 		ntStatus = STATUS_UNSUCCESSFUL;
 	}
 	
@@ -433,6 +444,7 @@ BOOLEAN ReadProcessMemory(DWORD PID,PEPROCESS PEProcess,PVOID Address,DWORD Size
 
 					enableInterrupts();
 
+					DbgPrint("lastError=%p\n", lastError);
 					if (lastError)
 						ntStatus=STATUS_UNSUCCESSFUL;
 				}
@@ -449,6 +461,8 @@ BOOLEAN ReadProcessMemory(DWORD PID,PEPROCESS PEProcess,PVOID Address,DWORD Size
 	}			
 	__except(1)
 	{
+		//DbgPrint("Error while reading: ReadProcessMemory(%x,%p, %p, %d, %p\n", PID, PEProcess, Address, Size, Buffer);
+
 		ntStatus = STATUS_UNSUCCESSFUL;
 	}
 	
@@ -489,8 +503,11 @@ NTSTATUS ReadPhysicalMemory(char *startaddress, UINT_PTR bytestoread, void *outp
 	NTSTATUS		ntStatus = STATUS_UNSUCCESSFUL;
 	PMDL			outputMDL;
 
+	DbgPrint("ReadPhysicalMemory(%p, %d, %p)", startaddress, bytestoread, output);
+
 	if (((UINT64)startaddress > getMaxPhysAddress()) || ((UINT64)startaddress + bytestoread > getMaxPhysAddress()))
 	{
+		DbgPrint("Invalid physical address\n");
 		return ntStatus;
 	}
 	
@@ -526,6 +543,9 @@ NTSTATUS ReadPhysicalMemory(char *startaddress, UINT_PTR bytestoread, void *outp
 
 			memoryview=NULL;
 
+			DbgPrint("ReadPhysicalMemory:viewBase.QuadPart=%x", viewBase.QuadPart); 
+
+
 			ntStatus=ZwMapViewOfSection(
 				physmem,  //sectionhandle
 				NtCurrentProcess(), //processhandle (should be -1)
@@ -552,6 +572,7 @@ NTSTATUS ReadPhysicalMemory(char *startaddress, UINT_PTR bytestoread, void *outp
 
 						if (offset + toread > length)
 						{
+							DbgPrint("Too small map");
 						}
 						else
 						{
@@ -562,11 +583,13 @@ NTSTATUS ReadPhysicalMemory(char *startaddress, UINT_PTR bytestoread, void *outp
 					}
 					__except (1)
 					{
+						DbgPrint("Failure mapping physical memory");
 					}					
 				}
 			}
 			else
 			{
+				DbgPrint("ReadPhysicalMemory error:ntStatus=%x", ntStatus); 
 			}
 
 			ZwClose(physmem);
@@ -574,6 +597,7 @@ NTSTATUS ReadPhysicalMemory(char *startaddress, UINT_PTR bytestoread, void *outp
 	}
 	__except(1)
 	{
+		DbgPrint("Error while reading physical memory\n");
 	}
 
 	MmUnlockPages(outputMDL);
@@ -603,6 +627,7 @@ UINT_PTR getPageTableBase()
 		v.dwOSVersionInfoSize = sizeof(v);
 		if (RtlGetVersion(&v))
 		{
+			DbgPrint("RtlGetVersion failed");
 			return 0;
 		}
 
@@ -623,6 +648,7 @@ UINT_PTR getPageTableBase()
 		else
 			KnownPageTableBase=PAGETABLEBASE;
 
+		DbgPrint("PageTableBase at %p\n", KnownPageTableBase);
 	}	
 
 	return KnownPageTableBase;
@@ -658,6 +684,7 @@ BOOL walkPagingLayout(PEPROCESS PEProcess, UINT_PTR MaxAddress, PRESENTPAGECALLB
 
 			while ((currentAddress < MaxAddress) && (lastAddress<=currentAddress) )
 			{
+				//DbgPrint("currentAddress=%p\n", currentAddress);
 				lastAddress = currentAddress;
 
 				
@@ -690,6 +717,14 @@ BOOL walkPagingLayout(PEPROCESS PEProcess, UINT_PTR MaxAddress, PRESENTPAGECALLB
 				{		
 					currentAddress &= 0xffffffffc0000000ULL;
 					currentAddress += 0x40000000;						
+					continue;
+				}
+
+				if (PPDPE->PS) //some systems have 1GB page support. But not sure windows uses these
+				{
+					DbgPrint("----->%llx is a 1GB range", currentAddress);
+					OnPresentPage(currentAddress, currentAddress + 0x40000000 - 1, PPDPE);
+					currentAddress += 0x40000000;
 					continue;
 				}
 
@@ -734,6 +769,7 @@ BOOL walkPagingLayout(PEPROCESS PEProcess, UINT_PTR MaxAddress, PRESENTPAGECALLB
 	}
 	__except (1)
 	{
+		DbgPrint("Excepion while walking the paging layout\n");
 		return FALSE;
 	}
 
@@ -750,6 +786,7 @@ void CleanAccessedList()
 {	
 	PPENTRY e = AccessedList;
 	PPENTRY previous;
+	//DbgPrint("Cleaning list");
 
 	while (e)
 	{
@@ -799,6 +836,7 @@ int enumAllAccessedPages(PEPROCESS PEProcess)
 
 	if (walkPagingLayout(PEProcess, MaxAddress, StoreAccessedRanges))
 	{
+		//DbgPrint("AccessedListSize=%d\n", AccessedListSize);
 		return AccessedListSize*sizeof(PRANGE);
 	}
 	else
@@ -811,13 +849,17 @@ int getAccessedPageList(PPRANGE List, int ListSizeInBytes)
 	int maxcount = ListSizeInBytes / sizeof(PRANGE);
 	int i = 0;
 
+//	DbgPrint("getAccessedPageList\n");
+
 	while (e)
 	{
 		if (i >= maxcount)
 		{
+			//DbgPrint("%d>=%d", i, maxcount);
 			break;
 		}
 
+		//DbgPrint("i=%d  (%p -> %p)\n", i, e->Range.StartAddress, e->Range.EndAddress);
 		List[i] = e->Range;
 		e = e->Next;
 
@@ -1243,6 +1285,7 @@ BOOLEAN GetMemoryRegionData(DWORD PID,PEPROCESS PEProcess, PVOID mempointer,ULON
 
 	if (getPageTableBase() == 0)
 	{
+		DbgPrint("GetMemoryRegionData failed because pagebase == 0");
 		return FALSE;
 	}
 
@@ -1276,6 +1319,8 @@ BOOLEAN GetMemoryRegionData(DWORD PID,PEPROCESS PEProcess, PVOID mempointer,ULON
 	}
 	__except(1)
 	{
+		DbgPrint("Exception in GetMemoryRegionData\n");
+		DbgPrint("mempointer=%p",mempointer);
 	}
 
 	return 0; 

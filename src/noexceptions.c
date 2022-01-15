@@ -37,6 +37,8 @@ BOOL NoExceptions_Enter()
 	int i;
 	int cpunr;
 
+	//DbgPrint("NoExceptions_Enter");
+
 	__try
 	{
 		if (cpustate == NULL)
@@ -71,10 +73,16 @@ BOOL NoExceptions_Enter()
 				return FALSE;
 		}
 
+		//DbgPrint("cpustate setup here");
+
 		KeRaiseIrql(HIGH_LEVEL, &old);
 		cpunr = KeGetCurrentProcessorNumber();
 
 		cpustate[cpunr].entryIRQL = old;
+
+		
+
+		
 
 		if (cpustate[cpunr].OriginalIDT.wLimit == 0)
 		{
@@ -85,7 +93,10 @@ BOOL NoExceptions_Enter()
 			
 			RtlCopyMemory(cpustate[cpunr].NoExceptionVectorList, cpustate[cpunr].OriginalIDT.vector, cpustate[cpunr].OriginalIDT.wLimit + 1);				
 
+			//DbgPrint("idt. Limit=%d Vector=%p", (int)cpustate[cpunr].OriginalIDT.wLimit, cpustate[cpunr].OriginalIDT.vector);
+
 			//hook cpustate[cpunr].NoExceptionVectorList[0-15]
+			//DbgPrint("")
 
 			newAddress = (UINT_PTR)NoException14;
 
@@ -134,6 +145,7 @@ BOOL NoExceptions_Enter()
 	}
 	__except (1)
 	{
+		DbgPrint("Exception during NoExceptions_Enter. Figures");
 	}
 
 	
@@ -150,6 +162,7 @@ int NoExceptions_CopyMemory(PVOID Destination, PVOID Source, int size)
 	
 	if (KeGetCurrentIrql() <= DISPATCH_LEVEL)
 	{
+		//DbgPrint("calling NoExceptions_Enter");
 		EnteredNoExceptions = NoExceptions_Enter();
 		if (EnteredNoExceptions == FALSE)
 			return 0;
@@ -161,6 +174,7 @@ int NoExceptions_CopyMemory(PVOID Destination, PVOID Source, int size)
 	
 	if (EnteredNoExceptions)
 	{
+		//DbgPrint("calling NoExceptions_Leave");
 		NoExceptions_Leave();
 	}
 

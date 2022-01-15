@@ -52,6 +52,9 @@ calls a specific function for each cpu that runs in passive mode
 #endif
 			KAFFINITY newaffinity;
 
+
+			
+			//DbgPrint("Calling passive function for cpunr %d\n", cpunr);
 			//set affinity
 
 			newaffinity=(KAFFINITY)(1 << cpunr);
@@ -143,6 +146,9 @@ calls a specified dpcfunction for each cpu on the system
 		if (cpus % 2)
 		{
 			//bit is set
+			
+			//DbgPrint("Calling dpc routine for cpunr %d (dpc=%p)\n", cpunr, &dpc[dpcnr]);
+
 			if (preDPCCallback)
 				preDPCCallback(cpunr, dpcfunction, DeferredContext, &SystemArgument1, &SystemArgument2);
 
@@ -199,6 +205,7 @@ calls a specified dpcfunction for each cpu on the system
 		{
 			//bit is set
 
+			//DbgPrint("Calling dpc routine for cpunr %d\n", cpunr);
 			if (preDPCCallback) //if preDPCCallback is set call it which may change the system arguments
 				preDPCCallback(cpunr, dpcfunction, DeferredContext, &SystemArgument1, &SystemArgument2);
 
