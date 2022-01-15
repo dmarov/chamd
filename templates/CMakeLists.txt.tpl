@@ -8,6 +8,7 @@ find_package(WDK REQUIRED)
 string(REPLACE "/GR" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W1 /WX")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W1 /WX")
+add_definitions( -DRELEASE="DEFINED" )
 
 wdk_add_driver({{DRIVER_NAME}} KMDF 1.15
     "${CMAKE_CURRENT_SOURCE_DIR}/DBKDrvr.c"
