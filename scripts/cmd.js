@@ -90,6 +90,10 @@ class Context {
             throw new Error('Visual studio not found');
         }
 
+        if (!fs.existsSync(this.buildDir)) {
+            fs.mkdirSync(this.buildDir);
+        }
+
         const cmd = `"${this.vcPath}" amd64 && cd "${this.buildDir}" && cmake -G "Visual Studio 16 2019" "${this.srcDir}" && cmake --build . --config Release`;
         await this.execute(cmd, this.buildDir);
     }
@@ -117,7 +121,7 @@ class Context {
         const makecert = `makecert -r -sv "./${this.driverName}.pvk" -n CN="${this.driverName} Inc." "./${this.driverName}.cer"`;
         const cert2spc = `cert2spc "./${this.driverName}.cer" "./${this.driverName}.spc"`;
         const pvk2pfx = `pvk2pfx -f -pvk "./${this.driverName}.pvk" -spc "./${this.driverName}.spc" -pfx "./${this.driverName}.pfx"`;
-        const signtool = `signtool sign -f "./${this.driverName}.pfx" -t "http://timestamp.digicert.com" -v "./${this.driverName}.cat"`;
+        const signtool = `signtool sign /fd SHA256 -f "./${this.driverName}.pfx" -t "http://timestamp.digicert.com" -v "./${this.driverName}.cat"`;
         const cmd = `${vc} && ${inf2cat} && ${makecert} && ${cert2spc} && ${pvk2pfx} && ${signtool}`;
 
         await this.execute(cmd, this.buildDir);
