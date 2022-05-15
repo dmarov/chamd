@@ -7,7 +7,7 @@ const spawn = require('child_process').spawn;
 
 class Context {
     static buildDir = path.normalize(__dirname + '\\..\\build\\');
-    static driverName = (env.CHAMD_DBK_DRIVER_NAME ? env.CHAMD_DBK_DRIVER_NAME : this.generateRandomName(10))
+    static driverName = (env.CHAMD_DBK_DRIVER_NAME ? env.CHAMD_DBK_DRIVER_NAME : '')
         .replace(/[^a-z0-9_]/gi, '')
         .toLowerCase();
 
@@ -136,6 +136,10 @@ class Context {
         const signtool = `signtool sign /fd SHA256 -f "./${this.driverName}.pfx" -t "http://timestamp.digicert.com" -v "./${this.driverName}.cat"`;
         const cmd = `${vc} && ${inf2cat} && ${makecert} && ${cert2spc} && ${pvk2pfx} && ${signtool}`;
 
+        // const genPrivKey = `openssl genrsa -out ${this.driverName}.key 2048`;
+        // const genReq = `openssl req -new -key ${this.driverName}.key -out ${this.driverName}.csr -subj '/CN=${this.driverName}.com/O=${this.driverName} LTD./C=US'`;
+
+        // const cmd = `${genPrivKey} && ${genReq}`;
         await this.execute(cmd, this.buildDir);
     }
 
@@ -214,6 +218,9 @@ if (enterpriseVs) {
     Context.vcPath = Context.vcvarsEnterprisePath;
 }
 
+if (!Context.driverName) {
+    Context.driverName = Context.generateRandomName(10);
+}
 
 const args = process.argv.slice(2);
 const command = args[0];

@@ -80,7 +80,7 @@ KmdfLibraryVersion = $KMDFVERSION$
 
 [Strings]
 SPSVCINST_ASSOCSERVICE= 0x00000002
-ManufacturerName="MDS"
+ManufacturerName="{{DRIVER_NAME}} Inc."
 ClassName="Samples" ; TODO: edit ClassName
 DiskName = "{{DRIVER_NAME}} Installation Disk"
 {{DRIVER_NAME}}.DeviceDesc = "{{DRIVER_NAME}} Device"
