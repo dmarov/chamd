@@ -9,6 +9,7 @@
     "purge": "node --unhandled-rejections=strict ./scripts/builder.js purge",
     "compile": "node --unhandled-rejections=strict ./scripts/builder.js compile",
     "geninf": "node --unhandled-rejections=strict ./scripts/builder.js geninf",
-    "sign": "node --unhandled-rejections=strict ./scripts/builder.js sign"
+    "sign": "node --unhandled-rejections=strict ./scripts/builder.js sign",
+    "multibuild": "node --unhandled-rejections=strict ./scripts/multibuilder.js 10"
   }
 }

@@ -16,19 +16,14 @@ module.exports = class Context {
     datTplPath = path.normalize(__dirname + '\\..\\templates\\driver64.dat.tpl');
     datPath = `${this.buildDir}driver64.dat`;
     srcDir = path.normalize(__dirname + '\\..\\src\\');
-    distDir = path.normalize(__dirname + '\\..\\dist\\');
     cmakeConfigPath = this.srcDir + 'CMakeLists.txt';
     inf2CatPath = "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\x86\\inf2cat.exe"
 
-    constructor(driverName) {
-
-        this.driverName = this.generateRandomName(10);
-
-        if (driverName) {
-            this.driverName = driverName
-                .replace(/[^a-z0-9_]/gi, '')
-                .toLowerCase();
-        }
+    constructor(driverName, distDir) {
+        this.distDir = distDir;
+        this.driverName = driverName
+            .replace(/[^a-z0-9_]/gi, '')
+            .toLowerCase();
 
         const communityVs = fs.existsSync(this.vcvarsCommunityPath);
         const enterpriseVs = fs.existsSync(this.vcvarsEnterprisePath);
@@ -44,21 +39,9 @@ module.exports = class Context {
         this.infPath = `${this.buildDir}${this.driverName}.inf`;
     }
 
-    generateRandomName(length) {
-        let result = '';
-        const characters = 'abcdefghijklmnopqrstuvwxyz';
-        const charactersLength = characters.length;
-
-        for (let i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-
-        return result;
-    }
-
     async all() {
         console.log(`Generating ${this.driverName} driver ...`);
-        await this.purge();
+        await this.clearBuildDir();
         await this.generateCmakeFile();
         await this.compile();
         await this.createInfFile();
@@ -73,7 +56,7 @@ module.exports = class Context {
 
     async purge() {
         await this.clearBuildDir();
-        await this.purgeDir(this.distDir);
+        await this.clearDistDir();
 
         if (!fs.existsSync(this.cmakeConfigPath)) {
             return;
@@ -219,5 +202,9 @@ module.exports = class Context {
 
     async clearBuildDir() {
         await this.purgeDir(this.buildDir);
+    }
+
+    async clearDistDir() {
+        await this.purgeDir(this.distDir);
     }
 }
