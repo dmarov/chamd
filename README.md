@@ -4,7 +4,7 @@
 
 This driver is supposed to be undetectable by the anticheat.
 
-It is based on Cheat Engine version 7.3
+It is based on Cheat Engine version 7.4
 
 ## Download the compiled driver
 
@@ -63,7 +63,7 @@ Note: use PowerShell or Cmder
 11. Copy all 4 files from 'dist' directory to directory where `cheatengine.exe` is located.
 
 You'll need to use Cheat Engine version 7.3. Compile it from source (Release x64)
-or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/v7.3_64bit)
+or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/7.4)
 
 ## Load the driver
 
@@ -84,12 +84,6 @@ or
 
     [Video tutorial](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 
-Now you have loaded unsigned DBK64 driver.
+Now you have loaded DBK64 driver signed using test certificate.
 Kernel mode anticheat will allow to start game and make operations on game memory
-(last tested on EAC 01/15/2022).
-
-## TODO
-
-- Try to use [Code Virtualizer](https://www.oreans.com/CodeVirtualizer.php) when driver will be detected by EAC.
-
-- Figure out if changing driver name even does anything
+(last tested on EAC 05/15/2022).
