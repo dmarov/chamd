@@ -52,15 +52,19 @@ Note: use PowerShell or Cmder
 (Windows Driver Development Kit)
 (follow the instructions).
 
-10. Run build
+10. Install openssl. The least complex way is to use Chocolatey.
+    ```
+    choco install openssl
+    ```
+    This command needs to be performed as admin
+
+11. Run build
 
     ```shell
     yarn all
     ```
 
-    Press `None` when asked.
-
-11. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe` is located.
+12. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe` is located.
 
 You'll need to use Cheat Engine version 7.4. Compile it from source (Release x64)
 or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/7.4)
