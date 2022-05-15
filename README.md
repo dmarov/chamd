@@ -82,7 +82,8 @@ or
 
 - (recommended) use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers.
 
-    [Video tutorial](https://www.youtube.com/watch?v=EJGuJp2fqpM)
+    - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
+    - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
 
 Now you have loaded DBK64 driver signed using test certificate.
 Kernel mode anticheat will allow to start game and make operations on game memory
