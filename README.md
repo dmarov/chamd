@@ -27,44 +27,38 @@ Note: use PowerShell or Cmder
 
 2. Install [nodejs](https://nodejs.org/en/)
 
-3. Install yarn
+3. Install packages
 
     ```shell
-    npm install -g yarn
+    npm install
     ```
 
-4. Install packages
+4. Copy `.env.tpl` to `.env`
 
-    ```shell
-    yarn
-    ```
+5. You may set `CHAMD_DBK_DRIVER_NAME` in `.env` to whatever name you wish. For example you can use the CheatEngine default driver name `DBK64`.
 
-5. Copy `.env.tpl` to `.env`
-
-6. You may set `CHAMD_DBK_DRIVER_NAME` in `.env` to whatever name you wish. For example you can use the CheatEngine default driver name `DBK64`.
-
-7. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
+6. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
 (community or enterprise). This project is based on Visual Studio 2019.
 
-8. Install MSVC (C/C++ compiler). You can install it by adding the Visual Studio additional package `Desktop development with C++`.
+7. Install MSVC (C/C++ compiler). You can install it by adding the Visual Studio additional package `Desktop development with C++`.
 
-9. Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
+8. Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
 (Windows Driver Development Kit)
 (follow the instructions).
 
-10. Install openssl. The least complex way is to use Chocolatey.
+9. Install openssl. The least complex way is to use Chocolatey.
     ```
     choco install openssl
     ```
     This command needs to be performed as admin
 
-11. Run build
+10. Run build
 
     ```shell
-    yarn all
+    npm run all
     ```
 
-12. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe` is located.
+11. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe` is located.
 
 You'll need to use Cheat Engine version 7.4. Compile it from source (Release x64)
 or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/7.4)
