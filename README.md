@@ -1,10 +1,10 @@
 # Chamd (stands for "Chameleon DBK64")
 
-## Modified Cheat Engine DBK64 kernel driver (undetectable)
+## Modified Cheat Engine DBK64 kernel driver (not yet detected by Easy Anti Cheat or BattlEye)
 
-This driver is supposed to be undetectable by the anticheat.
+The purpose of this driver is to not get detected by anti-cheat systems.
 
-It is based on Cheat Engine version 7.4
+Current version is based on Cheat Engine version 7.4
 
 ## Download the compiled driver
 
@@ -60,7 +60,7 @@ Note: use PowerShell or Cmder
 
     Press `None` when asked.
 
-11. Copy all 4 files from 'dist' directory to directory where `cheatengine.exe` is located.
+11. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe` is located.
 
 You'll need to use Cheat Engine version 7.3. Compile it from source (Release x64)
 or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/7.4)
