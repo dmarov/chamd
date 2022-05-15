@@ -5,10 +5,10 @@
     "rimraf": "^3.0.2"
   },
   "scripts": {
-    "all": "node --unhandled-rejections=strict ./scripts/cmd.js all",
-    "purge": "node --unhandled-rejections=strict ./scripts/cmd.js purge",
-    "compile": "node --unhandled-rejections=strict ./scripts/cmd.js compile",
-    "geninf": "node --unhandled-rejections=strict ./scripts/cmd.js geninf",
-    "sign": "node --unhandled-rejections=strict ./scripts/cmd.js sign"
+    "all": "node --unhandled-rejections=strict ./scripts/builder.js all",
+    "purge": "node --unhandled-rejections=strict ./scripts/builder.js purge",
+    "compile": "node --unhandled-rejections=strict ./scripts/builder.js compile",
+    "geninf": "node --unhandled-rejections=strict ./scripts/builder.js geninf",
+    "sign": "node --unhandled-rejections=strict ./scripts/builder.js sign"
   }
 }

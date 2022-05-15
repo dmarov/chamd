@@ -1,31 +1,50 @@
-const env = require('dotenv').config().parsed;
 const rimraf = require('rimraf');
 const path = require('path');
 const fs = require('fs');
 const handlebars = require('handlebars');
 const spawn = require('child_process').spawn;
 
-class Context {
-    static buildDir = path.normalize(__dirname + '\\..\\build\\');
-    static driverName = (env.CHAMD_DBK_DRIVER_NAME ? env.CHAMD_DBK_DRIVER_NAME : '')
-        .replace(/[^a-z0-9_]/gi, '')
-        .toLowerCase();
+module.exports = class Context {
+    buildDir = path.normalize(__dirname + '\\..\\build\\');
 
-    static vcvarsCommunityPath = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build\\vcvarsall.bat';
-    static vcvarsEnterprisePath = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat';
-    static vcPath = null;
+    vcvarsCommunityPath = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build\\vcvarsall.bat';
+    vcvarsEnterprisePath = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat';
+    vcPath = null;
 
-    static cmakeTplPath = path.normalize(__dirname + '\\..\\templates\\CMakeLists.txt.tpl');
-    static infTplPath = path.normalize(__dirname + '\\..\\templates\\chamd.inf.tpl');
-    static datTplPath = path.normalize(__dirname + '\\..\\templates\\driver64.dat.tpl');
-    static datPath = `${this.buildDir}driver64.dat`;
-    static srcDir = path.normalize(__dirname + '\\..\\src\\');
-    static distDir = path.normalize(__dirname + '\\..\\dist\\');
-    static cmakeConfigPath = this.srcDir + 'CMakeLists.txt';
-    static infPath = `${this.buildDir}${this.driverName}.inf`;
-    static inf2CatPath = "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\x86\\inf2cat.exe"
+    cmakeTplPath = path.normalize(__dirname + '\\..\\templates\\CMakeLists.txt.tpl');
+    infTplPath = path.normalize(__dirname + '\\..\\templates\\chamd.inf.tpl');
+    datTplPath = path.normalize(__dirname + '\\..\\templates\\driver64.dat.tpl');
+    datPath = `${this.buildDir}driver64.dat`;
+    srcDir = path.normalize(__dirname + '\\..\\src\\');
+    distDir = path.normalize(__dirname + '\\..\\dist\\');
+    cmakeConfigPath = this.srcDir + 'CMakeLists.txt';
+    inf2CatPath = "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\x86\\inf2cat.exe"
 
-    static generateRandomName(length) {
+    constructor(driverName) {
+
+        this.driverName = this.generateRandomName(10);
+
+        if (driverName) {
+            this.driverName = driverName
+                .replace(/[^a-z0-9_]/gi, '')
+                .toLowerCase();
+        }
+
+        const communityVs = fs.existsSync(this.vcvarsCommunityPath);
+        const enterpriseVs = fs.existsSync(this.vcvarsEnterprisePath);
+
+        if (communityVs) {
+            this.vcPath = this.vcvarsCommunityPath;
+        }
+
+        if (enterpriseVs) {
+            this.vcPath = this.vcvarsEnterprisePath;
+        }
+
+        this.infPath = `${this.buildDir}${this.driverName}.inf`;
+    }
+
+    generateRandomName(length) {
         let result = '';
         const characters = 'abcdefghijklmnopqrstuvwxyz';
         const charactersLength = characters.length;
@@ -37,7 +56,7 @@ class Context {
         return result;
     }
 
-    static async all() {
+    async all() {
         console.log(`Generating ${this.driverName} driver ...`);
         await this.purge();
         await this.generateCmakeFile();
@@ -52,7 +71,7 @@ class Context {
         console.log(`Now copy all files from ${this.distDir} to directory where cheatengine.exe is located`);
     }
 
-    static async purge() {
+    async purge() {
         await this.clearBuildDir();
         await this.purgeDir(this.distDir);
 
@@ -63,7 +82,7 @@ class Context {
         fs.rmSync(this.cmakeConfigPath);
     }
 
-    static async purgeDir(dir) {
+    async purgeDir(dir) {
 
         if (!fs.existsSync(dir)) {
             return;
@@ -78,7 +97,7 @@ class Context {
         });
     }
 
-    static async generateCmakeFile() {
+    async generateCmakeFile() {
         await this.templateToFile(
             this.cmakeTplPath,
             this.cmakeConfigPath,
@@ -88,7 +107,7 @@ class Context {
         );
     }
 
-    static async templateToFile(src, dist, vars) {
+    async templateToFile(src, dist, vars) {
         const templateContent = fs.readFileSync(src, 'utf-8');
         const template = handlebars.compile(templateContent);
         const res = template(vars)
@@ -96,7 +115,7 @@ class Context {
         fs.writeFileSync(dist, res);
     }
 
-    static async compile() {
+    async compile() {
         console.log('Compiling');
         if (this.vcPath === null) {
             throw new Error('Visual studio not found');
@@ -110,7 +129,7 @@ class Context {
         await this.execute(cmd, this.buildDir);
     }
 
-    static async createInfFile() {
+    async createInfFile() {
         console.log('Creating inf file');
         await this.templateToFile(
             this.infTplPath,
@@ -120,13 +139,13 @@ class Context {
         );
     }
 
-    static async stampInfFile() {
+    async stampInfFile() {
         console.log('Stamping inf file');
         const cmd = `"${this.vcPath}" amd64 && stampinf.exe -f .\\${this.driverName}.inf  -a "amd64" -k "1.15" -v "*" -d "*"`
         await this.execute(cmd, this.buildDir);
     }
 
-    static async signDriver() {
+    async signDriver() {
         console.log('Signing driver');
         const vc = `"${this.vcPath}" amd64`;
         const inf2cat = `"${this.inf2CatPath}" /driver:"./" /os:10_X64 /verbose`;
@@ -136,11 +155,10 @@ class Context {
         const signtool = `signtool sign /fd SHA256 -f "./${this.driverName}.pfx" -t "http://timestamp.digicert.com" -v "./${this.driverName}.cat"`;
 
         const cmd = `${openssl} && ${crt} && ${pfx} && ${inf2cat} && ${vc} && ${signtool}`;
-        // const cmd = `${genPrivKey} && ${genReq}`;
         await this.execute(cmd, this.buildDir);
     }
 
-    static async execute(cmd, cwd, params = []) {
+    async execute(cmd, cwd, params = []) {
 
         console.log(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
         console.log(`Executing: ${cmd}`);
@@ -161,7 +179,7 @@ class Context {
         });
     }
 
-    static async createDriverDatFile() {
+    async createDriverDatFile() {
         console.log('Creating dat file');
         await this.templateToFile(
             this.datTplPath,
@@ -171,7 +189,7 @@ class Context {
         );
     }
 
-    static async install() {
+    async install() {
         console.log('Installing');
 
         if (!fs.existsSync(this.distDir)) {
@@ -199,48 +217,7 @@ class Context {
         );
     }
 
-    static async clearBuildDir() {
+    async clearBuildDir() {
         await this.purgeDir(this.buildDir);
     }
 }
-
-const communityVs = fs.existsSync(Context.vcvarsCommunityPath);
-const enterpriseVs = fs.existsSync(Context.vcvarsEnterprisePath);
-
-if (communityVs) {
-    Context.vcPath = Context.vcvarsCommunityPath;
-}
-
-if (enterpriseVs) {
-    Context.vcPath = Context.vcvarsEnterprisePath;
-}
-
-if (!Context.driverName) {
-    Context.driverName = Context.generateRandomName(10);
-}
-
-const args = process.argv.slice(2);
-const command = args[0];
-
-(async () => {
-    switch (command) {
-        case 'all':
-            await Context.all();
-            break;
-        case 'purge':
-            await Context.purge();
-            break;
-        case 'compile':
-            await Context.generateCmakeFile();
-            await Context.compile();
-            break;
-        case 'geninf':
-            await Context.createInfFile();
-            await Context.stampInfFile();
-            break;
-        case 'sign':
-            await Context.signDriver();
-            await Context.createInfFile();
-            break;
-    }
-})();
