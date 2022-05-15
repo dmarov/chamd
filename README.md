@@ -41,7 +41,7 @@ Note: use PowerShell or Cmder
 
 5. Copy `.env.tpl` to `.env`
 
-6. Fill in variables in `.env`. Set `CHAMD_DBK_DRIVER_NAME` to whatever name you wish. You can use the CheatEngine default driver name `DBK64`.
+6. You may set `CHAMD_DBK_DRIVER_NAME` in `.env` to whatever name you wish. For example you can use the CheatEngine default driver name `DBK64`.
 
 7. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
 (community or enterprise). This project is based on Visual Studio 2019.

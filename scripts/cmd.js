@@ -7,9 +7,9 @@ const spawn = require('child_process').spawn;
 
 class Context {
     static buildDir = path.normalize(__dirname + '\\..\\build\\');
-    static cheatEngineBinary = env.CHAMD_CHEAT_ENGINE_BINARY_DIR;
-    static driverName = env.CHAMD_DBK_DRIVER_NAME;
-    static seed = env.CHAMD_SEED;
+    static driverName = (env.CHAMD_DBK_DRIVER_NAME ? env.CHAMD_DBK_DRIVER_NAME : this.generateRandomName(10))
+        .replace(/[^a-z0-9_]/gi, '')
+        .toLowerCase();
 
     static vcvarsCommunityPath = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build\\vcvarsall.bat';
     static vcvarsEnterprisePath = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat';
@@ -24,6 +24,18 @@ class Context {
     static cmakeConfigPath = this.srcDir + 'CMakeLists.txt';
     static infPath = `${this.buildDir}${this.driverName}.inf`;
     static inf2CatPath = "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\x86\\inf2cat.exe"
+
+    static generateRandomName(length) {
+        let result = '';
+        const characters = 'abcdefghijklmnopqrstuvwxyz';
+        const charactersLength = characters.length;
+
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+
+        return result;
+    }
 
     static async all() {
         console.log(`Generating ${this.driverName} driver ...`);
