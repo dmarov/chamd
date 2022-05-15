@@ -1,4 +1,3 @@
-const rimraf = require('rimraf');
 const path = require('path');
 const fs = require('fs');
 const handlebars = require('handlebars');
@@ -70,13 +69,7 @@ module.exports = class Context {
             return;
         }
 
-        console.log(`Clearing ${dir}* and other files ...`);
-
-        return new Promise((res, rej) => {
-            rimraf(`${dir}\\*`, () => {
-                res();
-            });
-        });
+        fs.rmdirSync(dir, { recursive: true })
     }
 
     async generateCmakeFile() {
@@ -175,7 +168,7 @@ module.exports = class Context {
         console.log('Installing');
 
         if (!fs.existsSync(this.distDir)) {
-            fs.mkdirSync(this.distDir);
+            fs.mkdirSync(this.distDir, { recursive: true });
         }
 
         fs.copyFileSync(

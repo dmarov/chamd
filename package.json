@@ -1,8 +1,7 @@
 {
   "dependencies": {
     "dotenv": "^10.0.0",
-    "handlebars": "^4.7.7",
-    "rimraf": "^3.0.2"
+    "handlebars": "^4.7.7"
   },
   "scripts": {
     "all": "node --unhandled-rejections=strict ./scripts/builder.js all",
