@@ -13,9 +13,10 @@ const context = new Context(driverName, distDir);
 
 (async () => {
 
+    await Context.purgeDir(distDir);
+
     switch (command) {
         case 'all':
-            await context.clearDistDir();
             await context.all();
             break;
         case 'purge':

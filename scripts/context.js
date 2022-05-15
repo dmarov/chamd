@@ -41,7 +41,7 @@ module.exports = class Context {
 
     async all() {
         console.log(`Generating ${this.driverName} driver ...`);
-        await this.clearBuildDir();
+        await this.purge();
         await this.generateCmakeFile();
         await this.compile();
         await this.createInfFile();
@@ -56,7 +56,6 @@ module.exports = class Context {
 
     async purge() {
         await this.clearBuildDir();
-        await this.clearDistDir();
 
         if (!fs.existsSync(this.cmakeConfigPath)) {
             return;
@@ -65,7 +64,7 @@ module.exports = class Context {
         fs.rmSync(this.cmakeConfigPath);
     }
 
-    async purgeDir(dir) {
+    static async purgeDir(dir) {
 
         if (!fs.existsSync(dir)) {
             return;
@@ -201,10 +200,6 @@ module.exports = class Context {
     }
 
     async clearBuildDir() {
-        await this.purgeDir(this.buildDir);
-    }
-
-    async clearDistDir() {
-        await this.purgeDir(this.distDir);
+        await Context.purgeDir(this.buildDir);
     }
 }
