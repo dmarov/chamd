@@ -8,6 +8,8 @@ const cnt = parseInt(args[0]) ?? 5;
 const distDir = path.normalize(__dirname + '\\..\\dist\\');
 
 (async () => {
+    await context.clearDistDir();
+
     for (let i = 0; i < cnt; i++) {
         const name = generateRandomName(10);
         const context = new Context(name, distDir + name + '\\');

@@ -2,6 +2,7 @@
 const env = require('dotenv').config().parsed;
 const Context = require('./context.js');
 const generateRandomName = require('./utils.js');
+const path = require('path');
 
 const driverName = env.CHAMD_DBK_DRIVER_NAME ? env.CHAMD_DBK_DRIVER_NAME : generateRandomName();
 
