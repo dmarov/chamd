@@ -62,7 +62,7 @@ Note: use PowerShell or Cmder
 
 11. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe` is located.
 
-You'll need to use Cheat Engine version 7.3. Compile it from source (Release x64)
+You'll need to use Cheat Engine version 7.4. Compile it from source (Release x64)
 or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/7.4)
 
 ## Load the driver
