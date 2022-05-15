@@ -206,28 +206,25 @@ if (enterpriseVs) {
 const args = process.argv.slice(2);
 const command = args[0];
 
-if (command == 'all') {
-    (async () => {
-        await Context.all();
-    })();
-} else if (command === 'purge') {
-    (async () => {
-        await Context.purge();
-    })();
-} else if (command === 'compile') {
-    (async () => {
-        await Context.generateCmakeFile();
-        await Context.compile();
-    })();
-} else if (command === 'geninf') {
-    (async () => {
-        await Context.createInfFile();
-        await Context.stampInfFile();
-    })();
-} else if (command === 'selfsign') {
-    (async () => {
-        await Context.signDriver();
-        await Context.createInfFile();
-    })();
-}
-
+(async () => {
+    switch (command) {
+        case 'all':
+            await Context.all();
+            break;
+        case 'purge':
+            await Context.purge();
+            break;
+        case 'compile':
+            await Context.generateCmakeFile();
+            await Context.compile();
+            break;
+        case 'geninf':
+            await Context.createInfFile();
+            await Context.stampInfFile();
+            break;
+        case 'sign':
+            await Context.signDriver();
+            await Context.createInfFile();
+            break;
+    }
+})();

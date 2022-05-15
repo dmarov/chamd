@@ -215,7 +215,7 @@ typedef struct tagDebugregs
 
 
 
-typedef struct
+typedef struct 
 {
 	unsigned CF			:1; // 0
 	unsigned reserved1	:1; // 1
@@ -263,7 +263,7 @@ typedef struct tagDebugReg7
 	unsigned RTM		: 1; //        11
 	unsigned undefined_0: 1; //0       12
 	unsigned GD			:1; //		   13
-	unsigned undefined2	:2; // 00
+	unsigned undefined2	:2; // 00 
 	unsigned RW0		:2;
 	unsigned LEN0		:2;
 	unsigned RW1		:2;
@@ -305,7 +305,7 @@ typedef struct DebugReg6
 
 #pragma pack(2) //allignment of 2 bytes
 typedef struct tagGDT
-{
+{    
     WORD wLimit;
 	PVOID vector;
 } GDT, *PGDT;

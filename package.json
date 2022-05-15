@@ -2,14 +2,13 @@
   "dependencies": {
     "dotenv": "^10.0.0",
     "handlebars": "^4.7.7",
-    "rimraf": "^3.0.2",
-    "yarn": "^1.22.18"
+    "rimraf": "^3.0.2"
   },
   "scripts": {
     "all": "node ./scripts/cmd.js all",
     "purge": "node ./scripts/cmd.js purge",
     "compile": "node ./scripts/cmd.js compile",
     "geninf": "node ./scripts/cmd.js geninf",
-    "selfsign": "node ./scripts/cmd.js selfsign"
+    "sign": "node ./scripts/cmd.js sign"
   }
 }
