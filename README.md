@@ -12,7 +12,7 @@ You can download the precompiled version [here](https://github.com/dmarov/chamd/
 This is not recommended because the driver could be flagged by the anticheat given
 that anticheat systems collect suspicious drivers's signature to block them.
 There is collection of [200 drivers](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
-As a startimg point you can pick any.
+As a starting point you can pick any.
 
 ## Compile the driver from source (recommended)
 
