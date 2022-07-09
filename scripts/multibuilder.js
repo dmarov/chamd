@@ -8,7 +8,6 @@ const args = process.argv.slice(2);
 const cnt = parseInt(args[0]) ?? 5;
 const distDir = path.normalize(__dirname + '\\..\\dist\\');
 
-console.log(cnt);
 async function getRandomWord() {
     return new Promise((res, rej) => {
         var options = {
