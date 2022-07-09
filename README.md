@@ -1,6 +1,6 @@
 # Chamd (stands for "Chameleon DBK64")
 
-## Modified Cheat Engine DBK64 kernel driver (not yet detected by Easy Anti Cheat or BattlEye)
+## Modified Cheat Engine DBK64 kernel driver
 
 The purpose of this driver is to not get detected by anti-cheat systems.
 
@@ -8,7 +8,9 @@ Current version is based on Cheat Engine version 7.4
 
 ## Download the compiled driver
 
-You can download the precompiled version [here](https://github.com/dmarov/chamd/releases). This is not recommended because the driver could be flagged by the anticheat given that anticheat systems collect suspicious drivers's signature to block them.
+You can download the precompiled version [here](https://github.com/dmarov/chamd/releases).
+This is not recommended because the driver could be flagged by the anticheat given
+that anticheat systems collect suspicious drivers's signature to block them.
 
 ## Compile the driver from source (recommended)
 
@@ -62,6 +64,9 @@ Note: use PowerShell or Cmder
 
 You'll need to use Cheat Engine version 7.4. Compile it from source (Release x64)
 or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/7.4)
+
+12. If you compiled this driver successfully and want to share few randomized copies
+then run `npm run multibuild 10`. `dist` directory will contain `10` randomized drivers.
 
 ## Load the driver
 

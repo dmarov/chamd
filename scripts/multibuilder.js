@@ -5,7 +5,7 @@ const path = require('path');
 const http = require('http');
 
 const args = process.argv.slice(2);
-const cnt = parseInt(args[0]) ?? 5;
+const cnt = args[0] ? parseInt(args[0]) : 5;
 const distDir = path.normalize(__dirname + '\\..\\dist\\');
 
 async function getRandomWord() {
