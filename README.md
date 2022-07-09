@@ -27,7 +27,7 @@ Note: use PowerShell or Cmder
     cd chamd
     ```
 
-2. Install [nodejs](https://nodejs.org/en/)
+2. Install [nodejs](https://nodejs.org/en/). Version `14` is recommended.
 
 3. Install packages
 
