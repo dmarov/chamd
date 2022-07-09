@@ -25,9 +25,16 @@ async function getRandomWord() {
             response.on('end', function () {
                 res(str);
             });
+
         }
 
-        http.request(options, callback).end();
+        const req = http.request(options, callback);
+
+        req.on('error', function (e) {
+            rej(e);
+        });
+
+        req.end();
     });
 }
 
