@@ -5,7 +5,7 @@ import path from 'path';
 import { __dirname } from './paths.js';
 
 const env = dotenv.config().parsed;
-const driverName = env.CHAMD_DBK_DRIVER_NAME ? env.CHAMD_DBK_DRIVER_NAME : generateRandomName();
+const driverName = env.CHAMD_DBK_DRIVER_NAME ?? generateRandomName();
 const args = process.argv.slice(2);
 const command = args[0];
 const distDir = path.normalize(__dirname + '\\..\\dist\\');
