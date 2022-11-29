@@ -1,4 +1,4 @@
-module.exports = (length) => {
+export default (length) => {
     let result = '';
     const characters = 'abcdefghijklmnopqrstuvwxyz';
     const charactersLength = characters.length;

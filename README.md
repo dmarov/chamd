@@ -35,8 +35,7 @@ Note: use PowerShell or Cmder
     cd chamd
     ```
 
-2. Install [nodejs](https://nodejs.org/en/). Version `16.13.2` is recommended.
-Version greater than `14.14.0` is required.
+2. Install [nodejs](https://nodejs.org/en/). Version `19.1.0` is recommended.
 
 3. Install packages
 

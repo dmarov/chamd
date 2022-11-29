@@ -1,9 +1,10 @@
-const path = require('path');
-const fs = require('fs');
-const handlebars = require('handlebars');
-const spawn = require('child_process').spawn;
+import path from 'path';
+import fs from 'fs';
+import handlebars from 'handlebars';
+import { spawn } from 'child_process';
+import { __dirname } from './paths.js';
 
-module.exports = class Context {
+export default class Context {
     buildDir = path.normalize(__dirname + '\\..\\build\\');
 
     vcvarsCommunityPath = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build\\vcvarsall.bat';
