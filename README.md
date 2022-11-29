@@ -6,6 +6,12 @@ The purpose of this driver is to not get detected by anti-cheat systems.
 
 Current version is based on Cheat Engine version 7.4
 
+## Disclaimer
+
+Even if you've managed to use this driver successfully it doesn't mean you will
+not be suspected in cheating. Using this software and all the consequences of it
+are totally on you.
+
 ## Download the compiled driver
 
 You can download the precompiled version [here](https://github.com/dmarov/chamd/releases).
@@ -29,7 +35,7 @@ Note: use PowerShell or Cmder
     cd chamd
     ```
 
-2. Install [nodejs](https://nodejs.org/en/). Version `14` is recommended.
+2. Install [nodejs](https://nodejs.org/en/). Version `19.1.0` is recommended.
 
 3. Install packages
 
