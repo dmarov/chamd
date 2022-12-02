@@ -14,12 +14,13 @@ not be suspected in cheating. Using this software and all the consequences of it
 are totally on you.
 
 ## 1. Get your driver
+
 There are some options for you to get this driver from easiest to hardest.
 
 1.1. Download the precompiled version [here](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
-
-Use this option if you would like to start fast.
-However it is not recommended because the driver could be flagged by the anti-cheat system.
+This option is perfect for you if you'd like to start fast.
+However it is not recommended because there's more probability that the driver
+could be flagged by the anti-cheat system.
 Anti-cheat systems collect suspicious drivers's signature to block them
 (of course there's more to anti-cheat system).
 Zip archive has 200 drivers, you can pick any.
