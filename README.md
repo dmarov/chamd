@@ -179,6 +179,20 @@ timeout /t 20
 
 Copy `EfiDSEFix.exe` to the directory where `cheatengine-x86_64.exe` located.
 
+3.2.4. Configure Cheat Engine
+
+Make sure that
+
+`Edit` > `Settings` > `Extra` > `Query memory region routines` is checked
+
+`Edit` > `Settings` > `Extra` > `Read/Write process memory` is checked
+
+Click `OK`.
+
+It might end up with errors. Close Cheat Engine.
+
+3.2.5. Run Cheat Engine before disabling Patchguard
+
 Run `run.bat` as Administrator.
 
 Dot not close popped out window manually!!! Wait for it to close itself.
