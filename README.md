@@ -7,6 +7,8 @@ protected systems such as EAC, BattEye and probably a lot of other anti-cheats.
 
 Current version is based on Cheat Engine version 7.4
 
+![screen](images/screen.png "Screen")
+
 ## 0. Disclaimer
 
 Even if you've managed to use this driver successfully it doesn't mean you will
@@ -184,5 +186,3 @@ Dot not close popped out window manually!!! Wait for it to close itself.
 Now you have loaded DBK64 driver signed using test certificate.
 Kernel mode anticheat will allow to start game and make operations on game memory
 (last tested on EAC 05/15/2022).
-
-![screen](images/screen.png "Screen")
