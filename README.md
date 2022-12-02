@@ -166,7 +166,7 @@ Any option is possible to implement.
 But if you feel lucky then set up your EFI to boot from USB drive as first option,
 second option should be your Windows drive.
 
-## 4. Copy files for Patchguard bypass.
+## 4. Copy files for Patchguard bypass
 
 4.1. Create `run.bat` in the directory where `cheatengine-x86_64.exe` located
 
