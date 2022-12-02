@@ -18,7 +18,7 @@ this document and all the consequences of it are totally on you.
 
 ## 1. Get your driver
 
-There are some options for you to get this driver from easiest to hardest.
+There are some options for you to get this driver.
 
 1.1. Download the precompiled version [here](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
 
@@ -30,6 +30,11 @@ Anti-cheat systems collect suspicious drivers's signature to block them
 Zip archive has 200 drivers, you can pick any. Then go to section 3.
 
 1.2. Follow the instructions in section 2 (recommended).
+
+1.3. Follow instructions from section 2, but use
+[EV certificate](https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/code-signing-cert-manage)
+to sign driver. You could skip section 3.2 and 4 this way. It's not cheap though
+and certificate can be revoked.
 
 ## 2. Compile the driver from source
 
@@ -203,7 +208,7 @@ It might end up with errors. Close Cheat Engine.
 
 Run `run.bat` as Administrator.
 
-Dot not close popped out window manually!!! Wait for it to close itself.
+Do not close popped out window manually!!! Wait for it to close itself.
 
 ## 6. Congratulations
 
