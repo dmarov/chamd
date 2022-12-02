@@ -13,8 +13,8 @@ Current version is based on Cheat Engine version 7.4
 ## 0. Disclaimer
 
 Even if you've managed to use this driver successfully it doesn't mean you will
-not be suspected in cheating. Using this software and all the consequences of it
-are totally on you.
+not be suspected in cheating. Using this software or following instructions from
+this document and all the consequences of it are totally on you.
 
 ## 1. Get your driver
 
