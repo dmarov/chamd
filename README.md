@@ -165,9 +165,9 @@ Any option is possible to implement.
 But if you feel lucky then set up your EFI to boot from USB drive as first option,
 second option should be your Windows drive.
 
-3.2.3. Copy files for Patchguard bypass.
+## 4. Copy files for Patchguard bypass.
 
-Create run.bat in the directory where `cheatengine-x86_64.exe` located
+4.1. Create run.bat in the directory where `cheatengine-x86_64.exe` located
 
 ```shell
 "%~dp0\EfiDSEFix.exe" -d
@@ -176,11 +176,11 @@ timeout /t 20
 "%~dp0\EfiDSEFix.exe" -e
 ```
 
-Copy `EfiDSEFix.exe` to the directory where `cheatengine-x86_64.exe` located.
+4.2. Copy `EfiDSEFix.exe` to the directory where `cheatengine-x86_64.exe` located.
 
-3.2.4. Configure Cheat Engine
+## 5. Configure Cheat Engine
 
-Make sure that
+5.1. Make sure that
 
 `Edit` > `Settings` > `Extra` > `Query memory region routines` is checked
 
@@ -190,13 +190,13 @@ Click `OK`.
 
 It might end up with errors. Close Cheat Engine.
 
-3.2.5. Run Cheat Engine after disabling Patchguard
+5.2. Run Cheat Engine after disabling Patchguard
 
 Run `run.bat` as Administrator.
 
 Dot not close popped out window manually!!! Wait for it to close itself.
 
-## 4. Congratulations
+## 6. Congratulations
 
 Now you have loaded DBK64 driver signed using test certificate.
 Kernel mode anticheat will allow to start game and make operations on game memory
