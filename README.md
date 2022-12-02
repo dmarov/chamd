@@ -126,7 +126,7 @@ bcdedit /set testsigning off
 3.2.1.3. Partition your device as bootable `GPT` with `EFI` partition.
 BE CAREFULL TO PARTITION CORRECT DEVICE!!!
 
-Open command line as administrator.
+Open command prompt as administrator.
 
 ```shell
 diskpart
