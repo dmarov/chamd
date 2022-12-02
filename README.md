@@ -52,7 +52,6 @@ npm install
 2.4. Copy `.env.tpl` to `.env`
 
 2.5. You may set `CHAMD_DBK_DRIVER_NAME` in `.env` to whatever name you wish.
-
 Just use your I-M-A-G-I-N-A-T-O-N.
 
 2.6. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
@@ -86,8 +85,8 @@ then run `npm run multibuild 10`. `dist` directory will contain `10` randomized 
 
 ## 3. Load the driver
 
-Now you have test signed driver.
-To load it you'll need to:
+Now you have test driver signed with untrusted certificate.
+You have a few options to load it:
 
 3.1 enable test signing
 
@@ -95,11 +94,15 @@ To load it you'll need to:
 bcdedit /set testsigning on
 ```
 
-(this won't work with anticheat, obviously).
+this option won't work with anticheat, obviously, but is very useful if you just want
+to test driver loading. Don't forget to disable it when you're done testing.
 
-or
+```shell
+bcdedit /set testsigning off
+```
 
-3.2 (recommended) use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers.
+3.2 use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers.
+(recommended)
 
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
