@@ -51,7 +51,9 @@ npm install
 
 2.4. Copy `.env.tpl` to `.env`
 
-2.5. You may set `CHAMD_DBK_DRIVER_NAME` in `.env` to whatever name you wish. For example you can use the CheatEngine default driver name `DBK64`.
+2.5. You may set `CHAMD_DBK_DRIVER_NAME` in `.env` to whatever name you wish.
+
+Just use your I-M-A-G-I-N-A-T-O-N.
 
 2.6. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
 (community or enterprise). This project is based on Visual Studio 2019.
@@ -60,7 +62,7 @@ npm install
 
 2.8. Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
 (Windows Driver Development Kit)
-(follow the instructions).
+Follow the instructions from the link.
 
 2.9. Install openssl. The least complex way is to use Chocolatey.
 ```
