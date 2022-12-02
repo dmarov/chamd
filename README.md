@@ -9,7 +9,7 @@ Current version is based on Cheat Engine version 7.4
 
 
 ![screen](images/screen.png "Screen")
-Robocraft is EAC protected
+*Robocraft* is EAC protected
 
 ## 0. Disclaimer
 
