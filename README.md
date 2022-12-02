@@ -56,7 +56,7 @@ npm install
 2.4. Copy `.env.tpl` to `.env`
 
 2.5. You may set `CHAMD_DBK_DRIVER_NAME` in `.env` to whatever name you wish.
-Just use your I-M-A-G-I-N-A-T-O-N.
+Just use your I-M-A-G-I-N-A-T-I-O-N.
 
 2.6. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
 (community or enterprise). This project is based on Visual Studio 2019.
