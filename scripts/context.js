@@ -6,6 +6,7 @@ import { __dirname } from './paths.js';
 
 export default class Context {
     buildDir = path.normalize(__dirname + '\\..\\build\\');
+    signDir = `${this.buildDir}signdir\\`;
 
     vcvarsCommunityPath = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build\\vcvarsall.bat';
     vcvarsEnterprisePath = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat';
@@ -46,6 +47,8 @@ export default class Context {
         await this.compile();
         await this.createInfFile();
         await this.stampInfFile();
+        // optimization for inf2cat directory search
+        await this.copyToSignDir();
         await this.signDriver();
         await this.createDriverDatFile();
         await this.install();
@@ -70,7 +73,7 @@ export default class Context {
             return;
         }
 
-        fs.rmdirSync(dir, { recursive: true })
+        fs.rmSync(dir, { recursive: true })
     }
 
     async generateCmakeFile() {
@@ -121,16 +124,31 @@ export default class Context {
         await this.execute(cmd, this.buildDir);
     }
 
+    async copyToSignDir() {
+        fs.mkdirSync(this.signDir);
+
+        fs.copyFileSync(
+            `${this.buildDir}${this.driverName}.sys`,
+            `${this.signDir}${this.driverName}.sys`
+        );
+
+        fs.copyFileSync(
+            `${this.buildDir}${this.driverName}.inf`,
+            `${this.signDir}${this.driverName}.inf`
+        );
+    }
+
     async signDriver() {
         console.log('Signing driver');
-        const vc = `"${this.vcPath}" amd64`;
-        const inf2cat = `"${this.inf2CatPath}" /driver:"./" /os:10_X64 /verbose`;
         const openssl = `openssl req -nodes -newkey rsa:2048 -keyout ${this.driverName}.key -out ${this.driverName}.csr -subj "/CN=${this.driverName}.com/O=${this.driverName} LTD./C=US"`
         const crt = `openssl x509 -signkey ${this.driverName}.key -in ${this.driverName}.csr -req -days 365 -out ${this.driverName}.crt`;
         const pfx = `openssl pkcs12 -export -out ${this.driverName}.pfx -inkey ${this.driverName}.key -in ${this.driverName}.crt -password pass:`;
-        const signtool = `signtool sign /fd SHA256 -f "./${this.driverName}.pfx" -t "http://timestamp.digicert.com" -v "./${this.driverName}.cat"`;
+        const inf2cat = `"${this.inf2CatPath}" /driver:"./signdir" /os:10_X64 /verbose`;
+        const vc = `"${this.vcPath}" amd64`;
+        const signtool = `signtool sign /fd SHA256 -f "./${this.driverName}.pfx" -t "http://timestamp.digicert.com" -v "${this.signDir}${this.driverName}.cat"`;
 
         const cmd = `${openssl} && ${crt} && ${pfx} && ${inf2cat} && ${vc} && ${signtool}`;
+
         await this.execute(cmd, this.buildDir);
     }
 
@@ -173,17 +191,17 @@ export default class Context {
         }
 
         fs.copyFileSync(
-            `${this.buildDir}${this.driverName}.sys`,
+            `${this.signDir}${this.driverName}.sys`,
             `${this.distDir}${this.driverName}.sys`
         );
 
         fs.copyFileSync(
-            `${this.buildDir}${this.driverName}.inf`,
+            `${this.signDir}${this.driverName}.inf`,
             `${this.distDir}${this.driverName}.inf`
         );
 
         fs.copyFileSync(
-            `${this.buildDir}${this.driverName}.cat`,
+            `${this.signDir}${this.driverName}.cat`,
             `${this.distDir}${this.driverName}.cat`
         );
 
