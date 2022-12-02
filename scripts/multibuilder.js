@@ -49,7 +49,6 @@ for (let i = 0; i < cnt; i++) {
             .toLowerCase();
     } catch(e) {
         console.log(e);
-        break;
     }
 
     const context = new Context(name, distDir + name + '\\');
