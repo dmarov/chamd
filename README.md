@@ -139,7 +139,7 @@ exit
 
 3.2.1.4 Copy files to USB drive
 
-Copy `EFI` directory to the root of your newly created partition.
+Copy `EFI` directory from archive to the root of your newly created partition.
 
 3.2.1.5 Rename bootloader
 
