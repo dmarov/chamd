@@ -94,7 +94,7 @@ then run `npm run multibuild 10`. `dist` directory will contain `10` randomized 
 
 ## 3. Load the driver
 
-Now you have test driver signed with untrusted certificate.
+Now you have driver signed with untrusted certificate.
 You have a few options to load it:
 
 3.1 enable test signing
