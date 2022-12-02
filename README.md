@@ -17,6 +17,7 @@ are totally on you.
 There are some options for you to get this driver from easiest to hardest.
 
 1.1. Download the precompiled version [here](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
+
 Use this option if you would like to start fast.
 However it is not recommended because the driver could be flagged by the anti-cheat system.
 Anti-cheat systems collect suspicious drivers's signature to block them
