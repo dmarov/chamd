@@ -27,7 +27,7 @@ However it is not recommended because there's more probability that the driver
 could be flagged by the anti-cheat system.
 Anti-cheat systems collect suspicious drivers's signature to block them
 (of course there's more to anti-cheat system).
-Zip archive has 200 drivers, you can pick any.
+Zip archive has 200 drivers, you can pick any. Then go to section 3.
 
 1.2. Follow the instructions in section 2 (recommended).
 
