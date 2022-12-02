@@ -129,7 +129,7 @@ Open command line as administrator.
 ```shell
 diskpart
 list disk // detect your USB drive
-select dist {put number of your USB drive here}
+select disk {put number of your USB drive here}
 list disk // make sure correct disk is selected
 clean
 create partition primary // create EFI partition
