@@ -134,12 +134,12 @@ diskpart
 list disk // detect your USB drive
 select disk {put number of your USB drive here}
 list disk // make sure correct disk is selected
-clean
+clean // wipe out your drive
 create partition primary // create EFI partition
 list partitions // created partition shoud be displayed
-select partition 1
+select partition 1 // select created partition
 active // mark partition as active
-format quick fs=fat32
+format quick fs=fat32 // create filesystem
 assign // disk should be mounted
 exit
 ```
