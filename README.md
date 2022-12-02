@@ -35,7 +35,7 @@ Note: use PowerShell or Cmder
 
 2.1. Clone this repository
 
-```
+```shell
 git clone https://github.com/dmarov/chamd.git
 cd chamd
 ```
@@ -44,7 +44,7 @@ cd chamd
 
 2.3. Install packages
 
-```
+```shell
 npm install
 ```
 
@@ -62,16 +62,16 @@ npm install
 (follow the instructions).
 
 2.9. Install openssl. The least complex way is to use Chocolatey.
-    ```
-    choco install openssl
-    ```
-    This command needs to be performed as admin
+```
+choco install openssl
+```
+This command needs to be performed as admin
 
 2.10. Run build
 
-    ```shell
-    npm run all
-    ```
+```shell
+npm run all
+```
 
 2.11. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe` is located.
 
@@ -88,11 +88,11 @@ To load it you'll need to:
 
 3.1 enable test signing
 
-    ```shell
-    bcdedit /set testsigning on
-    ```
+```shell
+bcdedit /set testsigning on
+```
 
-    (this won't work with anticheat, obviously).
+(this won't work with anticheat, obviously).
 
 or
 
