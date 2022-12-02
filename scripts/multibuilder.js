@@ -39,9 +39,14 @@ async function getRandomWord() {
 }
 
 await Context.purgeDir(distDir);
-for (let i = 0; i < cnt; i++) {
 
-    let name = generateRandomName(10);
+const max = 15;
+const min = 4;
+
+for (let i = 0; i < cnt; i++) {
+    const len = min + Math.floor(Math.random() * (max - min));
+    let name = generateRandomName(len);
+
     try {
         const result = await getRandomWord();
         name = JSON.parse(result)[0]
