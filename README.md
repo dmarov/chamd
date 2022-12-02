@@ -7,7 +7,9 @@ protected systems such as EAC, BattEye and probably a lot of other anti-cheats.
 
 Current version is based on Cheat Engine version 7.4
 
+
 ![screen](images/screen.png "Screen")
+Robocraft is EAC protected
 
 ## 0. Disclaimer
 
