@@ -103,11 +103,77 @@ to test driver loading. Don't forget to disable it when you're done testing.
 bcdedit /set testsigning off
 ```
 
-3.2 use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers.
+3.2. use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers.
 (recommended)
 
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
+
+3.2.1. Create bootable usb drive for Patchguard bypass.
+
+3.2.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.2.1/EfiGuard-v1.2.1.zip).
+
+3.2.1.1. Mount you usb drive. 2GB drive is more than enough.
+
+3.2.1.2. Format your usb drive as `FAT32`. BE CAREFULL TO FORMAT CORRECT DIVICE!!!
+
+3.2.1.3. Partition your device as bootable `GPT` with `EFI` partition.
+BE CAREFULL TO PARTITION CORRECT DIVICE!!!
+
+Open command line as administrator.
+
+```
+diskpart
+list disk // detect your USB drive
+select dist {put number of your USB drive here}
+list disk // make sure correct disk is selected
+clean
+create partition primary // create EFI partition
+list partitions // created partition shoud be displayed
+select partition 1
+active // mark partition as active
+format quick fs=fat32
+assign // disk should be mounted
+exit
+```
+
+3.2.1.4 Copy files to USB drive
+
+Copy `EFI` directory to the root of your newly created partition.
+
+3.2.1.5 Rename bootloader
+
+Coy and paste `EFI\Boot\Loader.efi`, than rename it to `EFI\Boot\bootx64.efi`.
+
+3.2.2. Boot up your system using USB drive.
+
+It is recommended first thet you try it using virtual machine
+
+- Virtualbox
+- HyperV
+- VMplayer
+
+But if you feel lucky then set up your EFI to boot from USB drive as first option,
+second option should be your Windows drive.
+
+3.2.3. Copy files for Patchguard bypass.
+
+Create run.bat in the directory where `cheatengine-x86_64.exe` located
+
+```shell
+"%~dp0\EfiDSEFix.exe" -d
+start /d "%~dp0" cheatengine-x86_64.exe
+timeout /t 20
+"%~dp0\EfiDSEFix.exe" -e
+```
+
+Copy `EfiDSEFix.exe` to the directory where `cheatengine-x86_64.exe` located.
+
+Run `run.bat` as Administrator.
+
+Dot not close popped out window manually!!! Wait for it to close itself.
+
+## 4. Congratulations
 
 Now you have loaded DBK64 driver signed using test certificate.
 Kernel mode anticheat will allow to start game and make operations on game memory
