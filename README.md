@@ -168,7 +168,7 @@ second option should be your Windows drive.
 
 ## 4. Copy files for Patchguard bypass.
 
-4.1. Create run.bat in the directory where `cheatengine-x86_64.exe` located
+4.1. Create `run.bat` in the directory where `cheatengine-x86_64.exe` located
 
 ```shell
 "%~dp0\EfiDSEFix.exe" -d
