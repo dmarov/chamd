@@ -59,16 +59,19 @@ Just use your I-M-A-G-I-N-A-T-O-N.
 2.6. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
 (community or enterprise). This project is based on Visual Studio 2019.
 
-2.7. Install MSVC (C/C++ compiler). You can install it by adding the Visual Studio additional package `Desktop development with C++`.
+2.7. Install MSVC (C/C++ compiler). You can install it by adding the Visual Studio
+additional package `Desktop development with C++`.
 
 2.8. Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
 (Windows Driver Development Kit)
 Follow the instructions from the link.
 
 2.9. Install openssl. The least complex way is to use Chocolatey.
-```
+
+```shell
 choco install openssl
 ```
+
 This command needs to be performed as admin
 
 2.10. Run build
@@ -77,7 +80,8 @@ This command needs to be performed as admin
 npm run all
 ```
 
-2.11. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe` is located.
+2.11. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe`
+is located.
 
 You'll need to use Cheat Engine version 7.4. Compile it from source (Release x64)
 or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/7.4)
@@ -96,8 +100,8 @@ You have a few options to load it:
 bcdedit /set testsigning on
 ```
 
-this option won't work with anticheat, obviously, but is very useful if you just want
-to test driver loading. Don't forget to disable it when you're done testing.
+this option won't work with anticheat, obviously, but is very useful if you just
+want to test driver loading. Don't forget to disable it when you're done testing.
 
 ```shell
 bcdedit /set testsigning off
@@ -122,7 +126,7 @@ BE CAREFULL TO PARTITION CORRECT DEVICE!!!
 
 Open command line as administrator.
 
-```
+```shell
 diskpart
 list disk // detect your USB drive
 select dist {put number of your USB drive here}
