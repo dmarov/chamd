@@ -119,11 +119,11 @@ bcdedit /set testsigning off
 
 3.2.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.2.1/EfiGuard-v1.2.1.zip).
 
-3.2.1.1. Mount you usb drive. 2GB drive is more than enough.
+3.2.1.2. Mount you usb drive. 2GB drive is more than enough.
 
-3.2.1.2. Format your usb drive as `FAT32`. BE CAREFULL TO FORMAT CORRECT DEVICE!!!
+3.2.1.3. Format your usb drive as `FAT32`. BE CAREFULL TO FORMAT CORRECT DEVICE!!!
 
-3.2.1.3. Partition your device as bootable `GPT` with `EFI` partition.
+3.2.1.4. Partition your device as bootable `GPT` with `EFI` partition.
 BE CAREFULL TO PARTITION CORRECT DEVICE!!!
 
 Open command prompt as administrator.
@@ -143,11 +143,11 @@ assign // disk should be mounted
 exit
 ```
 
-3.2.1.4 Copy files to USB drive
+3.2.1.5 Copy files to USB drive
 
 Copy `EFI` directory from archive to the root of your newly created partition.
 
-3.2.1.5 Rename bootloader
+3.2.1.6 Rename bootloader
 
 Copy and paste `EFI\Boot\Loader.efi`, than rename it to `EFI\Boot\bootx64.efi`.
 
