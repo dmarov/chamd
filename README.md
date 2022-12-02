@@ -111,7 +111,8 @@ bcdedit /set testsigning off
 ```
 
 3.2. use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers.
-(recommended)
+
+This option is recommended. ALSO IT ENDANGERS YOUR SYSTEM TO VULNERABILITIES!!!
 
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
