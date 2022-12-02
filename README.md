@@ -3,10 +3,9 @@
 ## Modified Cheat Engine DBK64 kernel driver
 
 The purpose of this project is to use Cheat Engine DBK64.sys driver on anti-cheat
-protected systems such as EAC, BattEye and probably a lot of other anti-cheats.
+protected systems such as EAC, BattlEye and probably a lot of other anti-cheats.
 
 Current version is based on Cheat Engine version 7.4
-
 
 ![screen](images/screen.png "Screen")
 *Robocraft* is EAC protected
