@@ -143,15 +143,17 @@ Copy `EFI` directory from archive to the root of your newly created partition.
 
 3.2.1.5 Rename bootloader
 
-Coy and paste `EFI\Boot\Loader.efi`, than rename it to `EFI\Boot\bootx64.efi`.
+Copy and paste `EFI\Boot\Loader.efi`, than rename it to `EFI\Boot\bootx64.efi`.
 
 3.2.2. Boot up your system using USB drive.
 
-It is recommended first thet you try it using virtual machine
+It is recommended first that you try it on virtual machine
 
 - Virtualbox
 - HyperV
 - VMplayer
+
+Any option is possible to implement.
 
 But if you feel lucky then set up your EFI to boot from USB drive as first option,
 second option should be your Windows drive.
