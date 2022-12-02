@@ -191,7 +191,7 @@ Click `OK`.
 
 It might end up with errors. Close Cheat Engine.
 
-3.2.5. Run Cheat Engine before disabling Patchguard
+3.2.5. Run Cheat Engine after disabling Patchguard
 
 Run `run.bat` as Administrator.
 
