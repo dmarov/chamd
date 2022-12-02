@@ -115,10 +115,10 @@ bcdedit /set testsigning off
 
 3.2.1.1. Mount you usb drive. 2GB drive is more than enough.
 
-3.2.1.2. Format your usb drive as `FAT32`. BE CAREFULL TO FORMAT CORRECT DIVICE!!!
+3.2.1.2. Format your usb drive as `FAT32`. BE CAREFULL TO FORMAT CORRECT DEVICE!!!
 
 3.2.1.3. Partition your device as bootable `GPT` with `EFI` partition.
-BE CAREFULL TO PARTITION CORRECT DIVICE!!!
+BE CAREFULL TO PARTITION CORRECT DEVICE!!!
 
 Open command line as administrator.
 
