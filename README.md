@@ -35,7 +35,7 @@ Note: use PowerShell or Cmder
 
 2.1. Clone this repository
 
-```shell
+```
 git clone https://github.com/dmarov/chamd.git
 cd chamd
 ```
@@ -44,7 +44,7 @@ cd chamd
 
 2.3. Install packages
 
-```shell
+```
 npm install
 ```
 
