@@ -32,6 +32,7 @@ Zip archive has 200 drivers, you can pick any. Then go to section 3.
 1.2. Follow the instructions in section 2 (recommended).
 
 1.3. Follow instructions from section 2, but use
+
 [EV certificate](https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/code-signing-cert-manage)
 to sign driver. You could skip section 3.2 and 4 this way. It's not cheap though
 and certificate can be revoked.
