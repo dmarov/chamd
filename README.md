@@ -92,6 +92,8 @@ or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/7.4)
 2.12. If you compiled this driver successfully and want to share few randomized copies
 then run `npm run multibuild 10`. `dist` directory will contain `10` randomized drivers.
 
+Then go to section 3.
+
 ## 3. Load the driver
 
 Now you have driver signed with untrusted certificate.
@@ -109,6 +111,8 @@ want to test driver loading. Don't forget to disable it when you're done testing
 ```shell
 bcdedit /set testsigning off
 ```
+
+Then go to section 4.
 
 3.2. use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers.
 
@@ -166,6 +170,8 @@ Any option is possible to implement.
 But if you feel lucky then set up your EFI to boot from USB drive as first option,
 second option should be your Windows drive.
 
+Then go to section 4.
+
 ## 4. Copy files for Patchguard bypass
 
 4.1. Create `run.bat` in the directory where `cheatengine-x86_64.exe` located
@@ -178,6 +184,8 @@ timeout /t 20
 ```
 
 4.2. Copy `EfiDSEFix.exe` to the directory where `cheatengine-x86_64.exe` located.
+
+Then go to section 5.
 
 ## 5. Configure Cheat Engine
 
