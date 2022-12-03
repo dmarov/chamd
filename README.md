@@ -3,7 +3,15 @@
 ## Modified Cheat Engine DBK64 kernel driver
 
 The purpose of this project is to use Cheat Engine `DBK64.sys` driver on anti-cheat
-protected systems such as EAC, BattlEye and probably a lot of other anti-cheats.
+protected systems.
+
+It was tested using
+
+- [EAC](https://www.easy.ac/en-us/partners/)
+- [BattlEye](https://www.battleye.com/)
+
+It could also work with a lot of other anti-cheats, but it's up to you to figure
+it out.
 
 Current version is based on Cheat Engine version 7.4
 
