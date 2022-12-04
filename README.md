@@ -79,7 +79,7 @@ Just use your I-M-A-G-I-N-A-T-I-O-N.
 additional package `Desktop development with C++`.
 
 2.8. Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
-(Windows Driver Development Kit)
+(Windows Driver Kit)
 Follow the instructions from the link.
 
 2.9. Install openssl. The least complex way is to use Chocolatey.
@@ -102,8 +102,9 @@ is located.
 You'll need to use Cheat Engine version 7.4. Compile it from source (Release x64)
 or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/7.4)
 
-2.12. If you compiled this driver successfully and want to share few randomized copies
-then run `npm run multibuild 10`. `dist` directory will contain `10` randomized drivers.
+2.12. If you've managed to compile this driver successfully and want to share few
+randomized copies then run `npm run multibuild 10`. `dist` directory will
+contain `10` randomized drivers.
 
 Then go to section 3.
 
@@ -118,7 +119,8 @@ You have a few options to load it:
 bcdedit /set testsigning on
 ```
 
-this option won't work with anticheat, obviously, but is very useful if you just
+System needs reboot in order for this command to take effect.
+This option won't work with anticheat, obviously, but is very useful if you just
 want to test driver loading. Don't forget to disable it when you're done testing.
 
 ```shell
@@ -150,7 +152,7 @@ Open command prompt as administrator.
 ```shell
 diskpart
 list disk // detect your USB drive
-select disk {put number of your USB drive here}
+select disk {put number of your USB drive here} // SELECTING CORRECT DISK!!!
 list disk // make sure correct disk is selected
 clean // wipe out your drive
 create partition primary // create EFI partition
