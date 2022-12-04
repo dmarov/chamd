@@ -2,8 +2,8 @@
 
 ## Modified Cheat Engine DBK64 kernel driver
 
-The purpose of this project is to use Cheat Engine `DBK64.sys` driver on anti-cheat
-protected systems.
+The purpose of this project is to enable usage of Cheat Engine kernel mode driver
+`DBK64.sys` on anti-cheat protected system.
 
 It was tested using
 
@@ -16,7 +16,7 @@ it out.
 Current version is based on Cheat Engine version 7.4
 
 ![screen](images/screen.png "Screen")
-*Robocraft* is EAC protected
+It works! *Robocraft* is EAC protected
 
 ## 0. Disclaimer
 
@@ -41,7 +41,7 @@ Zip archive has 1000 drivers, you can pick any. Then go to section 3.
 
 1.3. Follow instructions from section 2, but use
 [EV certificate](https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/code-signing-cert-manage)
-to sign driver. You could skip section 3.2 and 4 this way. It's not cheap though
+to sign driver. You could skip digital signature enforcement this way. It's not cheap though
 and certificate can be revoked.
 
 ## 2. Compile the driver from source
@@ -129,9 +129,9 @@ bcdedit /set testsigning off
 
 Then go to section 4.
 
-3.2. use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers.
+3.2. use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers (recommended).
 
-This option is recommended. ALSO IT ENDANGERS YOUR SYSTEM TO VULNERABILITIES!!!
+Please note that using this option ENDANGERS YOUR SYSTEM TO VULNERABILITIES!!!
 
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
@@ -186,6 +186,12 @@ But if you feel lucky then set up your EFI to boot from USB drive as first optio
 second option should be your Windows drive.
 
 Then go to section 4.
+
+3.3. use [DSEFix](https://github.com/hfiref0x/DSEFix)
+
+It should work, but it's not recommended in favor of option 3.2.
+
+Please note that THIS METHOD IS DEPRECATED AND CAN CAUSE OCCASIONAL 'BLUE SCREENS OF DEATH'.
 
 ## 4. Copy files for digital signature enforcement bypass
 
