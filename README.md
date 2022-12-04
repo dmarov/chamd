@@ -187,7 +187,7 @@ second option should be your Windows drive.
 
 Then go to section 4.
 
-## 4. Copy files for Patchguard bypass
+## 4. Copy files for digital signature enforcement bypass
 
 4.1. Create `run.bat` in the directory where `cheatengine-x86_64.exe` located
 
@@ -214,7 +214,7 @@ Click `OK`.
 
 It might end up with errors. Close Cheat Engine.
 
-5.2. Run Cheat Engine after disabling Patchguard
+5.2. Run Cheat Engine after disabling digital signature enforcement.
 
 Run `run.bat` as Administrator.
 
