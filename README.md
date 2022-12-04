@@ -136,7 +136,7 @@ This option is recommended. ALSO IT ENDANGERS YOUR SYSTEM TO VULNERABILITIES!!!
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
 
-3.2.1. Create bootable usb drive for Patchguard bypass.
+3.2.1. Create bootable usb drive for digital signature enforcement bypass.
 
 3.2.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.2.1/EfiGuard-v1.2.1.zip).
 
