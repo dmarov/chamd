@@ -130,6 +130,7 @@ want to test driver loading. Don't forget to disable it when you're done testing
 
 ```shell
 bcdedit /set testsigning off
+```
 
 3.2. use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers (recommended).
 
