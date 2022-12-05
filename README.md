@@ -115,21 +115,21 @@ Then go to section 3.
 Now you have driver signed with untrusted certificate.
 You have a few options to load it:
 
-3.1 enable test signing
+3.1. enable test signing
 
 ```shell
 bcdedit /set testsigning on
 ```
 
 System needs reboot in order for this command to take effect.
+
+Then go to section 4.
+
 This option won't work with anticheat, obviously, but is very useful if you just
 want to test driver loading. Don't forget to disable it when you're done testing.
 
 ```shell
 bcdedit /set testsigning off
-```
-
-Then go to section 4.
 
 3.2. use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers (recommended).
 
@@ -166,11 +166,11 @@ assign // disk should be mounted
 exit
 ```
 
-3.2.1.5 Copy files to USB drive
+3.2.1.5. Copy files to USB drive
 
 Copy `EFI` directory from archive to the root of your newly created partition.
 
-3.2.1.6 Rename bootloader
+3.2.1.6. Rename bootloader
 
 Copy and paste `EFI\Boot\Loader.efi`, than rename it to `EFI\Boot\bootx64.efi`.
 
@@ -212,7 +212,7 @@ Then go to section 5.
 
 ## 5. Configure Cheat Engine
 
-5.1. Make sure that
+Make sure that
 
 `Edit` > `Settings` > `Extra` > `Query memory region routines` is checked
 
@@ -222,13 +222,13 @@ Click `OK`.
 
 It might end up with errors. Close Cheat Engine.
 
-5.2. Run Cheat Engine after disabling digital signature enforcement.
+## 6. Run Cheat Engine after disabling digital signature enforcement.
 
 Run `run.bat` as Administrator.
 
 Do not close popped out window manually!!! Wait for it to close itself.
 
-## 6. Congratulations
+## 7. Congratulations
 
 Now you have loaded DBK64 driver signed with untrusted certificate.
 Kernel mode anticheat will allow to start game and make operations on game memory
