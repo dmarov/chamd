@@ -229,6 +229,8 @@ Run `run.bat` as Administrator.
 
 Do not close popped out window manually!!! Wait for it to close itself.
 
+Once driver was loaded into memory it's enough to run `cheatengine-x86_64.exe` instead of `run.bat`.
+
 ## 7. Congratulations
 
 Now you have loaded DBK64 driver signed with untrusted certificate.
