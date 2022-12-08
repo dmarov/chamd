@@ -32,18 +32,17 @@ There are some options for you to get this driver.
 
 This option is perfect for you if you'd like to start fast.
 However it is not recommended because there's more probability that the driver
-could be flagged by the anti-cheat system. But there's no reason to worry about it yet.
-
-Anti-cheat systems collect suspicious drivers's signature to block them
-(of course there's more to anti-cheat system).
-
+could be flagged by the anti-cheat system
+because anti-cheat systems collect suspicious drivers's signature to block them.
+Of course there's more to anti-cheat systems.
+But there's no reason to worry about it yet.
 Zip archive has 1000 drivers, you can pick any. Then go to section 3.
 
 1.2. Follow the instructions in section 2 (recommended).
 
 1.3. Follow instructions from section 2, but use
 [EV certificate](https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/code-signing-cert-manage)
-to sign driver. You could skip digital signature enforcement this way. It's not cheap though
+to sign driver. You could skip digital signature enforcement bypass this way. It's not cheap though
 and certificate can be revoked.
 
 ## 2. Compile the driver from source
