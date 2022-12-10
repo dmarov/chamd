@@ -39,7 +39,7 @@ HKR,,Icon,,-5
 %ManufacturerName%=Standard,NT$ARCH$
 
 [Standard.NT$ARCH$]
-%{{DRIVER_NAME}}.DeviceDesc%={{DRIVER_NAME}}_Device, Root\{{DRIVER_NAME}} ; TODO: edit hw-id
+%{{DRIVER_NAME}}.DeviceDesc%={{DRIVER_NAME}}_Device, Root\\{{DRIVER_NAME}} ; TODO: edit hw-id
 
 [{{DRIVER_NAME}}_Device.NT]
 CopyFiles=Drivers_Dir
@@ -57,7 +57,7 @@ DisplayName    = %{{DRIVER_NAME}}.SVCDESC%
 ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
 StartType      = 3               ; SERVICE_DEMAND_START
 ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
-ServiceBinary  = %12%\{{DRIVER_NAME}}.sys
+ServiceBinary  = %12%\\{{DRIVER_NAME}}.sys
 
 ;
 ;--- {{DRIVER_NAME}}_Device Coinstaller installation ------
