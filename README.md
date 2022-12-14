@@ -2,8 +2,7 @@
 
 ## Modified Cheat Engine DBK64 kernel driver
 
-The purpose of this project is to enable usage of Cheat Engine kernel mode driver
-`DBK64.sys` on anti-cheat protected system.
+### The purpose of this project is to enable usage of Cheat Engine kernel mode driver `DBK64.sys` on anti-cheat protected system.
 
 It was tested using
 
@@ -31,9 +30,10 @@ There are some options for you to get this driver.
 1.1. Download the precompiled version [here](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
 
 This option is perfect for you if you'd like to start fast.
-However it is not recommended because there's more probability that the driver
-could be flagged by the anti-cheat system
-because anti-cheat systems collect suspicious drivers's signature to block them.
+However this option is not recommended because there is probability
+that publicly awailable driver was already flagged by anti-cheat system.
+Anti-cheat systems collect suspicious drivers' signature to block them.
+One way this could work is when particular driver gets used by few users.
 Of course there's more to anti-cheat systems.
 But there's no reason to worry about it yet.
 Zip archive has 1000 drivers, you can pick any. Then go to section 3.
@@ -45,11 +45,9 @@ Zip archive has 1000 drivers, you can pick any. Then go to section 3.
 to sign driver. You could skip digital signature enforcement bypass this way. It's not cheap though
 and certificate can be revoked.
 
-## 2. Compile the driver from source
+## 2. Compile the driver from source (recommended)
 
-It is recommended to compile the driver from the source code.
-
-Note: use PowerShell or Cmder
+Note: use PowerShell or [Cmder](https://cmder.app/)
 
 [Video Tutorial](https://www.youtube.com/watch?v=7ARwpxZPpE8)
 
@@ -157,7 +155,7 @@ list disk // detect your USB drive
 select disk {put number of your USB drive here} // SELECTING CORRECT DISK!!!
 list disk // make sure correct disk is selected
 clean // wipe out your drive
-create partition primary // create EFI partition
+create partition primary size=512 // create EFI partition
 list partitions // created partition shoud be displayed
 select partition 1 // select created partition
 active // mark partition as active
@@ -182,9 +180,7 @@ It is recommended first that you try it on virtual machine
 - HyperV
 - VMplayer
 
-Any option is possible to implement.
-
-But if you feel lucky then set up your EFI to boot from USB drive as first option,
+But if you feel lucky then set up your UEFI to boot from USB drive as first option,
 second option should be your Windows drive.
 
 Then go to section 4.
