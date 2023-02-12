@@ -20,7 +20,7 @@ It works! *Robocraft* is EAC protected
 ## 0. Disclaimer
 
 Even if you've managed to use this driver successfully it doesn't mean you will
-not be suspected in cheating. Using this software or following instructions from
+not be suspected in cheating. Usage of this software or following instructions from
 this document and all the consequences of it are totally on you.
 
 ## 1. Get your driver
@@ -181,7 +181,8 @@ It is recommended first that you try it on virtual machine
 - VMplayer
 
 But if you feel lucky then set up your UEFI to boot from USB drive as first option,
-second option should be your Windows drive.
+second option should be your Windows drive. Also don't forget to disable *Secure Boot*
+since *EFIGuard* is not signed.
 
 Then go to section 4.
 
