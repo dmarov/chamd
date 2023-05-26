@@ -83,12 +83,7 @@ Copy and paste `EFI\Boot\Loader.efi`, than rename it to `EFI\Boot\bootx64.efi`.
 
 2.1.2. Boot up your system using USB drive.
 
-It is recommended first that you try it on virtual machine
-
-- Virtualbox
-- HyperV
-- VMplayer
-
+It is recommended first that you try it on virtual machine such as Virtualbox, HyperV, VMplayer.
 But if you feel lucky then set up your UEFI to boot from USB drive as first option,
 second option should be your Windows drive. Also don't forget to disable *Secure Boot*
 since *EFIGuard* is not signed.
