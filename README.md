@@ -32,15 +32,15 @@ You can download the precompiled version [here](https://github.com/dmarov/chamd/
 This option is perfect for you if you'd like to start fast.
 However this option is not recommended because there is probability
 that publicly available driver was already flagged by anti-cheat system.
-For advanced setup refer to section 8. However it is not necessary, because
-zip archive has 1000 drivers. You can pick any. Then go to section 2.
+For advanced setup refer to section 8. However it is not necessary at the moment,
+because zip archive has 1000 drivers. You can pick any. Then go to section 2.
 
 ## 2. Load the driver
 
 Now you have driver signed with untrusted certificate.
 You have a few options to load it:
 
-### 2.1. use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers **(recommended)**.
+### 2.1. use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers (recommended).
 
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
@@ -97,6 +97,8 @@ Then go to section 3.
 
 ### 2.2. enable test signing (recommended for testing purposes only)
 
+Open command prompt as Administrator
+
 ```shell
 bcdedit /set testsigning on
 ```
@@ -104,6 +106,8 @@ bcdedit /set testsigning on
 System needs reboot in order for this command to take effect.
 
 Then go to section 4.
+
+Note:
 
 This option won't work with anticheat, obviously, but is very useful if you just
 want to test driver loading. Don't forget to disable it when you're done testing.
