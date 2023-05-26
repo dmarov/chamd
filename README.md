@@ -32,7 +32,7 @@ You can download the precompiled version [here](https://github.com/dmarov/chamd/
 This option is perfect for you if you'd like to start fast.
 However this option is not recommended because there is probability
 that publicly available driver was already flagged by anti-cheat system.
-For advanced setup refer to section 8. However it is not necessary at the moment,
+For advanced setup refer to section 7. However it is not necessary at the moment,
 because zip archive has 1000 drivers. You can pick any. Then go to section 2.
 
 ## 2. Load the driver
