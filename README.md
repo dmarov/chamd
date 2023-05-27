@@ -33,7 +33,14 @@ This option is perfect for you if you'd like to start fast.
 However this option is not recommended because there is probability
 that publicly available driver was already flagged by anti-cheat system.
 For advanced setup refer to section 7. However it is not necessary at the moment,
-because zip archive has 1000 drivers. You can pick any. Then go to section 2.
+because zip archive has 1000 drivers. You can pick any.
+
+Copy all 4 files from archive to directory where `cheatengine-x86_64.exe`
+is located.
+
+You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
+
+Then go to section 2.
 
 ## 2. Load the driver
 
@@ -231,8 +238,7 @@ and certificate can be revoked.
 7.11. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe`
 is located.
 
-You'll need to use Cheat Engine version 7.4. Compile it from source (Release x64)
-or get it from [here](https://github.com/dmarov/cheat-engine/releases/tag/7.4)
+You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
 
 7.12. If you've managed to compile this driver successfully and want to share few
 randomized copies then run `npm run multibuild 10`. `dist` directory will
