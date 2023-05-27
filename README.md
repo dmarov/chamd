@@ -178,8 +178,8 @@ Kernel mode anticheat will allow to start game and make operations on game memor
 ## 7. [Advanced] Compile the driver from source (recommended)
 
 Anti-cheat systems collect suspicious drivers' signature to block them.
-One way this could work is when particular driver gets used by few users.
-Of course there's more to anti-cheat systems.
+One way this could work is when particular driver gets used by few users (of course there's more to anti-cheat systems).
+To address this issue it's recommended to compile you own version of driver with unique signature.
 
 Note: use PowerShell or [Cmder](https://cmder.app/)
 
@@ -229,7 +229,7 @@ This command needs to be performed as admin
 npm run all
 ```
 
-### Note:
+Note:
 
 You can use [EV certificate](https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/code-signing-cert-manage)
 to sign driver. You could skip digital signature enforcement bypass this way. It's not cheap though
