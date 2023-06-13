@@ -42,25 +42,25 @@ You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engi
 
 Then go to section 2.
 
-## 2. Load the driver
+## 2. Bypass *Digital Singature Enforcement*
 
 Now you have driver signed with untrusted certificate.
-You have a few options to load it:
-
-### 2.1. use [EFIGuard](https://github.com/Mattiwatti/EfiGuard) to load unsigned drivers (recommended).
+You have a few options to load it.
+In this section [EFIGuard](https://github.com/Mattiwatti/EfiGuard) method will be explained.
+Refer to section 8 for some extra methods.
 
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
 
-2.1.1. Create bootable usb drive for digital signature enforcement bypass.
+2.1. Create bootable usb drive for digital signature enforcement bypass.
 
-2.1.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.2.1/EfiGuard-v1.2.1.zip).
+2.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.2.1/EfiGuard-v1.2.1.zip).
 
-2.1.1.2. Mount you usb drive. 2GB drive is more than enough.
+2.1.2. Mount you usb drive. 2GB drive is more than enough.
 
-2.1.1.3. Format your usb drive as `FAT32`. BE CAREFULL TO FORMAT CORRECT DEVICE!!!
+2.1.3. Format your usb drive as `FAT32`. BE CAREFULL TO FORMAT CORRECT DEVICE!!!
 
-2.1.1.4. Partition your device as bootable `GPT` with `EFI` partition.
+2.1.4. Partition your device as bootable `GPT` with `EFI` partition.
 BE CAREFULL TO PARTITION CORRECT DEVICE!!!
 
 Open command prompt as administrator.
@@ -80,15 +80,15 @@ assign // disk should be mounted
 exit
 ```
 
-2.1.1.5. Copy files to USB drive
+2.1.5. Copy files to USB drive
 
 Copy `EFI` directory from archive to the root of your newly created partition.
 
-2.1.1.6. Rename bootloader
+2.1.6. Rename bootloader
 
 Copy and paste `EFI\Boot\Loader.efi`, than rename it to `EFI\Boot\bootx64.efi`.
 
-2.1.2. Boot up your system using USB drive.
+2.2. Boot up your system using USB drive.
 
 It is recommended first that you try it on virtual machine such as Virtualbox, HyperV, VMplayer.
 But if you feel lucky then set up your UEFI to boot from USB drive as first option,
@@ -96,35 +96,6 @@ second option should be your Windows drive. Also don't forget to disable *Secure
 since *EFIGuard* is not signed.
 
 Then go to section 3.
-
-### 2.2. enable test signing (recommended for testing purposes only)
-
-Open command prompt as Administrator
-
-```shell
-bcdedit /set testsigning on
-```
-
-System needs reboot in order for this command to take effect.
-
-Then go to section 4.
-
-Note:
-
-This option won't work with anticheat, obviously, but is very useful if you just
-want to test driver loading. Don't forget to disable it when you're done testing.
-
-```shell
-bcdedit /set testsigning off
-```
-
-### 2.3. use [DSEFix](https://github.com/hfiref0x/DSEFix) (deprecated)
-
-It should work, but it's not recommended in favor of option 2.1.
-
-Please note that THIS METHOD IS DEPRECATED AND CAN CAUSE OCCASIONAL 'BLUE SCREENS OF DEATH'.
-
-Then go to section 4.
 
 ## 3. Copy files for digital signature enforcement bypass
 
@@ -157,7 +128,7 @@ Then go to section 5.
 
 ## 5. Run Cheat Engine after disabling digital signature enforcement.
 
-### If you followed section 2.1:
+### If you followed section 2:
 
 Run `run.bat` as Administrator .
 
@@ -165,7 +136,7 @@ Do not close popped out window manually!!! Wait for it to close itself.
 
 Once driver was loaded into memory it's enough to run `cheatengine-x86_64.exe` instead of `run.bat`.
 
-### If you followed section 2.2 or 2.3:
+### If you followed section 8:
 
 Run `cheatengine-x86_64.exe`
 
@@ -175,7 +146,7 @@ Now you have loaded DBK64 driver signed with untrusted certificate.
 Kernel mode anticheat will allow to start game and make operations on game memory
 (last tested on EAC 05/15/2022).
 
-## 7. [Advanced] Compile the driver from source (recommended)
+## 7. [Extra] Compile the driver from source (recommended)
 
 Anti-cheat systems collect suspicious drivers' signature to block them.
 One way this could work is when particular driver gets used by few users (of course there's more to anti-cheat systems).
@@ -245,3 +216,36 @@ randomized copies then run `npm run multibuild 10`. `dist` directory will
 contain `10` randomized drivers.
 
 Then go to section 3.
+
+
+## 8. [Extra] Other methods of dealing with *Digital Signature Enforcement*
+
+### 8.1. enable test signing (recommended for testing purposes only)
+
+Open command prompt as Administrator
+
+```shell
+bcdedit /set testsigning on
+```
+
+System needs reboot in order for this command to take effect.
+
+Then go to section 4.
+
+Note:
+
+This option won't work with anticheat, obviously, but is very useful if you just
+want to test driver loading. Don't forget to disable it when you're done testing.
+
+```shell
+bcdedit /set testsigning off
+```
+
+### 8.2. use [DSEFix](https://github.com/hfiref0x/DSEFix) (deprecated)
+
+It should work, but it's not recommended in favor of method explained in section 2.
+
+Please note that THIS METHOD IS DEPRECATED AND CAN CAUSE OCCASIONAL 'BLUE SCREENS OF DEATH'.
+
+Then go to section 4.
+
