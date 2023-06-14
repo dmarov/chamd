@@ -40,8 +40,6 @@ is located.
 
 You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
 
-Then go to section 2.
-
 ## 2. Bypass *Digital Singature Enforcement*
 
 Now you have driver signed with untrusted certificate.
@@ -95,8 +93,6 @@ But if you feel lucky then set up your UEFI to boot from USB drive as first opti
 second option should be your Windows drive. Also don't forget to disable *Secure Boot*
 since *EFIGuard* is not signed.
 
-Then go to section 3.
-
 ## 3. Copy files for digital signature enforcement bypass
 
 3.1. Create `run.bat` in the directory where `cheatengine-x86_64.exe` located
@@ -110,8 +106,6 @@ timeout /t 20
 
 3.2. Copy `EfiDSEFix.exe` to the directory where `cheatengine-x86_64.exe` located.
 
-Then go to section 4.
-
 ## 4. Configure Cheat Engine
 
 Make sure that
@@ -123,8 +117,6 @@ Make sure that
 Click `OK`.
 
 It might end up with errors. Close Cheat Engine.
-
-Then go to section 5.
 
 ## 5. Run Cheat Engine after disabling digital signature enforcement.
 
@@ -217,7 +209,6 @@ contain `10` randomized drivers.
 
 Then go to section 3.
 
-
 ## 8. [Extra] Other methods of dealing with *Digital Signature Enforcement*
 
 ### 8.1. enable test signing (recommended for testing purposes only)
@@ -248,4 +239,3 @@ It should work, but it's not recommended in favor of method explained in section
 Please note that THIS METHOD IS DEPRECATED AND CAN CAUSE OCCASIONAL 'BLUE SCREENS OF DEATH'.
 
 Then go to section 4.
-
