@@ -32,7 +32,7 @@ You can download the precompiled version [here](https://github.com/dmarov/chamd/
 This option is perfect for you if you'd like to start fast.
 However this option is not recommended because there is probability
 that publicly available driver was already flagged by anti-cheat system.
-For advanced setup refer to section 7. However it is not necessary at the moment,
+For advanced setup refer to section 6. However it is not necessary at the moment,
 because zip archive has 1000 drivers. You can pick any.
 
 Copy all 4 files from archive to directory where `cheatengine-x86_64.exe`
@@ -44,7 +44,7 @@ You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engi
 
 Now you have driver signed with untrusted certificate.
 You have a few options to load it.
-In this section [EFIGuard](https://github.com/Mattiwatti/EfiGuard) method will be explained.
+In this section the method involving bypass of *Patchguard* and *Digital Signature Enforcement* will be explained.
 Refer to section 8 for some extra methods.
 
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
@@ -88,14 +88,13 @@ Copy and paste `EFI\Boot\Loader.efi`, than rename it to `EFI\Boot\bootx64.efi`.
 
 2.2. Boot up your system using USB drive.
 
-It is recommended first that you try it on virtual machine such as Virtualbox, HyperV, VMplayer.
-But if you feel lucky then set up your UEFI to boot from USB drive as first option,
+Set up your UEFI to boot from USB drive as first option,
 second option should be your Windows drive. Also don't forget to disable *Secure Boot*
 since *EFIGuard* is not signed.
 
-## 3. Copy files for digital signature enforcement bypass
+2.3. Copy files for digital signature enforcement bypass
 
-3.1. Create `run.bat` in the directory where `cheatengine-x86_64.exe` located
+2.3.1. Create `run.bat` in the directory where `cheatengine-x86_64.exe` located
 
 ```shell
 "%~dp0\EfiDSEFix.exe" -d
@@ -104,9 +103,9 @@ timeout /t 20
 "%~dp0\EfiDSEFix.exe" -e
 ```
 
-3.2. Copy `EfiDSEFix.exe` to the directory where `cheatengine-x86_64.exe` located.
+2.3.2. Copy `EfiDSEFix.exe` from the archive  to the directory where `cheatengine-x86_64.exe` located.
 
-## 4. Configure Cheat Engine
+## 3. Configure Cheat Engine
 
 Make sure that
 
@@ -118,27 +117,27 @@ Click `OK`.
 
 It might end up with errors. Close Cheat Engine.
 
-## 5. Run Cheat Engine after disabling digital signature enforcement.
+## 4. Run Cheat Engine.
 
 ### If you followed section 2:
 
-Run `run.bat` as Administrator .
+Run `run.bat` as Administrator.
 
 Do not close popped out window manually!!! Wait for it to close itself.
 
 Once driver was loaded into memory it's enough to run `cheatengine-x86_64.exe` instead of `run.bat`.
 
-### If you followed section 8:
+### If you followed section 7:
 
 Run `cheatengine-x86_64.exe`
 
-## 6. Congratulations
+## 5. Congratulations
 
 Now you have loaded DBK64 driver signed with untrusted certificate.
 Kernel mode anticheat will allow to start game and make operations on game memory
 (last tested on EAC 05/15/2022).
 
-## 7. [Extra] Compile the driver from source (recommended)
+## 6. [Extra] Compile the driver from source (recommended)
 
 Anti-cheat systems collect suspicious drivers' signature to block them.
 One way this could work is when particular driver gets used by few users (of course there's more to anti-cheat systems).
@@ -148,37 +147,37 @@ Note: use PowerShell or [Cmder](https://cmder.app/)
 
 [Video Tutorial](https://www.youtube.com/watch?v=7ARwpxZPpE8)
 
-7.1. Clone this repository
+6.1. Clone this repository
 
 ```shell
 git clone https://github.com/dmarov/chamd.git
 cd chamd
 ```
 
-7.2. Install [nodejs](https://nodejs.org/en/). Version `19.1.0` is recommended.
+6.2. Install [nodejs](https://nodejs.org/en/). Version `19.1.0` is recommended.
 
-7.3. Install packages
+6.3. Install packages
 
 ```shell
 npm install
 ```
 
-7.4. Copy `.env.tpl` to `.env`
+6.4. Copy `.env.tpl` to `.env`
 
-7.5. You may set `CHAMD_DBK_DRIVER_NAME` in `.env` to whatever name you wish.
+6.5. You may set `CHAMD_DBK_DRIVER_NAME` in `.env` to whatever name you wish.
 Just use your I-M-A-G-I-N-A-T-I-O-N.
 
-7.6. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
+6.6. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
 (community or enterprise). This project is based on Visual Studio 2019.
 
-7.7. Install MSVC (C/C++ compiler). You can install it by adding the Visual Studio
+6.7. Install MSVC (C/C++ compiler). You can install it by adding the Visual Studio
 additional package `Desktop development with C++`.
 
-7.8. Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
+6.8. Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
 (Windows Driver Kit)
 Follow the instructions from the link.
 
-7.9. Install openssl. The least complex way is to use Chocolatey.
+6.9. Install openssl. The least complex way is to use Chocolatey.
 
 ```shell
 choco install openssl
@@ -186,7 +185,7 @@ choco install openssl
 
 This command needs to be performed as admin
 
-7.10. Run build
+6.10. Run build
 
 ```shell
 npm run all
@@ -198,20 +197,20 @@ You can use [EV certificate](https://learn.microsoft.com/en-us/windows-hardware/
 to sign driver. You could skip digital signature enforcement bypass this way. It's not cheap though
 and certificate can be revoked.
 
-7.11. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe`
+6.11. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe`
 is located.
 
 You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
 
-7.12. If you've managed to compile this driver successfully and want to share few
+6.12. If you've managed to compile this driver successfully and want to share few
 randomized copies then run `npm run multibuild 10`. `dist` directory will
 contain `10` randomized drivers.
 
 Then go to section 3.
 
-## 8. [Extra] Other methods of dealing with *Digital Signature Enforcement*
+## 7. [Extra] Other methods of dealing with *Digital Signature Enforcement*
 
-### 8.1. enable test signing (recommended for testing purposes only)
+### 7.1. enable test signing (recommended for testing purposes only)
 
 Open command prompt as Administrator
 
@@ -221,7 +220,7 @@ bcdedit /set testsigning on
 
 System needs reboot in order for this command to take effect.
 
-Then go to section 4.
+Then go to section 3.
 
 Note:
 
@@ -232,10 +231,10 @@ want to test driver loading. Don't forget to disable it when you're done testing
 bcdedit /set testsigning off
 ```
 
-### 8.2. use [DSEFix](https://github.com/hfiref0x/DSEFix) (deprecated)
+### 7.2. use [DSEFix](https://github.com/hfiref0x/DSEFix) (deprecated)
 
 It should work, but it's not recommended in favor of method explained in section 2.
 
 Please note that THIS METHOD IS DEPRECATED AND CAN CAUSE OCCASIONAL 'BLUE SCREENS OF DEATH'.
 
-Then go to section 4.
+Then go to section 3.
