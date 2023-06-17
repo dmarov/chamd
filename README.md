@@ -206,7 +206,7 @@ You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engi
 randomized copies then run `npm run multibuild 10`. `dist` directory will
 contain `10` randomized drivers.
 
-Then go to section 3.
+Then go to section 2.
 
 ## 7. [Extra] Other methods of dealing with *Digital Signature Enforcement*
 
