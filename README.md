@@ -45,7 +45,7 @@ You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engi
 Now you have driver signed with untrusted certificate.
 You have a few options to load it.
 In this section the method involving bypass of *Patchguard* and *Digital Signature Enforcement* will be explained.
-Refer to section 8 for some extra methods.
+Refer to section 7 for some extra methods.
 
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
