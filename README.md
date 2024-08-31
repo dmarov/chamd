@@ -168,7 +168,7 @@ npm install
 Just use your I-M-A-G-I-N-A-T-I-O-N.
 
 6.6. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
-(community or enterprise). This project is based on Visual Studio 2019.
+(community or enterprise). This project is based on Visual Studio 2022.
 
 6.7. Install MSVC (C/C++ compiler). You can install it by adding the Visual Studio
 additional package `Desktop development with C++`.

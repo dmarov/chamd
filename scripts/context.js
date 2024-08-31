@@ -8,8 +8,8 @@ export default class Context {
     buildDir = path.normalize(__dirname + '\\..\\build\\');
     signDir = `${this.buildDir}signdir\\`;
 
-    vcvarsCommunityPath = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build\\vcvarsall.bat';
-    vcvarsEnterprisePath = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat';
+    vcvarsCommunityPath = 'C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Auxiliary\\Build\\vcvarsall.bat';
+    vcvarsEnterprisePath = 'C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat';
     vcPath = null;
 
     cmakeTplPath = path.normalize(__dirname + '\\..\\templates\\CMakeLists.txt.tpl');
@@ -104,7 +104,7 @@ export default class Context {
             fs.mkdirSync(this.buildDir);
         }
 
-        const cmd = `"${this.vcPath}" amd64 && cd "${this.buildDir}" && cmake -G "Visual Studio 16 2019" "${this.srcDir}" && cmake --build . --config Release`;
+        const cmd = `"${this.vcPath}" amd64 && cd "${this.buildDir}" && cmake -G "Visual Studio 17 2022" -A x64 -T v143 "${this.srcDir}" && cmake --build . --config Release`;
         await this.execute(cmd, this.buildDir);
     }
 
