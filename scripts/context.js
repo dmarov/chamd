@@ -6,7 +6,6 @@ import { __dirname } from './paths.js';
 
 export default class Context {
     buildDir = path.normalize(__dirname + '\\..\\build\\');
-    signDir = `${this.buildDir}signdir\\`;
 
     vcvarsCommunityPath = 'C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Auxiliary\\Build\\vcvarsall.bat';
     vcvarsEnterprisePath = 'C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat';
@@ -14,11 +13,11 @@ export default class Context {
 
     cmakeTplPath = path.normalize(__dirname + '\\..\\templates\\CMakeLists.txt.tpl');
     infTplPath = path.normalize(__dirname + '\\..\\templates\\chamd.inf.tpl');
+    makeCatTplPath = path.normalize(__dirname + '\\..\\templates\\makecat.cdf.tpl');
     datTplPath = path.normalize(__dirname + '\\..\\templates\\driver64.dat.tpl');
     datPath = `${this.buildDir}driver64.dat`;
     srcDir = path.normalize(__dirname + '\\..\\src\\');
     cmakeConfigPath = this.srcDir + 'CMakeLists.txt';
-    inf2CatPath = "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\x86\\inf2cat.exe"
 
     constructor(driverName, distDir) {
         this.distDir = distDir;
@@ -38,6 +37,7 @@ export default class Context {
         }
 
         this.infPath = `${this.buildDir}${this.driverName}.inf`;
+        this.makeCatPath = `${this.buildDir}${this.driverName}.cdf`;
     }
 
     async all() {
@@ -45,10 +45,8 @@ export default class Context {
         await this.purge();
         await this.generateCmakeFile();
         await this.compile();
-        await this.createInfFile();
-        await this.stampInfFile();
-        // optimization for inf2cat directory search
-        await this.copyToSignDir();
+        await this.createMakeCatFile();
+        await this.makeCatFile();
         await this.signDriver();
         await this.createDriverDatFile();
         await this.install();
@@ -108,34 +106,20 @@ export default class Context {
         await this.execute(cmd, this.buildDir);
     }
 
-    async createInfFile() {
-        console.log('Creating inf file');
+    async createMakeCatFile() {
+        console.log('Creating makecat file');
         await this.templateToFile(
-            this.infTplPath,
-            this.infPath, {
+            this.makeCatTplPath,
+            this.makeCatPath, {
                 DRIVER_NAME: this.driverName,
             },
         );
     }
 
-    async stampInfFile() {
-        console.log('Stamping inf file');
-        const cmd = `"${this.vcPath}" amd64 && stampinf.exe -f .\\${this.driverName}.inf  -a "amd64" -k "1.15" -v "*" -d "*"`
+    async makeCatFile() {
+        console.log('Makeing cat file');
+        const cmd = `"${this.vcPath}" amd64 && MakeCat.exe -v .\\${this.driverName}.cdf`
         await this.execute(cmd, this.buildDir);
-    }
-
-    async copyToSignDir() {
-        fs.mkdirSync(this.signDir);
-
-        fs.copyFileSync(
-            `${this.buildDir}${this.driverName}.sys`,
-            `${this.signDir}${this.driverName}.sys`
-        );
-
-        fs.copyFileSync(
-            `${this.buildDir}${this.driverName}.inf`,
-            `${this.signDir}${this.driverName}.inf`
-        );
     }
 
     async signDriver() {
@@ -143,17 +127,15 @@ export default class Context {
         const openssl = `openssl req -nodes -newkey rsa:2048 -keyout ${this.driverName}.key -out ${this.driverName}.csr -subj "/CN=${this.driverName}.com/O=${this.driverName} LTD./C=US"`
         const crt = `openssl x509 -signkey ${this.driverName}.key -in ${this.driverName}.csr -req -days 365 -out ${this.driverName}.crt`;
         const pfx = `openssl pkcs12 -export -out ${this.driverName}.pfx -inkey ${this.driverName}.key -in ${this.driverName}.crt -password pass:`;
-        const inf2cat = `"${this.inf2CatPath}" /driver:"./signdir" /os:10_X64 /verbose`;
         const vc = `"${this.vcPath}" amd64`;
-        const signtool = `signtool sign /fd SHA256 -f "./${this.driverName}.pfx" -t "http://timestamp.digicert.com" -v "${this.signDir}${this.driverName}.cat"`;
+        const signtool = `signtool sign /fd SHA256 -f "./${this.driverName}.pfx" -t "http://timestamp.digicert.com" -v "${this.driverName}.cat"`;
 
-        const cmd = `${openssl} && ${crt} && ${pfx} && ${inf2cat} && ${vc} && ${signtool}`;
+        const cmd = `${openssl} && ${crt} && ${pfx} && ${vc} && ${signtool}`;
 
         await this.execute(cmd, this.buildDir);
     }
 
     async execute(cmd, cwd, params = []) {
-
         console.log(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
         console.log(`Executing: ${cmd}`);
 
@@ -191,17 +173,12 @@ export default class Context {
         }
 
         fs.copyFileSync(
-            `${this.signDir}${this.driverName}.sys`,
+            `${this.buildDir}${this.driverName}.sys`,
             `${this.distDir}${this.driverName}.sys`
         );
 
         fs.copyFileSync(
-            `${this.signDir}${this.driverName}.inf`,
-            `${this.distDir}${this.driverName}.inf`
-        );
-
-        fs.copyFileSync(
-            `${this.signDir}${this.driverName}.cat`,
+            `${this.buildDir}${this.driverName}.cat`,
             `${this.distDir}${this.driverName}.cat`
         );
 
