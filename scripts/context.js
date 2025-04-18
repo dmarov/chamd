@@ -36,7 +36,6 @@ export default class Context {
             this.vcPath = this.vcvarsEnterprisePath;
         }
 
-        this.infPath = `${this.buildDir}${this.driverName}.inf`;
         this.makeCatPath = `${this.buildDir}${this.driverName}.cdf`;
     }
 

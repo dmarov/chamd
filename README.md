@@ -173,9 +173,8 @@ Just use your I-M-A-G-I-N-A-T-I-O-N.
 6.7. Install MSVC (C/C++ compiler). You can install it by adding the Visual Studio
 additional package `Desktop development with C++`.
 
-6.8. Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
-(Windows Driver Kit)
-Follow the instructions from the link.
+6.8. Install [Windows SDK and WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
+Carefully follow the instructions from the link
 
 6.9. Install openssl. The least complex way is to use Chocolatey.
 
