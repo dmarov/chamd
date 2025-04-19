@@ -12,7 +12,7 @@ It was tested using
 It could also work with a lot of other anti-cheats, but it's up to you to figure
 it out.
 
-Current version is based on Cheat Engine version 7.4
+Current version is based on Cheat Engine version 7.5
 
 ![screen](images/screen.png "Screen")
 It works! *Robocraft* is EAC protected
@@ -202,7 +202,7 @@ You can use [EV certificate](https://learn.microsoft.com/en-us/windows-hardware/
 to sign driver. You could skip digital signature enforcement bypass this way. It's not cheap though
 and certificate can be revoked.
 
-6.11. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe`
+6.11. Copy all 3 files from 'dist' directory to directory where `cheatengine-x86_64.exe`
 is located.
 
 You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
