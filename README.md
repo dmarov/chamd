@@ -27,10 +27,14 @@ Also please note that following these instructions ENDANGERS YOUR SYSTEM TO VULN
 
 ## 1. Get your driver
 
-You can download the precompiled version [here](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
+First of all note that this method not working for Windows 10 anymore. **Use Windows 11**.
+
+**Virus and Threat protection** will hinder download of required files, so it needs to be disabled.
+
+Then you can download the [compiled driver](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
 
 This option is perfect for you if you'd like to start fast.
-However this option is not recommended because there is probability
+However it is not recommended because there is probability
 that publicly available driver was already flagged by anti-cheat system.
 For advanced setup refer to section 6. However it is not necessary at the moment,
 because zip archive has 1000 drivers. You can pick any.
@@ -38,7 +42,7 @@ because zip archive has 1000 drivers. You can pick any.
 Copy all 4 files from archive to directory where `cheatengine-x86_64.exe`
 is located.
 
-You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
+You'll have to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
 
 ## 2. Bypass *Digital Singature Enforcement*
 
@@ -50,9 +54,10 @@ Refer to section 7 for some extra methods.
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
 
+
 2.1. Create bootable usb drive for digital signature enforcement bypass.
 
-2.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.2.1/EfiGuard-v1.2.1.zip).
+2.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.4/EfiGuard-v1.4.zip).
 
 2.1.2. Mount you usb drive. 2GB drive is more than enough.
 
@@ -135,7 +140,7 @@ Run `cheatengine-x86_64.exe`
 
 Now you have loaded DBK64 driver signed with untrusted certificate.
 Kernel mode anticheat will allow to start game and make operations on game memory
-(last tested on EAC 05/15/2022).
+(last tested on EAC 19/04/2025).
 
 ## 6. [Extra] Compile the driver from source (recommended)
 
@@ -168,14 +173,14 @@ npm install
 Just use your I-M-A-G-I-N-A-T-I-O-N.
 
 6.6. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
-(community or enterprise). This project is based on Visual Studio 2019.
+(community or enterprise). This project is based on Visual Studio 2022.
 
 6.7. Install MSVC (C/C++ compiler). You can install it by adding the Visual Studio
-additional package `Desktop development with C++`.
+additional package `Desktop development with C++`. `MSVC v143` should be used/
 
-6.8. Also you'll need to install [WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
-(Windows Driver Kit)
-Follow the instructions from the link.
+6.8. Install [Windows SDK and WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
+Carefully follow the instructions from the link. It is omportant that SDK and WDK have the same version.
+Correct versions of spectre mitigated libraries should be installed.
 
 6.9. Install openssl. The least complex way is to use Chocolatey.
 
@@ -208,9 +213,7 @@ contain `10` randomized drivers.
 
 Then go to section 2.
 
-## 7. [Extra] Other methods of dealing with *Digital Signature Enforcement*
-
-### 7.1. enable test signing (recommended for testing purposes only)
+## 7. Extra method of dealing with *Digital Signature Enforcement*
 
 Open command prompt as Administrator
 
@@ -230,11 +233,3 @@ want to test driver loading. Don't forget to disable it when you're done testing
 ```shell
 bcdedit /set testsigning off
 ```
-
-### 7.2. use [DSEFix](https://github.com/hfiref0x/DSEFix) (deprecated)
-
-It should work, but it's not recommended in favor of method explained in section 2.
-
-Please note that THIS METHOD IS DEPRECATED AND CAN CAUSE OCCASIONAL 'BLUE SCREENS OF DEATH'.
-
-Then go to section 3.
