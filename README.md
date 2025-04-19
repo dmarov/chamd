@@ -27,7 +27,7 @@ Also please note that following these instructions ENDANGERS YOUR SYSTEM TO VULN
 
 ## 1. Get your driver
 
-Fist of all Make sure you're using **Windows 11** and *Virus and Threat protection* is disabled in windows settings.
+Fist of all make sure you use **Windows 11** and *Virus and Threat protection* is disabled in windows settings.
 
 Then you can download the [compiled driver](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
 
