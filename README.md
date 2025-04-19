@@ -32,7 +32,7 @@ Fist of all make sure you use **Windows 11** and *Virus and Threat protection* i
 Then you can download the [compiled driver](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
 
 This option is perfect for you if you'd like to start fast.
-However this option is not recommended because there is probability
+However it is not recommended because there is probability
 that publicly available driver was already flagged by anti-cheat system.
 For advanced setup refer to section 6. However it is not necessary at the moment,
 because zip archive has 1000 drivers. You can pick any.
