@@ -29,6 +29,8 @@ Also please note that following these instructions ENDANGERS YOUR SYSTEM TO VULN
 
 You can download the precompiled version [here](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
 
+Make sure you're using **Windows 11** and *Virus and Threat protection* is disabled in windows settings.
+
 This option is perfect for you if you'd like to start fast.
 However this option is not recommended because there is probability
 that publicly available driver was already flagged by anti-cheat system.
@@ -42,7 +44,6 @@ You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engi
 
 ## 2. Bypass *Digital Singature Enforcement*
 
-Make sure you're using **Windows 11**
 Now you have driver signed with untrusted certificate.
 You have a few options to load it.
 In this section the method involving bypass of *Patchguard* and *Digital Signature Enforcement* will be explained.
@@ -51,8 +52,6 @@ Refer to section 7 for some extra methods.
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
 
-
-Make sure you've disabled *Virus and Threat protection* in windows settings.
 
 2.1. Create bootable usb drive for digital signature enforcement bypass.
 
