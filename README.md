@@ -9,53 +9,55 @@ Current version is based on Cheat Engine version 7.5
 ![screen](images/screen.png "Screen")
 It works! *Robocraft* is EAC protected
 
-## 0. Disclaimer
+## 0. Important Warning
 
 Even if you've managed to use this driver successfully it doesn't mean you will
 not be suspected in cheating. Usage of this software or following instructions from
 this document and all the consequences of it are totally on you.
 
-Also please note that following these instructions ENDANGERS YOUR SYSTEM TO VULNERABILITIES in one way or the other.
+Also please note that following these instructions **ENDANGERS YOUR SYSTEM TO VULNERABILITIES**.
+In general it is a good idea to use isolated PC for using such software. Also local network isolation might improve security.
 
-## 1. Get your driver
+## 1. Prepare your system
+- Make sure you use **Windows 11**. Windows 10 won't work.
+- Disable **Virus and Threat protection** in Windows settings, as well as other anti-virus software, because it will hinder download of required files.
+- Install [Cheat Engine 7.5](https://github.com/cheat-engine/cheat-engine/releases/tag/7.5).
 
-First of all note that this method not working for Windows 10 anymore. **Use Windows 11**.
+## 2. Get your driver
 
-**Virus and Threat protection** will hinder download of required files, so it needs to be disabled.
+Download the [compiled driver](https://github.com/dmarov/chamd/releases/tag/v1.4) multibuild file.
 
-Then you can download the [compiled driver](https://github.com/dmarov/chamd/releases/tag/v1.4).
+The archive contains 1000+ drivers. Pick any of them. Copy all 3 files from archive to directory where `cheatengine-x86_64.exe` is located.
 
-This option is perfect for you if you'd like to start fast.
-However it is not recommended because there is probability
-that publicly available driver was already flagged by anti-cheat system.
-For advanced setup refer to section 6. However it is not necessary at the moment,
-because zip archive has 1000 drivers. You can pick any.
+The reason behind this is that it prevents the same driver to be used by multiple users.
+Using a unique driver increases the likelihood of avoiding detection.
 
-Copy all 3 files from archive to directory where `cheatengine-x86_64.exe`
-is located.
+The way anti-cheat works, is that it develops signatures for popular cheats and flags it in the database. Of cousre there's more to anti-cheat.
 
-You'll have to use [Cheat Engine 7.5](https://github.com/cheat-engine/cheat-engine/releases/tag/7.5).
+For better reliability, consider compiling your own driver following the instructions in Section 7. This process creates a custom driver tailored to your system, reducing the chances of
+detection.
 
-## 2. Bypass *Digital Singature Enforcement*
+
+## 3. Bypass *Digital Singature Enforcement*
 
 Now you have driver signed with untrusted certificate.
 You have a few options to load it.
 In this section the method involving bypass of *Patchguard* and *Digital Signature Enforcement* will be explained.
-Refer to section 7 for some extra methods.
+Refer to section 8 for some extra method.
 
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
 
 
-2.1. Create bootable usb drive for digital signature enforcement bypass.
+3.1. Create bootable usb drive for digital signature enforcement bypass.
 
-2.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.4/EfiGuard-v1.4.zip).
+3.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.4/EfiGuard-v1.4.zip).
 
-2.1.2. Mount you usb drive. 2GB drive is more than enough.
+3.1.2. Mount you usb drive. 2GB drive is more than enough.
 
-2.1.3. Format your usb drive as `FAT32`. BE CAREFULL TO FORMAT CORRECT DEVICE!!!
+3.1.3. Format your usb drive as `FAT32`. BE CAREFULL TO FORMAT CORRECT DEVICE!!!
 
-2.1.4. Partition your device as bootable `GPT` with `EFI` partition.
+3.1.4. Partition your device as bootable `GPT` with `EFI` partition.
 BE CAREFULL TO PARTITION CORRECT DEVICE!!!
 
 Open command prompt as administrator.
@@ -75,23 +77,23 @@ assign // disk should be mounted
 exit
 ```
 
-2.1.5. Copy files to USB drive
+3.1.5. Copy files to USB drive
 
 Copy `EFI` directory from archive to the root of your newly created partition.
 
-2.1.6. Rename bootloader
+3.1.6. Rename bootloader
 
 Copy and paste `EFI\Boot\Loader.efi`, than rename it to `EFI\Boot\bootx64.efi`.
 
-2.2. Boot up your system using USB drive.
+3.2. Boot up your system using USB drive.
 
 Set up your UEFI to boot from USB drive as first option,
 second option should be your Windows drive. Also don't forget to disable *Secure Boot*
 since *EFIGuard* is not signed.
 
-2.3. Copy files for digital signature enforcement bypass
+3.3. Copy files for digital signature enforcement bypass
 
-2.3.1. Create `run.bat` in the directory where `cheatengine-x86_64.exe` located
+3.3.1. Create `run.bat` in the directory where `cheatengine-x86_64.exe` located
 
 ```shell
 "%~dp0\EfiDSEFix.exe" -d
@@ -100,9 +102,9 @@ timeout /t 20
 "%~dp0\EfiDSEFix.exe" -e
 ```
 
-2.3.2. Copy `EfiDSEFix.exe` from the archive  to the directory where `cheatengine-x86_64.exe` located.
+3.3.2. Copy `EfiDSEFix.exe` from the archive  to the directory where `cheatengine-x86_64.exe` located.
 
-## 3. Configure Cheat Engine
+## 4. Configure Cheat Engine
 
 Make sure that
 
@@ -114,7 +116,7 @@ Click `OK`.
 
 It might end up with errors. Close Cheat Engine.
 
-## 4. Run Cheat Engine.
+## 5. Run Cheat Engine.
 
 ### If you followed section 2:
 
@@ -128,13 +130,13 @@ Once driver was loaded into memory it's enough to run `cheatengine-x86_64.exe` i
 
 Run `cheatengine-x86_64.exe`
 
-## 5. Congratulations
+## 6. Congratulations
 
 Now you have loaded DBK64 driver signed with untrusted certificate.
 Kernel mode anticheat will allow to start game and make operations on game memory
 (last tested on EAC 19/04/2025).
 
-## 6. [Extra] Compile the driver from source (recommended)
+## 7. [Extra] Compile the driver from source (recommended)
 
 Anti-cheat systems collect suspicious drivers' signature to block them.
 One way this could work is when particular driver gets used by few users (of course there's more to anti-cheat systems).
@@ -144,37 +146,36 @@ Note: use PowerShell or [Cmder](https://cmder.app/)
 
 [Video Tutorial](https://www.youtube.com/watch?v=7ARwpxZPpE8)
 
-6.1. Clone this repository
+7.1. Clone this repository
 
 ```shell
 git clone https://github.com/dmarov/chamd.git
 cd chamd
 ```
 
-6.2. Install [nodejs](https://nodejs.org/en/). Version `19.1.0` is recommended.
+7.2. Install [nodejs](https://nodejs.org/en/). Version `19.1.0` is recommended.
 
-6.3. Install packages
+7.3. Install packages
 
 ```shell
 npm install
 ```
 
-6.4. Copy `.env.tpl` to `.env`
+7.4. Copy `.env.tpl` to `.env`
 
-6.5. You may set `CHAMD_DBK_DRIVER_NAME` in `.env` to whatever name you wish.
-Just use your I-M-A-G-I-N-A-T-I-O-N.
+7.5. Optionaly you may set `CHAMD_DBK_DRIVER_NAME` in `.env` to whatever name you wish.
 
-6.6. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
-(community or enterprise). This project is based on Visual Studio 2022.
+7.6. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
+(community or enterprise). This project is based on **Visual Studio 2022**.
 
-6.7. Install MSVC (C/C++ compiler). You can install it by adding the Visual Studio
-additional package `Desktop development with C++`. `MSVC v143` should be used/
+7.7. Install **MSVC v143** (C/C++ compiler). You can install it by adding the Visual Studio
+additional package `Desktop development with C++`.
 
-6.8. Install [Windows SDK and WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
-Carefully follow the instructions from the link. It is omportant that SDK and WDK have the same version.
-Correct versions of spectre mitigated libraries should be installed.
+7.8. Install [Windows SDK and WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
+Carefully follow the instructions from the link. It is important that SDK and WDK have the same version.
+Correct versions of spectre mitigated libraries should be installed in the process.
 
-6.9. Install openssl. The least complex way is to use Chocolatey.
+7.9. Install openssl. The least complex way is to use Chocolatey.
 
 ```shell
 choco install openssl
@@ -182,7 +183,7 @@ choco install openssl
 
 This command needs to be performed as admin
 
-6.10. Run build
+7.10. Run build
 
 ```shell
 npm run all
@@ -194,18 +195,18 @@ You can use [EV certificate](https://learn.microsoft.com/en-us/windows-hardware/
 to sign driver. You could skip digital signature enforcement bypass this way. It's not cheap though
 and certificate can be revoked.
 
-6.11. Copy all 3 files from 'dist' directory to directory where `cheatengine-x86_64.exe`
+7.11. Copy all 3 files from 'dist' directory to directory where `cheatengine-x86_64.exe`
 is located.
 
 You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
 
-6.12. If you've managed to compile this driver successfully and want to share few
+7.12. If you've managed to compile this driver successfully and want to share few
 randomized copies then run `npm run multibuild 10`. `dist` directory will
 contain `10` randomized drivers.
 
-Then go to section 2.
+Then go to section 3.
 
-## 7. Extra method of dealing with *Digital Signature Enforcement*
+## 8. Extra method of dealing with *Digital Signature Enforcement*
 
 Open command prompt as Administrator
 
@@ -215,7 +216,7 @@ bcdedit /set testsigning on
 
 System needs reboot in order for this command to take effect.
 
-Then go to section 3.
+Then go to section 4.
 
 Note:
 
