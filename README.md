@@ -211,9 +211,7 @@ contain `10` randomized drivers.
 
 Then go to section 2.
 
-## 7. [Extra] Other methods of dealing with *Digital Signature Enforcement*
-
-### 7.1. enable test signing (recommended for testing purposes only)
+## 7. Extra method of dealing with *Digital Signature Enforcement*
 
 Open command prompt as Administrator
 
@@ -233,11 +231,3 @@ want to test driver loading. Don't forget to disable it when you're done testing
 ```shell
 bcdedit /set testsigning off
 ```
-
-### 7.2. use [DSEFix](https://github.com/hfiref0x/DSEFix) (deprecated)
-
-It should work, but it's not recommended in favor of method explained in section 2.
-
-Please note that THIS METHOD IS DEPRECATED AND CAN CAUSE OCCASIONAL 'BLUE SCREENS OF DEATH'.
-
-Then go to section 3.
