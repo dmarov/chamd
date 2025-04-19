@@ -42,6 +42,7 @@ You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engi
 
 ## 2. Bypass *Digital Singature Enforcement*
 
+Make sure you're using **Windows 11**
 Now you have driver signed with untrusted certificate.
 You have a few options to load it.
 In this section the method involving bypass of *Patchguard* and *Digital Signature Enforcement* will be explained.
@@ -50,9 +51,12 @@ Refer to section 7 for some extra methods.
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
 
+
+Make sure you've disabled *Virus and Threat protection* in windows settings.
+
 2.1. Create bootable usb drive for digital signature enforcement bypass.
 
-2.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.2.1/EfiGuard-v1.2.1.zip).
+2.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.2.1/EfiGuard-v1.4.zip).
 
 2.1.2. Mount you usb drive. 2GB drive is more than enough.
 
@@ -135,7 +139,7 @@ Run `cheatengine-x86_64.exe`
 
 Now you have loaded DBK64 driver signed with untrusted certificate.
 Kernel mode anticheat will allow to start game and make operations on game memory
-(last tested on EAC 05/15/2022).
+(last tested on EAC 19/04/2025).
 
 ## 6. [Extra] Compile the driver from source (recommended)
 
