@@ -29,7 +29,7 @@ Download the [compiled driver](https://github.com/dmarov/chamd/releases/tag/v1.4
 
 The archive contains 1000+ drivers. Pick any of them. Copy all 3 files from archive to directory where `cheatengine-x86_64.exe` is located.
 
-The reason behind this is that it prevents the same driver to be used by multiple users.
+The reason behind that amount of drivers is that it prevents the same driver to be used by multiple users.
 Using a unique driver increases the likelihood of avoiding detection.
 
 The way anti-cheat works, is that it develops signatures for popular cheats and flags it in the database. Of cousre there's more to anti-cheat.
