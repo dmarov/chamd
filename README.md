@@ -174,10 +174,11 @@ Just use your I-M-A-G-I-N-A-T-I-O-N.
 (community or enterprise). This project is based on Visual Studio 2022.
 
 6.7. Install MSVC (C/C++ compiler). You can install it by adding the Visual Studio
-additional package `Desktop development with C++`.
+additional package `Desktop development with C++`. `MSVC v143` should be used/
 
 6.8. Install [Windows SDK and WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
-Carefully follow the instructions from the link
+Carefully follow the instructions from the link. It is omportant that SDK and WDK have the same version.
+Correct versions of spectre mitigated libraries should be installed.
 
 6.9. Install openssl. The least complex way is to use Chocolatey.
 
