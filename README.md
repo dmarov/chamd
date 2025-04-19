@@ -118,7 +118,7 @@ It might end up with errors. Close Cheat Engine.
 
 ## 5. Run Cheat Engine.
 
-### If you followed section 2:
+### If you followed section 3:
 
 Run `run.bat` as Administrator.
 
@@ -126,7 +126,7 @@ Do not close popped out window manually!!! Wait for it to close itself.
 
 Once driver was loaded into memory it's enough to run `cheatengine-x86_64.exe` instead of `run.bat`.
 
-### If you followed section 7:
+### If you followed section 8:
 
 Run `cheatengine-x86_64.exe`
 
