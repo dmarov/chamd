@@ -55,7 +55,7 @@ Refer to section 7 for some extra methods.
 
 2.1. Create bootable usb drive for digital signature enforcement bypass.
 
-2.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.2.1/EfiGuard-v1.4.zip).
+2.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.4/EfiGuard-v1.4.zip).
 
 2.1.2. Mount you usb drive. 2GB drive is more than enough.
 
