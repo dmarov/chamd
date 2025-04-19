@@ -31,7 +31,7 @@ First of all note that this method not working for Windows 10 anymore. **Use Win
 
 **Virus and Threat protection** will hinder download of required files, so it needs to be disabled.
 
-Then you can download the [compiled driver](https://github.com/dmarov/chamd/releases/download/v1.4/multibuild.zip).
+Then you can download the [compiled driver](https://github.com/dmarov/chamd/releases/tag/v1.4).
 
 This option is perfect for you if you'd like to start fast.
 However it is not recommended because there is probability
