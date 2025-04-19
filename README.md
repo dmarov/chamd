@@ -1,16 +1,8 @@
-# Chamd (stands for "Chameleon DBK64")
+# Chamd (Chameleon DBK64)
 
-## Modified Cheat Engine DBK64 kernel driver
+## Modified Driver Based on Cheat Engine DBK64
 
-### The purpose of this project is to enable usage of Cheat Engine kernel mode driver `DBK64.sys` on anti-cheat protected system.
-
-It was tested using
-
-- [EAC](https://www.easy.ac/en-us/partners/)
-- [BattlEye](https://www.battleye.com/)
-
-It could also work with a lot of other anti-cheats, but it's up to you to figure
-it out.
+This project provides a modified version of the Cheat Engine DBK64 kernel driver aimed at bypassing detection by anti-cheat systems. It has been tested with EAC and BattlEye, potentially working with other systems as well.
 
 Current version is based on Cheat Engine version 7.5
 
@@ -39,7 +31,7 @@ that publicly available driver was already flagged by anti-cheat system.
 For advanced setup refer to section 6. However it is not necessary at the moment,
 because zip archive has 1000 drivers. You can pick any.
 
-Copy all 4 files from archive to directory where `cheatengine-x86_64.exe`
+Copy all 3 files from archive to directory where `cheatengine-x86_64.exe`
 is located.
 
 You'll have to use [Cheat Engine 7.5](https://github.com/cheat-engine/cheat-engine/releases/tag/7.5).
