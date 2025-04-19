@@ -12,7 +12,7 @@ It was tested using
 It could also work with a lot of other anti-cheats, but it's up to you to figure
 it out.
 
-Current version is based on Cheat Engine version 7.4
+Current version is based on Cheat Engine version 7.5
 
 ![screen](images/screen.png "Screen")
 It works! *Robocraft* is EAC protected
@@ -31,7 +31,7 @@ First of all note that this method not working for Windows 10 anymore. **Use Win
 
 **Virus and Threat protection** will hinder download of required files, so it needs to be disabled.
 
-Then you can download the [compiled driver](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
+Then you can download the [compiled driver](https://github.com/dmarov/chamd/releases/download/v1.4/multibuild.zip).
 
 This option is perfect for you if you'd like to start fast.
 However it is not recommended because there is probability
@@ -42,7 +42,7 @@ because zip archive has 1000 drivers. You can pick any.
 Copy all 4 files from archive to directory where `cheatengine-x86_64.exe`
 is located.
 
-You'll have to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
+You'll have to use [Cheat Engine 7.5](https://github.com/cheat-engine/cheat-engine/releases/tag/7.5).
 
 ## 2. Bypass *Digital Singature Enforcement*
 
@@ -202,7 +202,7 @@ You can use [EV certificate](https://learn.microsoft.com/en-us/windows-hardware/
 to sign driver. You could skip digital signature enforcement bypass this way. It's not cheap though
 and certificate can be revoked.
 
-6.11. Copy all 4 files from 'dist' directory to directory where `cheatengine-x86_64.exe`
+6.11. Copy all 3 files from 'dist' directory to directory where `cheatengine-x86_64.exe`
 is located.
 
 You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
