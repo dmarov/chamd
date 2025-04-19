@@ -27,8 +27,7 @@ Also please note that following these instructions ENDANGERS YOUR SYSTEM TO VULN
 
 ## 1. Get your driver
 
-First of all note that this method not working for Windows 10 anymore, because anti-cheats detect patched kernel.
-**Use Windows 11**.
+First of all note that this method not working for Windows 10 anymore. **Use Windows 11**.
 
 **Virus and Threat protection** will hinder download of required files, so it needs to be disabled.
 
