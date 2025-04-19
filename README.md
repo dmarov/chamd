@@ -40,7 +40,7 @@ because zip archive has 1000 drivers. You can pick any.
 Copy all 4 files from archive to directory where `cheatengine-x86_64.exe`
 is located.
 
-You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
+You'll have to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
 
 ## 2. Bypass *Digital Singature Enforcement*
 
