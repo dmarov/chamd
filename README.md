@@ -27,9 +27,9 @@ Also please note that following these instructions ENDANGERS YOUR SYSTEM TO VULN
 
 ## 1. Get your driver
 
-You can download the precompiled version [here](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
+Fist of all Make sure you're using **Windows 11** and *Virus and Threat protection* is disabled in windows settings.
 
-Make sure you're using **Windows 11** and *Virus and Threat protection* is disabled in windows settings.
+Then you can download the [compiled driver](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
 
 This option is perfect for you if you'd like to start fast.
 However this option is not recommended because there is probability
