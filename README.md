@@ -27,7 +27,10 @@ Also please note that following these instructions ENDANGERS YOUR SYSTEM TO VULN
 
 ## 1. Get your driver
 
-Fist of all make sure you use **Windows 11** and *Virus and Threat protection* is disabled in windows settings.
+First of all note that this method not working for Windows 10 anymore, because anti-cheats detect patched kernel.
+**Use Windows 11**.
+
+**Virus and Threat protection** will hinder download of required files, so it needs to be disabled.
 
 Then you can download the [compiled driver](https://github.com/dmarov/chamd/releases/download/v1.3/multibuild.zip).
 
