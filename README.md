@@ -19,11 +19,11 @@ Please note that using these instructions **poses a significant security risk** 
 It is highly recommended to use an isolated computer for this purpose. Additionally, isolating the machine within a local network may further enhance security.
 
 ## 1. System Requirements and Preparation
-- **Operating System**: Windows 11 only. This driver will not work on Windows 10.
+- **Operating System**: Windows 11 only. This method will not work on Windows 10.
 - **Disable Anti-Virus Software**: Turn off Virus and Threat Protection in Windows settings, as well as any other anti-virus or anti-malware programs. These can block the required files
 - Install **Cheat Engine 7.5** by compiling it from [source](https://github.com/cheat-engine/cheat-engine/releases/tag/7.5) or using the [installer](https://www.cheatengine.org/downloads.php).
 
-## 2. Get your driver
+## 2. Obtain your driver
 
 2.1. **Download the Compiled Driver**
 Visit [GitHub](https://github.com/dmarov/chamd/releases/tag/v1.4) to download the compiled driver, which includes a multibuild file.
@@ -33,43 +33,43 @@ Once downloaded, extract the archive containing over 1000+ drivers. This extensi
 driver instance, thereby reducing detection risk.
 
 2.3. **Select and Copy the Driver**
-From the extracted files, choose any one driver that suits your needs. Copy all three associated files to the directory where `cheatengine-x86_64.exe` is located.
+From the extracted files, choose any one random driver. Copy all three associated files to the directory where `cheatengine-x86_64.exe` is located.
 
 ---
 
 Why Multiple Drivers?
-Using a unique driver decreases the chances of your setup being flagged or blacklisted by anti-cheat systems
+Using a unique driver decreases the chances of your setup being flagged or blacklisted by anti-cheat systems.
 The way anti-cheat works, is that it develops signatures for popular cheats and flags it in the database. Of cousre there's more to anti-cheat.
 
 ---
 
-For better reliability, consider compiling your own driver following the instructions in Section 7. This process creates a custom driver tailored to your system, reducing the chances of
+For better reliability, consider compiling your own driver following the instructions in Section 7. This process creates a custom driver, reducing the chances of
 detection.
 
 
-## 3. Bypass *Digital Singature Enforcement*
+## 3. Bypassing **Digital Signature Enforcement**
 
-Now you have driver signed with untrusted certificate.
-You have a few options to load it.
-In this section the method involving bypass of *Patchguard* and *Digital Signature Enforcement* will be explained.
+At this point you have driver signed with untrusted certificate.
+There are a few options to load it.
+In this section the method based on bypass of *Patchguard* and *Digital Signature Enforcement* will be explained.
 Refer to section 8 for some extra method.
 
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
 
 
-3.1. Create bootable usb drive for digital signature enforcement bypass.
+3.1. Create bootable usb drive
 
-3.1.1. Download and extract [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.4/EfiGuard-v1.4.zip).
+3.1.1. Download and extract the [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.4/EfiGuard-v1.4.zip).
 
-3.1.2. Mount you usb drive. 2GB drive is more than enough.
+3.1.2. Mount you usb drive. 2GB drive should be more than enough.
 
-3.1.3. Format your usb drive as `FAT32`. BE CAREFULL TO FORMAT CORRECT DEVICE!!!
+3.1.3. Format your usb drive as `FAT32`. **be carefull to format the correct device**, because it will erase all data on USB drive
 
 3.1.4. Partition your device as bootable `GPT` with `EFI` partition.
-BE CAREFULL TO PARTITION CORRECT DEVICE!!!
+**be carefull to partition the correct device!!!**
 
-Open command prompt as administrator.
+Open command prompt as administrator nad perform the following commands:
 
 ```shell
 diskpart
@@ -88,21 +88,21 @@ exit
 
 3.1.5. Copy files to USB drive
 
-Copy `EFI` directory from archive to the root of your newly created partition.
+Copy `EFI` directory from the extracted archive to the root of created partition.
 
 3.1.6. Rename bootloader
 
-Copy and paste `EFI\Boot\Loader.efi`, than rename it to `EFI\Boot\bootx64.efi`.
+Locate `EFI/Boot/Loader.efi` on the USB drive, than rename it to `EFI/Boot/bootx64.efi`.
 
-3.2. Boot up your system using USB drive.
+3.2. Boot your system from USB drive.
 
-Set up your UEFI to boot from USB drive as first option,
-second option should be your Windows drive. Also don't forget to disable *Secure Boot*
-since *EFIGuard* is not signed.
+Restart your computer and enter the UEFI settings (usually by pressing F2, F12, or DEL during startup).
+Set the first boot option to your USB drive (UEFI). The second option should be your windows drive (UEFI).
+Ensure Secure Boot is disabled since EFIGuard rootkit isn't signed.
 
 3.3. Copy files for digital signature enforcement bypass
 
-3.3.1. Create `run.bat` in the directory where `cheatengine-x86_64.exe` located
+3.3.1. In the directory containing `cheatengine-x86_64.exe`, create a new file named `run.bat` with the following content:
 
 ```shell
 "%~dp0\EfiDSEFix.exe" -d
@@ -111,7 +111,9 @@ timeout /t 20
 "%~dp0\EfiDSEFix.exe" -e
 ```
 
-3.3.2. Copy `EfiDSEFix.exe` from the archive  to the directory where `cheatengine-x86_64.exe` located.
+Before doing that, make sure that file explored is not configured to hide known file extensions.
+
+3.3.2. Copy `EfiDSEFix.exe` from the archive to the same directory as `cheatengine-x86_64.exe`.
 
 ## 4. Configure Cheat Engine
 
@@ -131,9 +133,9 @@ It might end up with errors. Close Cheat Engine.
 
 Run `run.bat` as Administrator.
 
-Do not close popped out window manually!!! Wait for it to close itself.
+Do not close the window that pops out manually!!! Wait for it to close automatically.
 
-Once driver has been loaded into memory it's enough to run `cheatengine-x86_64.exe` instead of `run.bat`.
+After the driver has been successfully loaded, you can directly run `cheatengine-x86_64.exe` without needing to execute `run.bat`.
 
 ### If you followed section 8:
 
@@ -141,17 +143,17 @@ Run `cheatengine-x86_64.exe`
 
 ## 6. Congratulations
 
-Now you have loaded DBK64 driver signed with untrusted certificate.
-Kernel mode anticheat will allow to start game and make operations on game memory
-(last tested on EAC 19/04/2025).
+You have successfully loaded the DBK64 driver signed with an untrusted certificate.
+This allows kernel mode anti-cheat (EAC) to permit starting the game and performing operations on the
+game memory. Note: The last tested version was confirmed on EAC as of April 19, 2025.
 
-## 7. [Extra] Compile the driver from source (recommended)
+## 7. [Extra] Compile the driver from source
 
-Anti-cheat systems collect suspicious drivers' signature to block them.
-One way this could work is when particular driver gets used by few users (of course there's more to anti-cheat systems).
-To address this issue it's recommended to compile you own version of driver with unique signature.
+Anti-cheat systems may collect signatures of suspicious drivers used by a small number of users to block them. To mitigate this, it is recommended to compile your own version of the
+driver with a unique signature.
 
-Note: use PowerShell or [Cmder](https://cmder.app/)
+#### **Note:**
+Use PowerShell or Cmder for these steps.
 
 [Video Tutorial](https://www.youtube.com/watch?v=7ARwpxZPpE8)
 
@@ -162,37 +164,58 @@ git clone https://github.com/dmarov/chamd.git
 cd chamd
 ```
 
-7.2. Install [nodejs](https://nodejs.org/en/). Version `19.1.0` is recommended.
+Ensure you have Git installed on your system before cloning.
+
+7.2. Install [nodejs](https://nodejs.org/en/). Version `>=19` is required.
 
 7.3. Install packages
+Run the following command in your terminal:
 
 ```shell
 npm install
 ```
 
+This will install all required packages for building the driver.
+
 7.4. Copy `.env.tpl` to `.env`
+Create a copy of the template environment file by running:
 
-7.5. Optionaly you may set `CHAMD_DBK_DRIVER_NAME` in `.env` to whatever name you wish.
+```shell
+cp .env.tpl .env
+```
 
-7.6. Install [Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
-(community or enterprise). This project is based on **Visual Studio 2022**.
+7.5. Optionaly set `CHAMD_DBK_DRIVER_NAME` in `.env`.
 
-7.7. Install **MSVC v143** (C/C++ compiler). You can install it by adding the Visual Studio
-additional package `Desktop development with C++`.
+Edit the `.env` file and set the `CHAMD_DBK_DRIVER_NAME` variable to a unique name if desired.
 
-7.8. Install [Windows SDK and WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
+Example:
+```env
+CHAMD_DBK_DRIVER_NAME=mysupercooldrv
+```
+
+7.6. Install Visual Studio
+
+Install **Visual Studio** (Community or Enterprise) with support for C++ development.
+
+[Download Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
+
+Ensure you select the following components during installation:
+- **Desktop Development with C++**
+- **MSVC v143 (C++ Compiler)**
+
+7.7. Install [Windows SDK and WDK](https://docs.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk)
 Carefully follow the instructions from the link. It is important that SDK and WDK have the same version.
 Correct versions of spectre mitigated libraries should be installed in the process.
 
-7.9. Install openssl. The least complex way is to use Chocolatey.
+7.8. Install openssl. The most straightforward way is to use Chocolatey package manager.
 
 ```shell
 choco install openssl
 ```
 
-This command needs to be performed as admin
+This command has to be performed as Admininstrator.
 
-7.10. Run build
+7.9. Run build
 
 ```shell
 npm run all
@@ -201,37 +224,41 @@ npm run all
 Note:
 
 You can use [EV certificate](https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/code-signing-cert-manage)
-to sign driver. You could skip digital signature enforcement bypass this way. It's not cheap though
-and certificate can be revoked.
+to sign driver. You could skip digital signature enforcement bypass this way. They are costly though and can be revoked when misused.
 
-7.11. Copy all 3 files from 'dist' directory to directory where `cheatengine-x86_64.exe`
+7.10. Copy all files from the 'dist' directory to directory where `cheatengine-x86_64.exe`
 is located.
 
-You'll need to use [Cheat Engine 7.4](https://github.com/cheat-engine/cheat-engine/releases/tag/7.4).
-
-7.12. If you've managed to compile this driver successfully and want to share few
+7.11. If you've managed to compile this driver successfully and want to share few
 randomized copies then run `npm run multibuild 10`. `dist` directory will
 contain `10` randomized drivers.
 
 Then go to section 3.
 
-## 8. Extra method of dealing with *Digital Signature Enforcement*
+## 8. [Extra] Another Method of dealing with *Digital Signature Enforcement*
 
-Open command prompt as Administrator
+If you want to bypass digital signature enforcement temporarily (for testing purposes only), follow these steps:
 
+8.1. Enable Test Signing Mode:
 ```shell
 bcdedit /set testsigning on
 ```
+This command modifies the boot configuration to allow loading of unsigned or self-signed drivers.
 
-System needs reboot in order for this command to take effect.
+8.2. Reboot Your System:
+The changes take effect after a system reboot.
 
-Then go to section 4.
+8.3. Proceed with Section 4:
+Load the driver as outlined in section 4.
 
-Note:
-
-This option won't work with anticheat, obviously, but is very useful if you just
-want to test driver loading. Don't forget to disable it when you're done testing.
-
+8.4. Disable Test Signing Mode:
+After testing, disable test signing mode to restore normal security settings.
 ```shell
 bcdedit /set testsigning off
 ```
+
+---
+
+Enabling test signing mode is intended for development and troubleshooting purposes only.
+It temporarily reduces the system's security by allowing unsigned drivers to load.
+This method does not work with anti-cheat systems, as they typically enforce strict driver signature requirements.
