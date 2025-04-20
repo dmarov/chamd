@@ -51,7 +51,7 @@ detection.
 
 At this point you have driver signed with untrusted certificate.
 There are a few options to load it.
-In this section the method based on bypass of *Patchguard* and *Digital Signature Enforcement* will be explained.
+In this section the method based on bypass of **Patchguard** and **Digital Signature Enforcement** will be explained.
 Refer to section 8 for some extra method.
 
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
@@ -69,7 +69,7 @@ Refer to section 8 for some extra method.
 3.1.4. Partition your device as bootable `GPT` with `EFI` partition.
 **be carefull to partition the correct device!!!**
 
-Open command prompt as administrator nad perform the following commands:
+Open command prompt as administrator and perform the following commands:
 
 ```shell
 diskpart
