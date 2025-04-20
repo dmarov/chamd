@@ -195,7 +195,7 @@ CHAMD_DBK_DRIVER_NAME=mysupercooldrv
 
 7.6. Install Visual Studio
 
-Install **Visual Studio** (Community or Enterprise) with support for C++ development.
+Install **Visual Studio 2022** (Community or Enterprise) with support for C++ development.
 
 [Download Visual Studio](https://visualstudio.microsoft.com/downloads/)
 
