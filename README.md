@@ -147,7 +147,7 @@ You have successfully loaded the DBK64 driver signed with an untrusted certifica
 This allows kernel mode anti-cheat (EAC) to permit starting the game and performing operations on the
 game memory. Note: The last tested version was confirmed on EAC as of April 19, 2025.
 
-## 7. [Extra] Compile the driver from source
+## 7. [Optional] Compile the driver from source
 
 Anti-cheat systems may collect signatures of suspicious drivers used by a small number of users to block them. To mitigate this, it is recommended to compile your own version of the
 driver with a unique signature.
@@ -235,7 +235,7 @@ contain `10` randomized drivers.
 
 Then go to section 3.
 
-## 8. [Extra] Another Method of dealing with *Digital Signature Enforcement*
+## 8. [Optional] Another Method of dealing with *Digital Signature Enforcement*
 
 If you want to bypass digital signature enforcement temporarily (for testing purposes only), follow these steps:
 
