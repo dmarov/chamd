@@ -197,7 +197,7 @@ CHAMD_DBK_DRIVER_NAME=mysupercooldrv
 
 Install **Visual Studio** (Community or Enterprise) with support for C++ development.
 
-[Download Visual Studio](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16)
+[Download Visual Studio](https://visualstudio.microsoft.com/downloads/)
 
 Ensure you select the following components during installation:
 - **Desktop Development with C++**
