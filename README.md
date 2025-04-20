@@ -2,37 +2,46 @@
 
 ## Modified Driver Based on Cheat Engine DBK64
 
-This project provides a modified version of the Cheat Engine DBK64 kernel driver aimed at bypassing detection by anti-cheat systems. It has been tested with EAC and BattlEye, potentially working with other systems as well.
+This project provides a modified version of the Cheat Engine DBK64 kernel driver aimed at bypassing detection by anti-cheat systems.
+It has been tested with EAC and BattlEye, potentially working with other systems as well.
 
 Current version is based on Cheat Engine version 7.5
 
 ![screen](images/screen.png "Screen")
-It works! *Robocraft* is EAC protected
+*As shown below, the driver successfully bypasses EAC detection in Robocraft.*
 
 ## 0. Important Warning
 
-Even if you've managed to use this driver successfully it doesn't mean you will
-not be suspected in cheating. Usage of this software or following instructions from
-this document and all the consequences of it are totally on you.
+Even if you manage to use this driver successfully, it does not guarantee that you will not be suspected of cheating.
+The usage of this software and any actions outlined in this document are entirely at your own risk.
 
-Also please note that following these instructions **ENDANGERS YOUR SYSTEM TO VULNERABILITIES**.
-In general it is a good idea to use isolated PC for using such software. Also local network isolation might improve security.
+Please note that using these instructions **poses a significant security risk** to your system.
+It is highly recommended to use an isolated computer for this purpose. Additionally, isolating the machine within a local network may further enhance security.
 
-## 1. Prepare your system
-- Make sure you use **Windows 11**. Windows 10 won't work.
-- Disable **Virus and Threat protection** in Windows settings, as well as other anti-virus software, because it will hinder download of required files.
-- Install [Cheat Engine 7.5](https://github.com/cheat-engine/cheat-engine/releases/tag/7.5).
+## 1. System Requirements and Preparation
+- **Operating System**: Windows 11 only. This driver will not work on Windows 10.
+- **Disable Anti-Virus Software**: Turn off Virus and Threat Protection in Windows settings, as well as any other anti-virus or anti-malware programs. These can block the required files
+- Install **Cheat Engine 7.5** by compiling it from [source](https://github.com/cheat-engine/cheat-engine/releases/tag/7.5) or using the [installer](https://www.cheatengine.org/downloads.php).
 
 ## 2. Get your driver
 
-Download the [compiled driver](https://github.com/dmarov/chamd/releases/tag/v1.4) multibuild file.
+2.1. **Download the Compiled Driver**
+Visit [GitHub](https://github.com/dmarov/chamd/releases/tag/v1.4) to download the compiled driver, which includes a multibuild file.
 
-The archive contains 1000+ drivers. Pick any of them. Copy all 3 files from archive to directory where `cheatengine-x86_64.exe` is located.
+2.2. **Extract the Archive**
+Once downloaded, extract the archive containing over 1000+ drivers. This extensive number of drivers is strategically provided to minimize the chances of multiple users using the same
+driver instance, thereby reducing detection risk.
 
-The reason behind that amount of drivers is that it prevents the same driver to be used by multiple users.
-Using a unique driver increases the likelihood of avoiding detection.
+2.3. **Select and Copy the Driver**
+From the extracted files, choose any one driver that suits your needs. Copy all three associated files to the directory where `cheatengine-x86_64.exe` is located.
 
+---
+
+Why Multiple Drivers?
+Using a unique driver decreases the chances of your setup being flagged or blacklisted by anti-cheat systems
 The way anti-cheat works, is that it develops signatures for popular cheats and flags it in the database. Of cousre there's more to anti-cheat.
+
+---
 
 For better reliability, consider compiling your own driver following the instructions in Section 7. This process creates a custom driver tailored to your system, reducing the chances of
 detection.
