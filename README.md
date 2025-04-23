@@ -18,10 +18,14 @@ The usage of this software and any actions outlined in this document are entirel
 Please note that using these instructions **poses a significant security risk** to your system.
 It is highly recommended to use an isolated computer for this purpose. Additionally, isolating the machine within a local network may further enhance security.
 
+---
+
 ## 1. System Requirements and Preparation
 - **Operating System**: Windows 11 only. This method will not work on Windows 10.
 - **Disable Anti-Virus Software**: Turn off Virus and Threat Protection in Windows settings, as well as any other anti-virus or anti-malware programs. These can block the required files
 - Install **Cheat Engine 7.5** by compiling it from [source](https://github.com/cheat-engine/cheat-engine/releases/tag/7.5), which is preferred method, or using the [installer](https://www.cheatengine.org/downloads.php).
+-
+- ---
 
 ## 2. Obtain your driver
 
@@ -35,17 +39,14 @@ driver instance, thereby reducing detection risk.
 2.3. **Select and Copy the Driver**
 From the extracted files, choose any one random driver. Copy all three associated files to the directory where `cheatengine-x86_64.exe` is located.
 
----
-
 Why Multiple Drivers?
 Using a unique driver decreases the chances of your setup being flagged or blacklisted by anti-cheat systems.
 The way anti-cheat works, is that it develops signatures for popular cheats and flags it in the database. Of cousre there's more to anti-cheat.
 
----
-
 For better reliability, consider compiling your own driver following the instructions in Section 7. This process creates a custom driver, reducing the chances of
 detection.
 
+---
 
 ## 3. Bypassing **Digital Signature Enforcement**
 
@@ -60,7 +61,7 @@ Refer to section 8 for some extra method.
 
 3.1. Create bootable usb drive
 
-3.1.1. Download and extract the [archive](https://github.com/Mattiwatti/EfiGuard/releases/download/v1.4/EfiGuard-v1.4.zip).
+3.1.1. Download [EfiGuard](https://github.com/Mattiwatti/EfiGuard/releases/) version >= 1.4.
 
 3.1.2. Mount you usb drive. 2GB drive should be more than enough.
 
@@ -115,6 +116,8 @@ Before doing that, make sure that file explored is not configured to hide known 
 
 3.3.2. Copy `EfiDSEFix.exe` from the archive to the same directory as `cheatengine-x86_64.exe`.
 
+---
+
 ## 4. Configure Cheat Engine
 
 Make sure that
@@ -126,6 +129,8 @@ Make sure that
 Click `OK`.
 
 It might end up with errors. Close Cheat Engine.
+
+---
 
 ## 5. Run Cheat Engine.
 
@@ -141,11 +146,15 @@ After the driver has been successfully loaded, you can directly run `cheatengine
 
 Run `cheatengine-x86_64.exe`
 
+---
+
 ## 6. Congratulations
 
 You have successfully loaded the DBK64 driver signed with an untrusted certificate.
 This allows kernel mode anti-cheat (EAC) to permit starting the game and performing operations on the
 game memory. Note: The last tested version was confirmed on EAC as of April 19, 2025.
+
+---
 
 ## 7. [Extra] Compile the driver from source
 
@@ -235,6 +244,8 @@ contain `10` randomized drivers.
 
 Then go to section 3.
 
+---
+
 ## 8. [Extra] Another Method of dealing with *Digital Signature Enforcement*
 
 If you want to bypass digital signature enforcement temporarily (for testing purposes only), follow these steps:
@@ -256,8 +267,6 @@ After testing, disable test signing mode to restore normal security settings.
 ```shell
 bcdedit /set testsigning off
 ```
-
----
 
 Enabling test signing mode is intended for development and troubleshooting purposes only.
 It temporarily reduces the system's security by allowing unsigned drivers to load.
