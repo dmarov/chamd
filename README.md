@@ -18,14 +18,10 @@ The usage of this software and any actions outlined in this document are entirel
 Please note that using these instructions **poses a significant security risk** to your system.
 It is highly recommended to use an isolated computer for this purpose. Additionally, isolating the machine within a local network may further enhance security.
 
----
-
 ## 1. System Requirements and Preparation
 - **Operating System**: Windows 11 only. This method will not work on Windows 10.
 - **Disable Anti-Virus Software**: Turn off Virus and Threat Protection in Windows settings, as well as any other anti-virus or anti-malware programs. These can block the required files
 - Install **Cheat Engine 7.5** by compiling it from [source](https://github.com/cheat-engine/cheat-engine/releases/tag/7.5), which is preferred method, or using the [installer](https://www.cheatengine.org/downloads.php).
-
----
 
 ## 2. Obtain your driver
 
@@ -46,8 +42,6 @@ The way anti-cheat works, is that it develops signatures for popular cheats and 
 For better reliability, consider compiling your own driver following the instructions in Section 7. This process creates a custom driver, reducing the chances of
 detection.
 
----
-
 ## 3. Bypassing **Digital Signature Enforcement**
 
 At this point you have driver signed with untrusted certificate.
@@ -57,7 +51,6 @@ Refer to section 8 for some extra method.
 
 - [Video tutorial 1](https://www.youtube.com/watch?v=EJGuJp2fqpM)
 - [Video tutorial 2](https://www.youtube.com/watch?v=zsw3xoG3zgs)
-
 
 3.1. Create bootable usb drive
 
@@ -116,8 +109,6 @@ Before doing that, make sure that file explored is not configured to hide known 
 
 3.3.2. Copy `EfiDSEFix.exe` from the archive to the same directory as `cheatengine-x86_64.exe`.
 
----
-
 ## 4. Configure Cheat Engine
 
 Make sure that
@@ -129,8 +120,6 @@ Make sure that
 Click `OK`.
 
 It might end up with errors. Close Cheat Engine.
-
----
 
 ## 5. Run Cheat Engine.
 
@@ -146,15 +135,11 @@ After the driver has been successfully loaded, you can directly run `cheatengine
 
 Run `cheatengine-x86_64.exe`
 
----
-
 ## 6. Congratulations
 
 You have successfully loaded the DBK64 driver signed with an untrusted certificate.
 This allows kernel mode anti-cheat (EAC) to permit starting the game and performing operations on the
 game memory. Note: The last tested version was confirmed on EAC as of April 19, 2025.
-
----
 
 ## 7. [Extra] Compile the driver from source
 
@@ -243,8 +228,6 @@ randomized copies then run `npm run multibuild 10`. `dist` directory will
 contain `10` randomized drivers.
 
 Then go to section 3.
-
----
 
 ## 8. [Extra] Another Method of dealing with *Digital Signature Enforcement*
 
