@@ -24,8 +24,8 @@ It is highly recommended to use an isolated computer for this purpose. Additiona
 - **Operating System**: Windows 11 only. This method will not work on Windows 10.
 - **Disable Anti-Virus Software**: Turn off Virus and Threat Protection in Windows settings, as well as any other anti-virus or anti-malware programs. These can block the required files
 - Install **Cheat Engine 7.5** by compiling it from [source](https://github.com/cheat-engine/cheat-engine/releases/tag/7.5), which is preferred method, or using the [installer](https://www.cheatengine.org/downloads.php).
--
-- ---
+
+---
 
 ## 2. Obtain your driver
 
